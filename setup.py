@@ -26,7 +26,7 @@ setup(
     long_description=readme + '\n\n' + history,
     author="Dr. Dhaval Patel",
     author_email='drdhaval2785@gmail.com',
-    url='https://github.com/drdhaval2785/prakriya',
+    url='https://github.com/drdhaval2785/python-prakriya',
     packages=find_packages(include=['prakriya']),
     entry_points={
         'console_scripts': [

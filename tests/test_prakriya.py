@@ -6,8 +6,7 @@
 
 import unittest
 from click.testing import CliRunner
-
-from prakriya.prakriya import Prakriya
+from prakriya.verbforms import Prakriya
 from prakriya import cli
 
 

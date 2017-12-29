@@ -19,9 +19,8 @@ For details of arguments, see documentation on prakriya class.
 import os.path
 import json
 import sys
-
-
-storagedirectory = '/var/www/html/prakriya-package/prakriya/'
+import tarfile
+import datetime
 
 
 class Prakriya():
@@ -31,15 +30,14 @@ class Prakriya():
     ----------
     It takes a list as parameters e.g. ['verbform', 'argument1']
     verbform is a string in SLP1.
-    argument2 can only take 'machine' value, and that too only when 'argument1'
-    is 'prakriya'.
-    argument1 and argumen2 are optional.
-    When they are not provided, the whole data gets loaded back.
+    argument1 is optional.
+    When it is not provided, the whole data gets loaded back.
     The results are always in list format.
 
     Valid argument1 and expected output are as follows.
-    "verb" - Return verb in Devanagari with accent marks.
-    "verbslp" - Return the verb in SLP1 transliteration without accent marks.
+    "prakriya" - Return step by step derivation.
+    "verb" - Return verb in Devanagari without accent marks.
+    "verbaccent" - Return the verb in Devanagari with accent marks.
     "lakara" - Return the lakAra (tense / mood) in which this form is generated.
     "gana" - Return the gaNa (class) of the verb.
     "meaning" - Return meaning of the verb in SLP1 transliteration.
@@ -61,7 +59,7 @@ class Prakriya():
     >>> from prakriya import Prakriya
     >>> p = Prakriya()
     >>> p['Bavati']
-    [{u'kshiratarangini': u'http://sanskrit.uohyd.ac.in/scl/dhaatupaatha/files-15-03-2017//kRi1.html', u'suffix': u'tip', u'jnu': u'http://sanskrit.jnu.ac.in/tinanta/tinanta.jsp?t=1', u'padadecider_id': u'parasmEpadI', u'number': u'01.0001', u'gana': u'BvAdi', 'prakriya': [{'sutra': u'BUvAdayo DAtavaH', 'sutra_num': u'1.3.1', 'form': u'BU'}, {'sutra': u'laH karmaRi ca BAve cAkarmakeByaH.', 'sutra_num': u'3.4.69', 'form': u'BU'}, {'sutra': u'vartamAne law', 'sutra_num': u'3.2.123', 'form': u'BU+la~w'}, {'sutra': u'lasya', 'sutra_num': u'3.4.77', 'form': u'BU+la~w'}, {'sutra': u'halantyam', 'sutra_num': u'1.3.3', 'form': u'BU+la~w'}, {'sutra': u'tasya lopaH', 'sutra_num': u'1.3.9', 'form': u'BU+la~'}, {'sutra': u"upadeSe'janunAsika it", 'sutra_num': u'1.3.2', 'form': u'BU+la~'}, {'sutra': u'tasya lopaH', 'sutra_num': u'1.3.9', 'form': u'BU+l'}, {'sutra': u'tiptasJisipTasTamibvasmas tAtAMJaTAsATAMDvamiqvahimahiN', 'sutra_num': u'3.4.78', 'form': u'BU+tip'}, {'sutra': u'laH parasmEpadam', 'sutra_num': u'1.4.99', 'form': u'BU+tip'}, {'sutra': u'tiNastrIRi trIRi praTamamaDyamottamAH', 'sutra_num': u'1.4.101', 'form': u'BU+tip'}, {'sutra': u'tAnyekavacanadvivacanabahuvacanAnyekaSaH', 'sutra_num': u'1.4.102', 'form': u'BU+tip'}, {'sutra': u'Seze praTamaH', 'sutra_num': u'1.4.108', 'form': u'BU+tip'}, {'sutra': u'tiNSitsArvaDAtukam', 'sutra_num': u'3.4.113', 'form': u'BU+tip'}, {'sutra': u'kartari Sap\u200c', 'sutra_num': u'3.1.68', 'form': u'BU+Sap+tip'}, {'sutra': u'tiNSitsArvaDAtukam', 'sutra_num': u'3.4.113', 'form': u'BU+Sap+tip'}, {'sutra': u'laSakvatadDite', 'sutra_num': u'1.3.8', 'form': u'BU+Sap+tip'}, {'sutra': u'tasya lopaH', 'sutra_num': u'1.3.9', 'form': u'BU+ap+tip'}, {'sutra': u'halantyam', 'sutra_num': u'1.3.3', 'form': u'BU+ap+tip'}, {'sutra': u'tasya lopaH', 'sutra_num': u'1.3.9', 'form': u'BU+a+ti'}, {'sutra': u'sArvaDAtukArDaDAtukayoH', 'sutra_num': u'7.3.84', 'form': u'Bo+a+ti'}, {'sutra': u"eco'yavAyAvaH", 'sutra_num': u'6.1.78', 'form': u'Bav+a+ti'}, {'sutra': u'antimaM rUpam', 'sutra_num': u'-2', 'form': u'Bavati'}], u'madhaviya': u'http://sanskrit.uohyd.ac.in/scl/dhaatupaatha/files-15-03-2017//mA1.html', u'lakara': u'law', u'dhatupradipa': u'http://sanskrit.uohyd.ac.in/scl/dhaatupaatha/files-15-03-2017//XA1.html', u'meaning': u'sattAyAm', u'verb': u'BU', u'it_id': u'', u'derivation': u'praTama', u'purusha': u'praTama', u'padadecider_sutra': u'', u'uohyd': u'http://sanskrit.uohyd.ac.in/cgi-bin/scl/skt_gen/verb/verb_gen.cgi?vb=BU1_BU_BvAxiH_sawwAyAm&prayoga=karwari&encoding=WX&upasarga=-&paxI=parasmEpaxI', u'it_status': u'', u'vachana': u'eka', u'verbaccent': u'\u092d\u0942\u0951', u'it_sutra': u'', u'upasarga': u''}]
+    [{u'gana': u'BvAdi', u'verb': u'BU', u'dhatupradipa': u'http://sanskrit.uohyd.ac.in/scl/dhaatupaatha/files-15-03-2017//XA1.html', u'kshiratarangini': u'http://sanskrit.uohyd.ac.in/scl/dhaatupaatha/files-15-03-2017//kRi1.html', u'padadecider_sutra': u'', u'jnu': u'http://sanskrit.jnu.ac.in/tinanta/tinanta.jsp?t=1', u'padadecider_id': u'parasmEpadI', u'madhaviya': u'http://sanskrit.uohyd.ac.in/scl/dhaatupaatha/files-15-03-2017//mA1.html', 'prakriya': [{'sutra': u'BUvAdayo DAtavaH', 'sutra_num': u'1.3.1', 'form': u'BU'}, {'sutra': u'laH karmaRi ca BAve cAkarmakeByaH.', 'sutra_num': u'3.4.69', 'form': u'BU'}, {'sutra': u'vartamAne law', 'sutra_num': u'3.2.123', 'form': u'BU+la~w'}, {'sutra': u'lasya', 'sutra_num': u'3.4.77', 'form': u'BU+la~w'}, {'sutra': u'halantyam', 'sutra_num': u'1.3.3', 'form': u'BU+la~w'}, {'sutra': u'tasya lopaH', 'sutra_num': u'1.3.9', 'form': u'BU+la~'}, {'sutra': u"upadeSe'janunAsika it", 'sutra_num': u'1.3.2', 'form': u'BU+la~'}, {'sutra': u'tasya lopaH', 'sutra_num': u'1.3.9', 'form': u'BU+l'}, {'sutra': u'tiptasJisipTasTamibvasmas tAtAMJaTAsATAMDvamiqvahimahiN', 'sutra_num': u'3.4.78', 'form': u'BU+tip'}, {'sutra': u'laH parasmEpadam', 'sutra_num': u'1.4.99', 'form': u'BU+tip'}, {'sutra': u'tiNastrIRi trIRi praTamamaDyamottamAH', 'sutra_num': u'1.4.101', 'form': u'BU+tip'}, {'sutra': u'tAnyekavacanadvivacanabahuvacanAnyekaSaH', 'sutra_num': u'1.4.102', 'form': u'BU+tip'}, {'sutra': u'Seze praTamaH', 'sutra_num': u'1.4.108', 'form': u'BU+tip'}, {'sutra': u'tiNSitsArvaDAtukam', 'sutra_num': u'3.4.113', 'form': u'BU+tip'}, {'sutra': u'kartari Sap\u200c', 'sutra_num': u'3.1.68', 'form': u'BU+Sap+tip'}, {'sutra': u'tiNSitsArvaDAtukam', 'sutra_num': u'3.4.113', 'form': u'BU+Sap+tip'}, {'sutra': u'laSakvatadDite', 'sutra_num': u'1.3.8', 'form': u'BU+Sap+tip'}, {'sutra': u'tasya lopaH', 'sutra_num': u'1.3.9', 'form': u'BU+ap+tip'}, {'sutra': u'halantyam', 'sutra_num': u'1.3.3', 'form': u'BU+ap+tip'}, {'sutra': u'tasya lopaH', 'sutra_num': u'1.3.9', 'form': u'BU+a+ti'}, {'sutra': u'sArvaDAtukArDaDAtukayoH', 'sutra_num': u'7.3.84', 'form': u'Bo+a+ti'}, {'sutra': u"eco'yavAyAvaH", 'sutra_num': u'6.1.78', 'form': u'Bav+a+ti'}, {'sutra': u'antimaM rUpam', 'sutra_num': u'-2', 'form': u'Bavati'}], u'number': u'01.0001', u'uohyd': u'http://sanskrit.uohyd.ac.in/cgi-bin/scl/skt_gen/verb/verb_gen.cgi?vb=BU1_BU_BvAxiH_sawwAyAm&prayoga=karwari&encoding=WX&upasarga=-&paxI=parasmEpaxI', u'it_status': u'', u'meaning': u'sattAyAm', u'vachana': u'eka', u'purusha': u'praTama', u'verbaccent': u'\u092d\u0942\u0951', u'lakara': u'law', u'it_id': u'', u'it_sutra': u'', u'upasarga': u'', u'suffix': u'tip'}]
     >>> p['Bavati', 'verb']
     [u'BU']
     >>> p['Bavati', 'prakriya']
@@ -69,26 +67,36 @@ class Prakriya():
 
     """
 
+    def __init__(self, decompress=False):
+        directory = os.path.abspath(os.path.dirname(__file__))
+        self.tr = os.path.join(directory, 'data', 'composite_v002.tar.gz')
+        self.tar = tarfile.open(self.tr, 'r:gz')
+        if decompress and not os.path.isfile(os.path.join(directory, 'data', 'jsonsorted', 'zWI.json')):
+            self.tar.extractall(os.path.join(directory, 'data'))
+
+
     def __getitem__(self, items):
         """Return the requested data by user."""
         argument = ''
+        print(datetime.datetime.now())
         if isinstance(items, str):
             verbform = items
         else:
             verbform = items[0]
             if len(items) > 1:
                 argument = items[1]
-        data = get_full_data(verbform)
+        data = get_full_data_from_composite(verbform, self.tar)
         if argument == '':
             result = data
         else:
             result = keepSpecific(data, argument)
+        print(datetime.datetime.now())
         return result
 
 
 def get_full_data(verbform):
     """Get whole data from the json file for given verb form."""
-    global storagedirectory
+    storagedirectory = os.path.abspath(os.path.dirname(__file__))
     fileofinterest = storagedirectory + 'data/json/' + verbform + '.json'
     with open(fileofinterest, 'r') as fin:
         verbdata = json.load(fin)
@@ -116,6 +124,43 @@ def get_full_data(verbform):
         return result
 
 
+def get_full_data_from_composite(verbform, tar):
+    """Get whole data from the json file for given verb form."""
+    storagedirectory = os.path.abspath(os.path.dirname(__file__))
+    slugname = verbform[:3]
+    jsonofinterest = os.path.join(storagedirectory, 'data', 'jsonsorted', slugname + '.json')
+    # If the json is not already extracted in earlier usages, extract that.
+    if not os.path.isfile(jsonofinterest):
+        member = tar.getmember('jsonsorted/' + slugname + '.json')
+        tar.extract(member, path=os.path.join(storagedirectory, 'data'))
+    compositedata = json.load(open(jsonofinterest, 'r'))
+    verbdata = compositedata[verbform]
+    result = []
+    with open(os.path.join(storagedirectory, 'data', 'sutrainfo.json'), 'r') as sutrafile:
+        sutrainfo = json.load(sutrafile)
+    data = verbdata
+    for datum in data:
+        subresult = {}
+        derivationlist = []
+        for item in datum:
+            if item not in ['derivation', 'verb']:
+                tmp = datum[item]
+                subresult[item] = tmp
+            elif item == 'verb':
+                tmp = datum[item]
+                tmp = tmp.replace('!', '~')
+                subresult[item] = tmp
+            elif item == 'derivation':
+                for member in datum['derivation']:
+                    sutratext = sutrainfo[member['sutra_num']]
+                    sutranum = member['sutra_num'].replace('~', '-')
+                    form = member['form'].replace('@', 'u~')
+                    derivationlist.append({'sutra': sutratext, 'sutra_num': sutranum, 'form': form})
+        subresult['prakriya'] = derivationlist
+        result.append(subresult)
+    return result
+
+
 def keepSpecific(data, argument):
     """Create a list of only the relavent argument."""
     return [member[argument] for member in data]
@@ -133,13 +178,13 @@ if __name__ == '__main__':
     if syslen == 3:
         argument = sys.argv[2]
 
-    if not os.path.exists(storagedirectory + 'data/json/' + verbform + '.json'):
-        print(json.dumps({'error': 'The verb form is not in our database. If you feel it deserves to be included, kindly notify us on https://github.com/drdhaval2785/sktderivation/issues.'}))
-        exit(0)
+    # data = get_full_data(verbform)
+    directory = os.path.abspath(os.path.dirname(__file__))
+    tr = os.path.join(directory, 'data', 'composite_v002.tar.gz')
+    tar = tarfile.open(tr, 'r:gz')
+    data = get_full_data_from_composite(verbform, tar)
+    if syslen == 2:
+        result = data
     else:
-        data = get_full_data(verbform)
-        if syslen == 2:
-            result = data
-        else:
-            result = keepSpecific(data, argument)
-        print(json.dumps(result, indent=4))
+        result = keepSpecific(data, argument)
+    print(json.dumps(result, indent=4))

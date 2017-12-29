@@ -23,7 +23,7 @@ import os.path
 import json
 import sys
 import tarfile
-import datetime
+# import datetime
 
 
 class Prakriya():
@@ -129,7 +129,9 @@ def get_full_data_from_composite(verbform, tar):
         member = tar.getmember('jsonsorted/' + slugname + '.json')
         tar.extract(member, path=os.path.join(storagedirectory, 'data'))
     # Load from json file. Data is in {verbform1: verbdata1, verbform2: verbdata2 ...} format.
-    compositedata = json.load(open(jsonofinterest, 'r'))
+    fin = open(jsonofinterest, 'r')
+    compositedata = json.load(fin)
+    fin.close()
     # Keep only the data related to inquired verbform.
     data = compositedata[verbform]
     # Initialize empty result stack.

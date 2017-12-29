@@ -63,3 +63,4 @@ target/
 
 # Data files
 prakriya/data/json/*
+prakriya/data/jsonsorted/*

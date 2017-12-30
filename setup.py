@@ -27,7 +27,7 @@ setup(
     author="Dr. Dhaval Patel",
     author_email='drdhaval2785@gmail.com',
     url='https://github.com/drdhaval2785/python-prakriya',
-    packages=find_packages(include=['prakriya']),
+    packages=find_packages(include=['prakriya'], exclude=['docs', 'tests', 'prakriya/data/jsonsorted']),
     entry_points={
         'console_scripts': [
             'prakriya=prakriya.cli:main'
@@ -37,7 +37,7 @@ setup(
     install_requires=requirements,
     license="GNU General Public License v3",
     zip_safe=False,
-    keywords='prakriya',
+    keywords='prakriya,panini,Sanskrit,grammar,tinanta',
     classifiers=[
         'Development Status :: 2 - Pre-Alpha',
         'Intended Audience :: Developers',

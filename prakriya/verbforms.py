@@ -4,12 +4,9 @@
 
 Example
 -------
-CLI usage - python prakriya.py verbform [argument]
 
-Class usage -
-
->>> from prakriya import prakriya
->>> p = prakriya()
+>>> from prakriya import Prakriya
+>>> p = Prakriya()
 # If you can spare around 600 MB space, decompress the tar.gz first time.
 # Subsequent actions will be very fast. This is one time requirement.
 >>> p.decompress()
@@ -17,7 +14,7 @@ Class usage -
 >>> p['Bavati', 'prakriya']
 >>> p['Bavati', 'verb']
 
-For details of arguments, see documentation on prakriya class.
+For details of valid arguments, see documentation on prakriya class.
 """
 import os.path
 import json
@@ -31,13 +28,13 @@ class Prakriya():
 
     Parameters
     ----------
-    It takes a list as parameters e.g. ['verbform', 'argument']
+    It takes a list as parameters e.g. ['verbform', 'field']
     verbform is a string in SLP1.
-    argument is optional.
+    field is optional.
     When it is not provided, the whole data gets loaded back.
     The results are always in list format.
 
-    Valid argument and expected output are as follows.
+    Valid values of field and expected output are as follows.
     "prakriya" - Return step by step derivation.
     "verb" - Return verb in Devanagari without accent marks.
     "verbaccent" - Return the verb in Devanagari with accent marks.
@@ -59,7 +56,7 @@ class Prakriya():
 
     Example
     -------
-    >>> from prakriya import Prakriya
+    >>> from verbforms import Prakriya
     # Default
     >>> p = Prakriya()
     # If you can spare around 600 MB space, decompress the tar.gz first time.
@@ -77,17 +74,18 @@ class Prakriya():
     def __init__(self, decompress=False):
         """Start the class. Decompress tar file if asked for."""
         # Find the directory of the module.
-        directory = os.path.abspath(os.path.dirname(__file__))
+        self.directory = os.path.abspath(os.path.dirname(__file__))
         # Open self.tar so that it can be used by function later on.
-        self.tr = os.path.join(directory, 'data', 'composite_v002.tar.gz')
+        self.tr = os.path.join(self.directory, 'data', 'composite_v002.tar.gz')
         self.tar = tarfile.open(self.tr, 'r:gz')
 
     def decompress(self):
         """Decompress the tar file if user asks for it.
 
-        It makes the future operations very fast."""
-        self.tar.extractall(os.path.join(directory, 'data'))
-        print("data files extracted. You shall not need to use .decompress() function again. Just do regular `p = Prakriya()`.")
+        It makes the future operations very fast.
+        """
+        self.tar.extractall(os.path.join(self.directory, 'data'))
+        print("data files extracted. You shall not need to use decompress() function again. Just do regular `p = Prakriya()`.")
 
     def __getitem__(self, items):
         """Return the requested data by user."""
@@ -117,7 +115,6 @@ class Prakriya():
 
 def get_full_data_from_composite(verbform, tar):
     """Get whole data from the json file for given verb form."""
-
     # Find the parent directory
     storagedirectory = os.path.abspath(os.path.dirname(__file__))
     # keep only first thee letters from verbform
@@ -148,7 +145,7 @@ def get_full_data_from_composite(verbform, tar):
         # For each key,
         for item in datum:
             # if not in these two
-            if item not in ['derivation', 'verb']:
+            if item not in ['derivation']:
                 tmp = datum[item]
                 # correct the wrong anusvAra in SLP1 to correct one.
                 tmp = tmp.replace('!', '~')

@@ -203,5 +203,5 @@ if __name__ == '__main__':
     # If there is an argument, return only the data relavent to that argument.
     else:
         result = keepSpecific(data, argument)
-    # Print result to the screen
+    # Print result to the screen with proper indenting.
     print(json.dumps(result, indent=4, encoding='utf-8'))

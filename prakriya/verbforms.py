@@ -85,7 +85,6 @@ class Prakriya():
         if not os.path.isfile(self.tr):
             url = 'https://github.com/drdhaval2785/python-prakriya/raw/master/prakriya/data/' + self.filename
             import requests
-            filename = url.split("/")[-1]
             print('Downloading data file. It will take a few minutes. Please be patient.')
             with open(self.tr, "wb") as f:
                 r = requests.get(url)

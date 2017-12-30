@@ -13,6 +13,7 @@ with open('HISTORY.rst') as history_file:
 
 requirements = [
     'Click>=6.0',
+    'requests'
 ]
 
 setup_requirements = []
@@ -34,6 +35,9 @@ setup(
         ]
     },
     include_package_data=True,
+    package_data={
+        'prakriya': ['data/sutrainfo.json']
+    },
     install_requires=requirements,
     license="GNU General Public License v3",
     zip_safe=False,

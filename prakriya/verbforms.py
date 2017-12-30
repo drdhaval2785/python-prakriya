@@ -7,6 +7,8 @@ Example
 
 >>> from prakriya import Prakriya
 >>> p = Prakriya()
+# If you are using the library the first time, be patient.
+# This will take a long time, because the data file (30 MB) is being downloaded.
 # If you can spare around 600 MB space, decompress the tar.gz first time.
 # Subsequent actions will be very fast. This is one time requirement.
 >>> p.decompress()
@@ -57,10 +59,11 @@ class Prakriya():
     Example
     -------
     >>> from verbforms import Prakriya
-    # Default
     >>> p = Prakriya()
+    # If you are using the library the first time, be patient.
+    # This will take a long time, because the data file (30 MB) is being downloaded.
     # If you can spare around 600 MB space, decompress the tar.gz first time.
-    # Subsequent actions will be very fast.
+    # Subsequent actions will be very fast. This is one time requirement.
     >>> p.decompress()
     >>> p['Bavati']
     [{u'gana': u'BvAdi', u'verb': u'BU', u'dhatupradipa': u'http://sanskrit.uohyd.ac.in/scl/dhaatupaatha/files-15-03-2017//XA1.html', u'kshiratarangini': u'http://sanskrit.uohyd.ac.in/scl/dhaatupaatha/files-15-03-2017//kRi1.html', u'padadecider_sutra': u'', u'jnu': u'http://sanskrit.jnu.ac.in/tinanta/tinanta.jsp?t=1', u'padadecider_id': u'parasmEpadI', u'madhaviya': u'http://sanskrit.uohyd.ac.in/scl/dhaatupaatha/files-15-03-2017//mA1.html', 'prakriya': [{'sutra': u'BUvAdayo DAtavaH', 'sutra_num': u'1.3.1', 'form': u'BU'}, {'sutra': u'laH karmaRi ca BAve cAkarmakeByaH.', 'sutra_num': u'3.4.69', 'form': u'BU'}, {'sutra': u'vartamAne law', 'sutra_num': u'3.2.123', 'form': u'BU+la~w'}, {'sutra': u'lasya', 'sutra_num': u'3.4.77', 'form': u'BU+la~w'}, {'sutra': u'halantyam', 'sutra_num': u'1.3.3', 'form': u'BU+la~w'}, {'sutra': u'tasya lopaH', 'sutra_num': u'1.3.9', 'form': u'BU+la~'}, {'sutra': u"upadeSe'janunAsika it", 'sutra_num': u'1.3.2', 'form': u'BU+la~'}, {'sutra': u'tasya lopaH', 'sutra_num': u'1.3.9', 'form': u'BU+l'}, {'sutra': u'tiptasJisipTasTamibvasmas tAtAMJaTAsATAMDvamiqvahimahiN', 'sutra_num': u'3.4.78', 'form': u'BU+tip'}, {'sutra': u'laH parasmEpadam', 'sutra_num': u'1.4.99', 'form': u'BU+tip'}, {'sutra': u'tiNastrIRi trIRi praTamamaDyamottamAH', 'sutra_num': u'1.4.101', 'form': u'BU+tip'}, {'sutra': u'tAnyekavacanadvivacanabahuvacanAnyekaSaH', 'sutra_num': u'1.4.102', 'form': u'BU+tip'}, {'sutra': u'Seze praTamaH', 'sutra_num': u'1.4.108', 'form': u'BU+tip'}, {'sutra': u'tiNSitsArvaDAtukam', 'sutra_num': u'3.4.113', 'form': u'BU+tip'}, {'sutra': u'kartari Sap\u200c', 'sutra_num': u'3.1.68', 'form': u'BU+Sap+tip'}, {'sutra': u'tiNSitsArvaDAtukam', 'sutra_num': u'3.4.113', 'form': u'BU+Sap+tip'}, {'sutra': u'laSakvatadDite', 'sutra_num': u'1.3.8', 'form': u'BU+Sap+tip'}, {'sutra': u'tasya lopaH', 'sutra_num': u'1.3.9', 'form': u'BU+ap+tip'}, {'sutra': u'halantyam', 'sutra_num': u'1.3.3', 'form': u'BU+ap+tip'}, {'sutra': u'tasya lopaH', 'sutra_num': u'1.3.9', 'form': u'BU+a+ti'}, {'sutra': u'sArvaDAtukArDaDAtukayoH', 'sutra_num': u'7.3.84', 'form': u'Bo+a+ti'}, {'sutra': u"eco'yavAyAvaH", 'sutra_num': u'6.1.78', 'form': u'Bav+a+ti'}, {'sutra': u'antimaM rUpam', 'sutra_num': u'-2', 'form': u'Bavati'}], u'number': u'01.0001', u'uohyd': u'http://sanskrit.uohyd.ac.in/cgi-bin/scl/skt_gen/verb/verb_gen.cgi?vb=BU1_BU_BvAxiH_sawwAyAm&prayoga=karwari&encoding=WX&upasarga=-&paxI=parasmEpaxI', u'it_status': u'', u'meaning': u'sattAyAm', u'vachana': u'eka', u'purusha': u'praTama', u'verbaccent': u'\u092d\u0942\u0951', u'lakara': u'law', u'it_id': u'', u'it_sutra': u'', u'upasarga': u'', u'suffix': u'tip'}]
@@ -75,8 +78,21 @@ class Prakriya():
         """Start the class. Decompress tar file if asked for."""
         # Find the directory of the module.
         self.directory = os.path.abspath(os.path.dirname(__file__))
+        # Path where to store the file
+        self.filename = 'composite_v002.tar.gz'
+        self.tr = os.path.join(self.directory, 'data', self.filename)
+        # If the file does not exist, download from Github.
+        if not os.path.isfile(self.tr):
+            url = 'https://github.com/drdhaval2785/python-prakriya/raw/master/prakriya/data/' + self.filename
+            import requests
+            filename = url.split("/")[-1]
+            print('Downloading data file. It will take a few minutes. Please be patient.')
+            with open(self.tr, "wb") as f:
+                r = requests.get(url)
+                f.write(r.content)
+            print('Completed downloading data file.')
+            print('If you can spare 600 MB of storage space, use .decompress() method. This will speed up subsequent runs very fast.')
         # Open self.tar so that it can be used by function later on.
-        self.tr = os.path.join(self.directory, 'data', 'composite_v002.tar.gz')
         self.tar = tarfile.open(self.tr, 'r:gz')
 
     def decompress(self):

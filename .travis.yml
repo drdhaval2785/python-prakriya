@@ -25,5 +25,5 @@ deploy:
     secure: PLEASE_REPLACE_ME
   on:
     tags: true
-    repo: drdhaval2785/prakriya
+    repo: drdhaval2785/python-prakriya
     python: 2.7

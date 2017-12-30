@@ -22,7 +22,7 @@ test_requirements = []
 
 setup(
     name='prakriya',
-    version='0.0.2',
+    version='0.0.1',
     description="prakriya is a package to derive information about given Sanskrit verb form.",
     long_description=readme + '\n\n' + history,
     author="Dr. Dhaval Patel",

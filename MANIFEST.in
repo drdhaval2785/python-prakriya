@@ -10,5 +10,4 @@ recursive-exclude * *.py[co]
 
 recursive-include docs *.rst conf.py Makefile make.bat *.jpg *.png *.gif
 
-include prakriya/data/composite_v002.tar.gz
 include prakriya/data/sutrainfo.json

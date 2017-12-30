@@ -12,11 +12,14 @@ Example
 # If you can spare around 600 MB space, decompress the tar.gz first time.
 # Subsequent actions will be very fast. This is one time requirement.
 >>> p.decompress()
+The format is as follows
+>>> p[verbform, field]
+Actual usage will be like the following.
 >>> p['Bavati']
 >>> p['Bavati', 'prakriya']
 >>> p['Bavati', 'verb']
 
-For details of valid arguments, see documentation on prakriya class.
+For details of valid values for field, see documentation on prakriya class.
 """
 import os.path
 import json

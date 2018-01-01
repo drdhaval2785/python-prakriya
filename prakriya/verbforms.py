@@ -136,7 +136,9 @@ def get_full_data_from_composite(verbform, tar):
     # Find the parent directory
     storagedirectory = os.path.abspath(os.path.dirname(__file__))
     # keep only first thee letters from verbform
-    slugname = verbform[:3]
+    with open(os.path.join(storagedirectory, 'data', 'jsonindex.json'), 'r') as jsonindfile:
+        jsonindex = json.load(jsonindfile)
+    slugname = jsonindex[verbform[:3]]
     # path of json file.
     jsonofinterest = os.path.join(storagedirectory, 'data', 'json', slugname + '.json')
     # If the json is not already extracted in earlier usages, extract that.

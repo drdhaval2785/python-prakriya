@@ -138,10 +138,10 @@ def get_full_data_from_composite(verbform, tar):
     # keep only first thee letters from verbform
     slugname = verbform[:3]
     # path of json file.
-    jsonofinterest = os.path.join(storagedirectory, 'data', 'jsonsorted', slugname + '.json')
+    jsonofinterest = os.path.join(storagedirectory, 'data', 'json', slugname + '.json')
     # If the json is not already extracted in earlier usages, extract that.
     if not os.path.isfile(jsonofinterest):
-        member = tar.getmember('jsonsorted/' + slugname + '.json')
+        member = tar.getmember('json/' + slugname + '.json')
         tar.extract(member, path=os.path.join(storagedirectory, 'data'))
     # Load from json file. Data is in {verbform1: verbdata1, verbform2: verbdata2 ...} format.
     fin = open(jsonofinterest, 'r')

@@ -64,3 +64,7 @@ target/
 # Data files
 prakriya/data/json/*
 prakriya/data/jsonsorted/*
+prakriya/data/composite_v003.tar.gz
+
+# Intermediary scripts
+prakriya/jsonind.py

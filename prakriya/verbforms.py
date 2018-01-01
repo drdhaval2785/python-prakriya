@@ -82,11 +82,11 @@ class Prakriya():
         # Find the directory of the module.
         self.directory = os.path.abspath(os.path.dirname(__file__))
         # Path where to store the file
-        self.filename = 'composite_v002.tar.gz'
+        self.filename = 'composite_v003.tar.gz'
         self.tr = os.path.join(self.directory, 'data', self.filename)
         # If the file does not exist, download from Github.
         if not os.path.isfile(self.tr):
-            url = 'https://github.com/drdhaval2785/python-prakriya/raw/master/prakriya/data/' + self.filename
+            url = 'https://github.com/drdhaval2785/python-prakriya/releases/download/v0.0.2/' + self.filename
             import requests
             print('Downloading data file. It will take a few minutes. Please be patient.')
             with open(self.tr, "wb") as f:

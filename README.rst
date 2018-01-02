@@ -17,9 +17,9 @@ prakriya
      :target: https://pyup.io/repos/github/drdhaval2785/python-prakriya/
      :alt: Updates
 
-.. image:: https://coveralls.io/repos/github/drdhaval2785/python-prakriya/badge.svg
-     :target: https://coveralls.io/github/drdhaval2785/python-prakriya
-     :alt: Code coverage
+.. image:: https://landscape.io/github/drdhaval2785/python-prakriya/master/landscape.png
+     :target: https://landscape.io/github/drdhaval2785/python-prakriya/master
+     :alt: Code health
 
 prakriya is a package to derive information about given Sanskrit verb form.
 

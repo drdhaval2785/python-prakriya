@@ -77,9 +77,8 @@ Valid values of ``field`` and expected output are as follows.
 
     ``vachana`` - Returns the vacana of the given verb form.
 
-===============
 Transliteration
-===============
+---------------
 
 If you want to set the input or output transliteration, follow these steps.
 

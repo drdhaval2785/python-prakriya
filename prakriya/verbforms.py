@@ -8,7 +8,8 @@ Example
 >>> from prakriya import Prakriya
 >>> p = Prakriya()
 # If you are using the library the first time, be patient.
-# This will take a long time, because the data file (30 MB) is being downloaded.
+# This will take a long time.
+# Data file (30 MB) is being downloaded.
 # If you can spare around 600 MB space, decompress the tar.gz first time.
 # Subsequent actions will be very fast. This is one time requirement.
 >>> p.decompress()
@@ -64,7 +65,8 @@ class Prakriya():
     >>> from verbforms import Prakriya
     >>> p = Prakriya()
     # If you are using the library the first time, be patient.
-    # This will take a long time, because the data file (30 MB) is being downloaded.
+    # This will take a long time.
+    # Data file (30 MB) is being downloaded.
     # If you can spare around 600 MB space, decompress the tar.gz first time.
     # Subsequent actions will be very fast. This is one time requirement.
     >>> p.decompress()
@@ -88,12 +90,15 @@ class Prakriya():
         if not os.path.isfile(self.tr):
             url = 'https://github.com/drdhaval2785/python-prakriya/releases/download/v0.0.2/' + self.filename
             import requests
-            print('Downloading data file. It will take a few minutes. Please be patient.')
+            print('Downloading data file.')
+            print('It will take a few minutes. Please be patient.')
             with open(self.tr, "wb") as f:
                 r = requests.get(url)
                 f.write(r.content)
             print('Completed downloading data file.')
-            print('If you can spare 600 MB of storage space, use .decompress() method. This will speed up subsequent runs very fast.')
+            print('If you can spare 600 MB of storage space,')
+            print(' use .decompress() method.')
+            print('This will speed up subsequent runs very fast.')
         # Open self.tar so that it can be used by function later on.
         self.tar = tarfile.open(self.tr, 'r:gz')
 
@@ -103,7 +108,9 @@ class Prakriya():
         It makes the future operations very fast.
         """
         self.tar.extractall(os.path.join(self.directory, 'data'))
-        print("data files extracted. You shall not need to use decompress() function again. Just do regular `p = Prakriya()`.")
+        print("data files extracted.")
+        print("You shall not need to use decompress() function again.")
+        print("Just do regular `p = Prakriya()`.")
 
     def __getitem__(self, items):
         """Return the requested data by user."""
@@ -131,34 +138,40 @@ class Prakriya():
         return result
 
 
+def readJson(path):
+    """Read the given JSON file into python object."""
+    with open(path, 'r') as fin:
+        return json.load(fin)
+
+
 def get_full_data_from_composite(verbform, tar):
     """Get whole data from the json file for given verb form."""
     # Find the parent directory
-    storagedirectory = os.path.abspath(os.path.dirname(__file__))
+    storagedir = os.path.abspath(os.path.dirname(__file__))
     # keep only first thee letters from verbform
-    with open(os.path.join(storagedirectory, 'data', 'jsonindex.json'), 'r') as jsonindfile:
-        jsonindex = json.load(jsonindfile)
+    jsonindex = readJson(os.path.join(storagedir, 'data', 'jsonindex.json'))
     slugname = jsonindex[verbform[:3]]
     # path of json file.
-    jsonofinterest = os.path.join(storagedirectory, 'data', 'json', slugname + '.json')
+    json_in = os.path.join(storagedir, 'data', 'json', slugname + '.json')
     # If the json is not already extracted in earlier usages, extract that.
-    if not os.path.isfile(jsonofinterest):
+    if not os.path.isfile(json_in):
         member = tar.getmember('json/' + slugname + '.json')
-        tar.extract(member, path=os.path.join(storagedirectory, 'data'))
-    # Load from json file. Data is in {verbform1: verbdata1, verbform2: verbdata2 ...} format.
-    fin = open(jsonofinterest, 'r')
-    compositedata = json.load(fin)
-    fin.close()
+        tar.extract(member, path=os.path.join(storagedir, 'data'))
+    # Load from json file. Data is in
+    # {verbform1: verbdata1, verbform2: verbdata2 ...} format.
+    compositedata = readJson(json_in)
     # Keep only the data related to inquired verbform.
     data = compositedata[verbform]
     # Initialize empty result stack.
     result = []
     # Read sutrainfo file. This is needed to convert sutra_num to sutra_text.
-    with open(os.path.join(storagedirectory, 'data', 'sutrainfo.json'), 'r') as sutrafile:
-        sutrainfo = json.load(sutrafile)
-    # For each possible derivation leading to the given verb form, e.g. baBUva can be from BU, asa~
+    sutrainfofile = os.path.join(storagedir, 'data', 'sutrainfo.json')
+    sutrainfo = readJson(sutrainfofile)
+    # For each possible derivation leading to the given verb form
+    # e.g. baBUva can be from BU, asa~
     for datum in data:
-        # Initialize a subresult stack as dict. key will be argument and value will be data.
+        # Initialize a subresult stack as dict.
+        # key will be argument and value will be data.
         subresult = {}
         # Start a list for derivation. It needs special treatment.
         derivationlist = []
@@ -177,12 +190,14 @@ def get_full_data_from_composite(verbform, tar):
                 for member in datum['derivation']:
                     # Fetch sutratext
                     sutratext = sutrainfo[member['sutra_num']]
-                    # Replace tilde with hyphen. Otherwise wrong transliteration will happen.
+                    # Replace tilde with hyphen.
+                    # Otherwise wrong transliteration will happen.
                     sutranum = member['sutra_num'].replace('~', '-')
                     # A decent representation for rutva.
                     form = member['form'].replace('@', 'u~')
                     # Add to derivationlist.
-                    derivationlist.append({'sutra': sutratext, 'sutra_num': sutranum, 'form': form})
+                    derivationlist.append({'sutra': sutratext,
+                                          'sutra_num': sutranum, 'form': form})
         # Add the derivationlist to the prakriya key.
         subresult['prakriya'] = derivationlist
         # Append subresult to result and start again.

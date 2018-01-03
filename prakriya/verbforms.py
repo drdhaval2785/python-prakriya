@@ -138,7 +138,6 @@ class Prakriya():
                 argument = items[1]
         # Convert verbform from desired input transliteration to SLP1.
         verbform = convert(verbform, self.inTran, 'slp1')
-        print verbform
         # Read from tar.gz file.
         data = get_data(verbform, self.tar, 'slp1', self.outTran)
         # If there is no argument, return whole data.

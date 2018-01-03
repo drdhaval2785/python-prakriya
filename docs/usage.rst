@@ -76,3 +76,25 @@ Valid values of ``field`` and expected output are as follows.
     ``purusha`` - Returns the purusha of the given verb form.
 
     ``vachana`` - Returns the vacana of the given verb form.
+
+===============
+Transliteration
+===============
+
+If you want to set the input or output transliteration, follow these steps.
+
+>>> from prakriya import Prakriya
+>>> p = Prakriya()
+>>> p.inputTranslit('hk') # Customize 'hk'
+>>> p.outputTranslit('devanagari') # Customize 'devanagari'
+>>> p['bhavati'] # Takes the input in hk Transliteration
+# Gives output in Devangari.
+>>> p.inputTranslit('devanagari')
+>>> p.outputTranslit('iast')
+>>> p[u'गच्छति'] # Do not forget to put `u` before the word.
+# put `u` before the word if input transliteration is devanagari or iast.
+
+Valid transliterations are slp1, itrans, hk, iast, devanagari, velthuis, wx,
+kolkata, bengali, gujarati, gurmukhi, kannada, malayalam, oriya, telugu and
+tamil.
+They can be used both as input transliteration and output transliteration schemes.

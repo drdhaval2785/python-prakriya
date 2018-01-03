@@ -23,7 +23,7 @@ test_requirements = []
 
 setup(
     name='prakriya',
-    version='0.0.3',
+    version='0.0.4',
     description="prakriya is a package to derive information about given Sanskrit verb form.",
     long_description=readme + '\n\n' + history,
     author="Dr. Dhaval Patel",
@@ -47,7 +47,7 @@ setup(
         'Development Status :: 2 - Pre-Alpha',
         'Intended Audience :: Developers',
         'License :: OSI Approved :: GNU General Public License v3 (GPLv3)',
-        'Natural Language :: English',
+        'Natural Language :: Sanskrit',
         "Programming Language :: Python :: 2",
         'Programming Language :: Python :: 2.7',
         'Programming Language :: Python :: 3',

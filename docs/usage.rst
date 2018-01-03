@@ -90,8 +90,7 @@ If you want to set the input or output transliteration, follow these steps.
 # Gives output in Devangari.
 >>> p.inputTranslit('devanagari')
 >>> p.outputTranslit('iast')
->>> p[u'गच्छति'] # Do not forget to put `u` before the word.
-# put `u` before the word if input transliteration is devanagari or iast.
+>>> p['गच्छति']
 
 Valid transliterations are slp1, itrans, hk, iast, devanagari, velthuis, wx,
 kolkata, bengali, gujarati, gurmukhi, kannada, malayalam, oriya, telugu and

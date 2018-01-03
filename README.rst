@@ -17,7 +17,7 @@ prakriya
      :target: https://pyup.io/repos/github/drdhaval2785/python-prakriya/
      :alt: Updates
 
-.. image:: https://landscape.io/github/drdhaval2785/python-prakriya/master/landscape.png
+.. image:: https://landscape.io/github/drdhaval2785/python-prakriya/master/landscape.svg?style=flat
      :target: https://landscape.io/github/drdhaval2785/python-prakriya/master
      :alt: Code health
 

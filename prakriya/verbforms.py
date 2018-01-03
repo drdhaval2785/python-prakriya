@@ -26,7 +26,6 @@ import os.path
 import json
 import sys
 import tarfile
-from indic_transliteration import sanscript
 # import datetime
 
 
@@ -163,6 +162,7 @@ def readJson(path):
 
 def convert(text, inTran, outTran):
     """Convert a text from inTran to outTran transliteration."""
+    from indic_transliteration import sanscript
     return sanscript.transliterate(text, inTran, outTran)
 
 

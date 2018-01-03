@@ -41,6 +41,6 @@ Credits
 .. _Cookiecutter: https://github.com/audreyr/cookiecutter
 .. _`audreyr/cookiecutter-pypackage`: https://github.com/audreyr/cookiecutter-pypackage
 
-2. This package uses indic-transliteration package.
+2. This package uses indic-transliteration_ package.
 
 .. _indic-transliteration: https://pypi.python.org/pypi/indic-transliteration

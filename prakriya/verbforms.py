@@ -155,7 +155,7 @@ class Prakriya():
             if len(items) > 1:
                 argument = items[1]
         # Convert verbform from desired input transliteration to SLP1.
-        if isinstance(verbform, str):
+        if sys.version_info[0] < 3:
             verbform = verbform.decode('utf-8')
         verbform = convert(verbform, self.inTran, 'slp1')
         # Read from tar.gz file.

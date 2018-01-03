@@ -8,4 +8,3 @@ coverage==4.4.2
 Sphinx==1.6.5
 cryptography==2.1.4
 PyYAML==3.12
-indic-transliteration>=1.6.2

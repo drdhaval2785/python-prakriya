@@ -117,10 +117,28 @@ class Prakriya():
         print("Just do regular `p = Prakriya()`.")
 
     def inputTranslit(self, tran):
-        self.inTran = tran
+        """Set input transliteration."""
+        # If valid transliteration, set transliteration.
+        if tran in ['slp1', 'itrans', 'hk', 'iast', 'devanagari', 'velthuis',
+                    'wx', 'kolkata', 'bengali', 'gujarati', 'gurmukhi',
+                    'kannada', 'malayalam', 'oriya', 'telugu', 'tamil']:
+            self.inTran = tran
+        # If not valid, throw error.
+        else:
+            print('Error. Not a valid transliteration scheme.')
+            exit(0)
 
     def outputTranslit(self, tran):
-        self.outTran = tran
+        """Set output transliteration."""
+        # If valid transliteration, set transliteration.
+        if tran in ['slp1', 'itrans', 'hk', 'iast', 'devanagari', 'velthuis',
+                    'wx', 'kolkata', 'bengali', 'gujarati', 'gurmukhi',
+                    'kannada', 'malayalam', 'oriya', 'telugu', 'tamil']:
+            self.outTran = tran
+        # If not valid, throw error.
+        else:
+            print('Error. Not a valid transliteration scheme.')
+            exit(0)
 
     def __getitem__(self, items):
         """Return the requested data by user."""
@@ -128,11 +146,7 @@ class Prakriya():
         argument = ''
         # print(datetime.datetime.now())
         # If there is only one entry in items, it is treated as verbform.
-        try:
-            basestring
-        except NameError:
-            basestring = str
-        if isinstance(items, basestring):
+        if isinstance(items, ("".__class__, u"".__class__)):
             verbform = items
         # Otherwise, first is verbform and the next is argument1.
         else:

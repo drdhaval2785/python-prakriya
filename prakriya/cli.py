@@ -58,7 +58,3 @@ def main(verbform, field):
     p = Prakriya()
     result = p[verbform, field]
     click.echo(result)
-
-
-if __name__ == "__main__":
-    main()

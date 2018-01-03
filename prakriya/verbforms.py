@@ -129,7 +129,11 @@ class Prakriya():
         argument = ''
         # print(datetime.datetime.now())
         # If there is only one entry in items, it is treated as verbform.
-        if isinstance(items, str) or isinstance(items, unicode):
+        try:
+            basestring
+        except NameError:
+            basestring = str
+        if isinstance(items, basestring):
             verbform = items
         # Otherwise, first is verbform and the next is argument1.
         else:

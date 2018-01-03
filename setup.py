@@ -14,7 +14,7 @@ with open('HISTORY.rst') as history_file:
 requirements = [
     'Click>=6.0',
     'requests',
-    'indic_transliteration'
+    'indic-transliteration'
 ]
 
 setup_requirements = []

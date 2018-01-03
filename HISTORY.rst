@@ -17,3 +17,9 @@ Broken release. Kindly update to v0.0.3 immediately.
 
 A fix for broken v0.0.2 release.
 jsonindex.json file which was crucial and missed in v0.0.2, added back.
+
+0.0.4 (2018-01-03)
+------------------
+
+Added support for various transliteration schemes.
+See this issue. https://github.com/drdhaval2785/python-prakriya/issues/5.

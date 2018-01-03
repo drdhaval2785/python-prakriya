@@ -72,3 +72,7 @@ Valid values of ``field`` and expected output are as follows.
     ``it_status`` - Returns whether the verb form has iDAgama or not. seT, veT, aniT are the output.
 
     ``it_sutra`` - Returns rule number if iDAgama is caused by some special rule.
+
+    ``purusha`` - Returns the purusha of the given verb form.
+
+    ``vachana`` - Returns the vacana of the given verb form.

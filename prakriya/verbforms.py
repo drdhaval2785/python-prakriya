@@ -26,6 +26,7 @@ import os.path
 import json
 import sys
 import tarfile
+from indic_transliteration.sanscript import transliterate
 # import datetime
 
 
@@ -59,6 +60,8 @@ class Prakriya():
     "it_id" - Returns whether the verb is seT, aniT or veT, provided the form has iDAgama.
     "it_status" - Returns whether the verb form has iDAgama or not. seT, veT, aniT are the output.
     "it_sutra" - Returns rule number if iDAgama is caused by some special rule.
+    "purusha" - Returns the purusha of the given verb form.
+    "vachana" - Returns the vacana of the given verb form.
 
     Example
     -------
@@ -79,13 +82,15 @@ class Prakriya():
 
     """
 
-    def __init__(self, decompress=False):
+    def __init__(self):
         """Start the class. Decompress tar file if asked for."""
         # Find the directory of the module.
         self.directory = os.path.abspath(os.path.dirname(__file__))
         # Path where to store the file
         self.filename = 'composite_v003.tar.gz'
         self.tr = os.path.join(self.directory, 'data', self.filename)
+        self.inTran = 'slp1'
+        self.outTran = 'slp1'
         # If the file does not exist, download from Github.
         if not os.path.isfile(self.tr):
             url = 'https://github.com/drdhaval2785/python-prakriya/releases/download/v0.0.2/' + self.filename
@@ -112,21 +117,30 @@ class Prakriya():
         print("You shall not need to use decompress() function again.")
         print("Just do regular `p = Prakriya()`.")
 
+    def inputTranslit(self, tran):
+        self.inTran = tran
+
+    def outputTranslit(self, tran):
+        self.outTran = tran
+
     def __getitem__(self, items):
         """Return the requested data by user."""
         # Initiate without arguments
         argument = ''
         # print(datetime.datetime.now())
         # If there is only one entry in items, it is treated as verbform.
-        if isinstance(items, str):
+        if isinstance(items, str) or isinstance(items, unicode):
             verbform = items
         # Otherwise, first is verbform and the next is argument1.
         else:
             verbform = items[0]
             if len(items) > 1:
                 argument = items[1]
+        # Convert verbform from desired input transliteration to SLP1.
+        verbform = convert(verbform, self.inTran, 'slp1')
+        print verbform
         # Read from tar.gz file.
-        data = get_full_data_from_composite(verbform, self.tar)
+        data = get_data(verbform, self.tar, 'slp1', self.outTran)
         # If there is no argument, return whole data.
         if argument == '':
             result = data
@@ -144,7 +158,21 @@ def readJson(path):
         return json.load(fin)
 
 
-def get_full_data_from_composite(verbform, tar):
+def convert(text, inTran, outTran):
+    """Convert a text from inTran to outTran transliteration."""
+    return transliterate(text, inTran, outTran)
+
+
+def convertible(argument):
+    if argument in ['verb', 'lakara', 'gana', 'meaning', 'upasarga',
+                    'padadecider_id', 'padadecider_sutra',
+                    'it_status', 'it_sutra', 'it_id', 'vacana', 'purusha']:
+        return True
+    else:
+        return False
+
+
+def get_data(verbform, tar, inTran='slp1', outTran='slp1'):
     """Get whole data from the json file for given verb form."""
     # Find the parent directory
     storagedir = os.path.abspath(os.path.dirname(__file__))
@@ -183,18 +211,24 @@ def get_full_data_from_composite(verbform, tar):
                 # correct the wrong anusvAra in SLP1 to correct one.
                 tmp = tmp.replace('!', '~')
                 # Store in subresult dict.
-                subresult[item] = tmp
+                if convertible(item):
+                    subresult[item] = convert(tmp, inTran, outTran)
+                else:
+                    subresult[item] = tmp
             # derivation is a list (as compared to others which are strings.)
             elif item == 'derivation':
                 # For member of the list
                 for member in datum['derivation']:
                     # Fetch sutratext
                     sutratext = sutrainfo[member['sutra_num']]
+                    sutratext = convert(sutratext, inTran, outTran)
                     # Replace tilde with hyphen.
                     # Otherwise wrong transliteration will happen.
                     sutranum = member['sutra_num'].replace('~', '-')
+                    # sutranum = convert(sutranum, inTran, outTran)
                     # A decent representation for rutva.
                     form = member['form'].replace('@', 'u~')
+                    form = convert(form, inTran, outTran)
                     # Add to derivationlist.
                     derivationlist.append({'sutra': sutratext,
                                           'sutra_num': sutranum, 'form': form})
@@ -231,7 +265,7 @@ if __name__ == '__main__':
     # Open tar file
     tar = tarfile.open(tr, 'r:gz')
     # Fetch data. In the process, function also decompresses the queried json.
-    data = get_full_data_from_composite(verbform, tar)
+    data = get_data(verbform, tar)
     # If there is no argument, return the whole data.
     if syslen == 2:
         result = data
@@ -239,4 +273,4 @@ if __name__ == '__main__':
     else:
         result = keepSpecific(data, argument)
     # Print result to the screen with proper indenting.
-    print(json.dumps(result, indent=4, encoding='utf-8'))
+    print(json.dumps(result, indent=4))

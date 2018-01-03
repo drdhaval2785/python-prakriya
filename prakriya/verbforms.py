@@ -26,7 +26,7 @@ import os.path
 import json
 import sys
 import tarfile
-from indic_transliteration.sanscript import transliterate
+from indic_transliteration import sanscript.transliterate as transliterate
 # import datetime
 
 

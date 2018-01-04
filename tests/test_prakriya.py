@@ -46,14 +46,13 @@ class TestPrakriya(unittest.TestCase):
         for (verbform, inTran) in [('Bavati', 'slp1'), ('ഭവതി', 'malayalam'),
                                    ('భవతి', 'telugu'), ('bhavati', 'iast'),
                                    ('भवति', 'devanagari'), ('Bavawi', 'wx'),
-                                   ('ભવતિ', 'gujarati'), ('பவதி', 'tamil'),
+                                   ('ભવતિ', 'gujarati'), ('bhavati', 'itrans'),
                                    ('ଭଵତି', 'oriya'), ('ಭವತಿ', 'kannada'),
                                    ('bhavati', 'hk'), ('ভবতি', 'bengali'),
-                                   ('ਭਵਤਿ', 'gurmukhi'),
-                                   ('bhavati', 'itrans')]:
+                                   ('ਭਵਤਿ', 'gurmukhi')]:
             for outTran in ['slp1', 'itrans', 'hk', 'iast', 'devanagari', 'wx',
                             'bengali', 'gujarati', 'gurmukhi', 'kannada',
-                            'malayalam', 'oriya', 'telugu', 'tamil']:
+                            'malayalam', 'oriya', 'telugu']:
                 print('Testing ' + inTran + ' ' + outTran)
                 comparetranslit(verbform, inTran, outTran)
                 """
@@ -88,7 +87,3 @@ class TestPrakriya(unittest.TestCase):
         help_result = runner.invoke(cli.main, ['--help'])
         assert help_result.exit_code == 0
         assert '--help  Show this message and exit.' in help_result.output
-
-
-if __name__ == "__main__":
-    unittest.main()

@@ -93,5 +93,5 @@ If you want to set the input or output transliteration, follow these steps.
 >>> p['गच्छति']
 
 Valid transliterations are slp1, itrans, hk, iast, devanagari, wx, bengali,
-gujarati, gurmukhi, kannada, malayalam, oriya, telugu and tamil.
+gujarati, gurmukhi, kannada, malayalam, oriya and telugu.
 They can be used both as input transliteration and output transliteration schemes.

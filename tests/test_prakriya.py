@@ -23,9 +23,11 @@ def comparetranslit(verbform, inTran, outTran, arguments=''):
     p.inputTranslit = inTran
     p.outputTranslit = outTran
     calculated = p[verbform, arguments]
-    # superdata = readJson(os.path.join('tests', 'testdata', verbform + '.json'))
-    superdata = readJson(os.path.join('tests', 'testdata', 'Bavati.json'))
+    # superdata = readJson(os.path.join('testdata', verbform + '.json'))
+    superdata = readJson(os.path.join('testdata', 'Bavati.json'))
     wholedata = superdata[outTran]
+    print calculated
+    print wholedata
     if arguments == '':
         assert(calculated == wholedata)
     else:
@@ -77,7 +79,6 @@ class TestPrakriya(unittest.TestCase):
                 comparetranslit(verbform, inTran, outTran, 'purusha')
                 comparetranslit(verbform, inTran, outTran, 'vachana')
 
-
     def test_command_line_interface(self):
         """Test the CLI."""
         runner = CliRunner()
@@ -87,3 +88,7 @@ class TestPrakriya(unittest.TestCase):
         help_result = runner.invoke(cli.main, ['--help'])
         assert help_result.exit_code == 0
         assert '--help  Show this message and exit.' in help_result.output
+
+
+if __name__ == "__main__":
+    unittest.main()

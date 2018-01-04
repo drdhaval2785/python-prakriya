@@ -184,8 +184,8 @@ def convert(text, inTran, outTran):
 
 def convertible(argument):
     if argument in ['verb', 'lakara', 'gana', 'meaning', 'upasarga',
-                    'padadecider_id', 'padadecider_sutra',
-                    'it_status', 'it_sutra', 'it_id', 'vacana', 'purusha']:
+                    'padadecider_id', 'padadecider_sutra', 'suffix',
+                    'it_status', 'it_sutra', 'it_id', 'vachana', 'purusha']:
         return True
     else:
         return False

@@ -18,11 +18,14 @@ def readJson(path):
         return json.load(fin)
 
 
-def compareresult(verbform, arguments=''):
-    """Compare the calculated and prestored results."""
+def comparetranslit(verbform, inTran, outTran, arguments=''):
     p = Prakriya()
+    p.inputTranslit = inTran
+    p.outputTranslit = outTran
     calculated = p[verbform, arguments]
-    wholedata = readJson(os.path.join('tests', 'testdata', verbform + '.json'))
+    # superdata = readJson(os.path.join('tests', 'testdata', verbform + '.json'))
+    superdata = readJson(os.path.join('tests', 'testdata', 'Bavati.json'))
+    wholedata = superdata[outTran]
     if arguments == '':
         assert(calculated == wholedata)
     else:
@@ -38,29 +41,42 @@ class TestPrakriya(unittest.TestCase):
     def tearDown(self):
         """Tear down test fixtures, if any."""
 
-    def test_000_something(self):
+    def test_bhavati(self):
         """Test something."""
-        compareresult('Bavati')
-        compareresult('Bavati', 'prakriya')
-        compareresult('Bavati', 'verb')
-        compareresult('Bavati', 'verbaccent')
-        compareresult('Bavati', 'lakara')
-        compareresult('Bavati', 'gana')
-        compareresult('Bavati', 'meaning')
-        compareresult('Bavati', 'number')
-        compareresult('Bavati', 'madhaviya')
-        compareresult('Bavati', 'kshiratarangini')
-        compareresult('Bavati', 'dhatupradipa')
-        compareresult('Bavati', 'jnu')
-        compareresult('Bavati', 'uohyd')
-        compareresult('Bavati', 'upasarga')
-        compareresult('Bavati', 'padadecider_id')
-        compareresult('Bavati', 'padadecider_sutra')
-        compareresult('Bavati', 'it_id')
-        compareresult('Bavati', 'it_status')
-        compareresult('Bavati', 'it_sutra')
-        compareresult('Bavati', 'purusha')
-        compareresult('Bavati', 'vachana')
+        for (verbform, inTran) in [('Bavati', 'slp1'), ('ഭവതി', 'malayalam'),
+                                   ('భవతి', 'telugu'), ('bhavati', 'iast'),
+                                   ('भवति', 'devanagari'), ('Bavawi', 'wx'),
+                                   ('ભવતિ', 'gujarati'), ('பவதி', 'tamil'),
+                                   ('ଭଵତି', 'oriya'), ('ಭವತಿ', 'kannada'),
+                                   ('bhavati', 'hk'), ('ভবতি', 'bengali'),
+                                   ('ਭਵਤਿ', 'gurmukhi'),
+                                   ('bhavati', 'itrans')]:
+            for outTran in ['slp1', 'itrans', 'hk', 'iast', 'devanagari', 'wx',
+                            'bengali', 'gujarati', 'gurmukhi', 'kannada',
+                            'malayalam', 'oriya', 'telugu', 'tamil']:
+                print('Testing ' + inTran + ' ' + outTran)
+                comparetranslit(verbform, inTran, outTran)
+                comparetranslit(verbform, inTran, outTran, 'prakriya')
+                comparetranslit(verbform, inTran, outTran, 'verb')
+                comparetranslit(verbform, inTran, outTran, 'verbaccent')
+                comparetranslit(verbform, inTran, outTran, 'lakara')
+                comparetranslit(verbform, inTran, outTran, 'gana')
+                comparetranslit(verbform, inTran, outTran, 'meaning')
+                comparetranslit(verbform, inTran, outTran, 'number')
+                comparetranslit(verbform, inTran, outTran, 'madhaviya')
+                comparetranslit(verbform, inTran, outTran, 'kshiratarangini')
+                comparetranslit(verbform, inTran, outTran, 'dhatupradipa')
+                comparetranslit(verbform, inTran, outTran, 'jnu')
+                comparetranslit(verbform, inTran, outTran, 'uohyd')
+                comparetranslit(verbform, inTran, outTran, 'upasarga')
+                comparetranslit(verbform, inTran, outTran, 'padadecider_id')
+                comparetranslit(verbform, inTran, outTran, 'padadecider_sutra')
+                comparetranslit(verbform, inTran, outTran, 'it_id')
+                comparetranslit(verbform, inTran, outTran, 'it_status')
+                comparetranslit(verbform, inTran, outTran, 'it_sutra')
+                comparetranslit(verbform, inTran, outTran, 'purusha')
+                comparetranslit(verbform, inTran, outTran, 'vachana')
+
 
     def test_command_line_interface(self):
         """Test the CLI."""

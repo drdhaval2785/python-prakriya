@@ -29,7 +29,8 @@ def comparetranslit(verbform, inTran, outTran, arguments=''):
     if arguments == '':
         assert(calculated == wholedata)
     else:
-        assert(calculated == wholedata[arguments])
+        result = [member[arguments] for member in wholedata]
+        assert(calculated == result)
 
 
 class TestPrakriya(unittest.TestCase):
@@ -55,7 +56,6 @@ class TestPrakriya(unittest.TestCase):
                             'malayalam', 'oriya', 'telugu']:
                 print('Testing ' + inTran + ' ' + outTran)
                 comparetranslit(verbform, inTran, outTran)
-                """
                 comparetranslit(verbform, inTran, outTran, 'prakriya')
                 comparetranslit(verbform, inTran, outTran, 'verb')
                 comparetranslit(verbform, inTran, outTran, 'verbaccent')
@@ -76,7 +76,6 @@ class TestPrakriya(unittest.TestCase):
                 comparetranslit(verbform, inTran, outTran, 'it_sutra')
                 comparetranslit(verbform, inTran, outTran, 'purusha')
                 comparetranslit(verbform, inTran, outTran, 'vachana')
-                """
 
     def test_command_line_interface(self):
         """Test the CLI."""

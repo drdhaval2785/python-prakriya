@@ -23,8 +23,8 @@ def comparetranslit(verbform, inTran, outTran, arguments=''):
     p.inputTranslit = inTran
     p.outputTranslit = outTran
     calculated = p[verbform, arguments]
-    # superdata = readJson(os.path.join('testdata', verbform + '.json'))
-    superdata = readJson(os.path.join('testdata', 'Bavati.json'))
+    # superdata = readJson(os.path.join('tests', 'testdata', verbform + '.json'))
+    superdata = readJson(os.path.join('tests', 'testdata', 'Bavati.json'))
     wholedata = superdata[outTran]
     print calculated
     print wholedata

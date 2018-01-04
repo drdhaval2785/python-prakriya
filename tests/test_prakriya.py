@@ -20,8 +20,8 @@ def readJson(path):
 
 def comparetranslit(verbform, inTran, outTran, arguments=''):
     p = Prakriya()
-    p.inputTranslit = inTran
-    p.outputTranslit = outTran
+    p.inputTranslit(inTran)
+    p.outputTranslit(outTran)
     calculated = p[verbform, arguments]
     # superdata = readJson(os.path.join('tests', 'testdata', verbform + '.json'))
     superdata = readJson(os.path.join('tests', 'testdata', 'Bavati.json'))

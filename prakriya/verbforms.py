@@ -191,7 +191,7 @@ def convertible(argument):
         return False
 
 
-def extract_from_tar(tarobject, filename, slugname, storagedir):
+def extract_from_tar(tar, filename, slugname, storagedir):
     """Extracts a file from given tar object and places in the outdir."""
     if not os.path.isfile(filename):
         member = tar.getmember(os.path.join('json', slugname + '.json'))

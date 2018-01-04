@@ -191,29 +191,17 @@ def convertible(argument):
         return False
 
 
-def get_data(verbform, tar, inTran='slp1', outTran='slp1'):
-    """Get whole data from the json file for given verb form."""
-    # Find the parent directory
-    storagedir = os.path.abspath(os.path.dirname(__file__))
-    # keep only first thee letters from verbform
-    jsonindex = readJson(os.path.join(storagedir, 'data', 'jsonindex.json'))
-    slugname = jsonindex[verbform[:3]]
-    # path of json file.
-    json_in = os.path.join(storagedir, 'data', 'json', slugname + '.json')
-    # If the json is not already extracted in earlier usages, extract that.
-    if not os.path.isfile(json_in):
-        member = tar.getmember('json/' + slugname + '.json')
+def extract_from_tar(tarobject, filename, slugname, storagedir):
+    """Extracts a file from given tar object and places in the outdir."""
+    if not os.path.isfile(filename):
+        member = tar.getmember(os.path.join('json', slugname + '.json'))
         tar.extract(member, path=os.path.join(storagedir, 'data'))
-    # Load from json file. Data is in
-    # {verbform1: verbdata1, verbform2: verbdata2 ...} format.
-    compositedata = readJson(json_in)
-    # Keep only the data related to inquired verbform.
-    data = compositedata[verbform]
+
+
+def storeresult(data, inTran, outTran, sutrainfo):
+    """Store the result with necessary transliteration conversions."""
     # Initialize empty result stack.
     result = []
-    # Read sutrainfo file. This is needed to convert sutra_num to sutra_text.
-    sutrainfofile = os.path.join(storagedir, 'data', 'sutrainfo.json')
-    sutrainfo = readJson(sutrainfofile)
     # For each possible derivation leading to the given verb form
     # e.g. baBUva can be from BU, asa~
     for datum in data:
@@ -257,6 +245,28 @@ def get_data(verbform, tar, inTran='slp1', outTran='slp1'):
         result.append(subresult)
     # Give result.
     return result
+
+
+def get_data(verbform, tar, inTran='slp1', outTran='slp1'):
+    """Get whole data from the json file for given verb form."""
+    # Find the parent directory
+    storagedir = os.path.abspath(os.path.dirname(__file__))
+    # keep only first thee letters from verbform
+    jsonindex = readJson(os.path.join(storagedir, 'data', 'jsonindex.json'))
+    slugname = jsonindex[verbform[:3]]
+    # path of json file.
+    json_in = os.path.join(storagedir, 'data', 'json', slugname + '.json')
+    # If the json is not already extracted in earlier usages, extract that.
+    extract_from_tar(tar, json_in, slugname, storagedir)
+    # Load from json file. Data is in
+    # {verbform1: verbdata1, verbform2: verbdata2 ...} format.
+    compositedata = readJson(json_in)
+    # Read sutrainfo file. This is needed to convert sutra_num to sutra_text.
+    sutrainfo = readJson(os.path.join(storagedir, 'data', 'sutrainfo.json'))
+    # Keep only the data related to inquired verbform.
+    data = compositedata[verbform]
+    # Return results
+    return storeresult(data, inTran, outTran, sutrainfo)
 
 
 def keepSpecific(data, argument):

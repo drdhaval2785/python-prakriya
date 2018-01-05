@@ -31,7 +31,9 @@ prakriya is a package to derive information about given Sanskrit verb form.
 Features
 --------
 
-* TODO
+1. Provides step by step derivation based on Panini's grammar of Sanskrit.
+2. Supports various transliteration as input and output.
+3. Also provides a commandline tool.
 
 Credits
 ---------

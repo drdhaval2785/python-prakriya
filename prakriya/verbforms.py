@@ -26,7 +26,7 @@ import os.path
 import json
 import sys
 import tarfile
-from utils import appDir
+from .utils import appDir
 from indic_transliteration import sanscript
 # import datetime
 

@@ -6,55 +6,69 @@ import click
 
 
 @click.command()
+@click.option('--intran', default='slp1',
+              type=click.Choice(['slp1', 'itrans', 'hk', 'iast', 'devanagari',
+                                 'wx', 'bengali', 'gujarati', 'gurmukhi',
+                                 'kannada', 'malayalam', 'oriya', 'telugu']))
+@click.option('--outtran', default='slp1',
+              type=click.Choice(['slp1', 'itrans', 'hk', 'iast', 'devanagari',
+                                 'wx', 'bengali', 'gujarati', 'gurmukhi',
+                                 'kannada', 'malayalam', 'oriya', 'telugu']))
 @click.argument('verbform')
-@click.argument('field', required=False, default='')
-def main(verbform, field):
+@click.argument('field',
+                required=False,
+                default='')
+def main(verbform, field, intran, outtran):
     """Console script for prakriya.
 
-    Usage
-    -----
-    prakriya [verbform] [field]
+    CLI usage: prakriya [OPTIONS] VERBFORM [FIELD]
 
-    Valid values of field and expected output are as follows.
+    Valid values of FIELD and expected output are as follows.
 
-    "prakriya" - Return step by step derivation.
+        "prakriya" - Return step by step derivation.
 
-    "verb" - Return verb in Devanagari without accent marks.
+        "verb" - Return verb in Devanagari without accent marks.
 
-    "verbaccent" - Return the verb in Devanagari with accent marks.
+        "verbaccent" - Return the verb in Devanagari with accent marks.
 
-    "lakara" - Return the lakAra (tense / mood) in which this form is generated.
+        "lakara" - Return the lakAra (tense / mood) in which this form is generated.
 
-    "gana" - Return the gaNa (class) of the verb.
+        "purusha" - Returns purusha of the given verb form.
 
-    "meaning" - Return meaning of the verb in SLP1 transliteration.
+        "vachana" - Returns vachana of the given verb form.
 
-    "number" - Return number of the verb in dhAtupATha.
+        "gana" - Return the gaNa (class) of the verb.
 
-    "madhaviya" - Return link to mAdhaviyadhAtuvRtti. http://sanskrit.uohyd.ac.in/scl/dhaatupaatha is the home page.
+        "meaning" - Return meaning of the verb in SLP1 transliteration.
 
-    "kshiratarangini" - Return link to kSIrataraGgiNI. http://sanskrit.uohyd.ac.in/scl/dhaatupaatha is the home page.
+        "number" - Return number of the verb in dhAtupATha.
 
-    "dhatupradipa" - Return link to dhAtupradIpa. http://sanskrit.uohyd.ac.in/scl/dhaatupaatha is the home page.
+        "madhaviya" - Return link to mAdhaviyadhAtuvRtti. http://sanskrit.uohyd.ac.in/scl/dhaatupaatha is the home page.
 
-    "jnu" - Return link to JNU site for this verb form. http://sanskrit.jnu.ac.in/tinanta/tinanta.jsp is the home page.
+        "kshiratarangini" - Return link to kSIrataraGgiNI. http://sanskrit.uohyd.ac.in/scl/dhaatupaatha is the home page.
 
-    "uohyd" - Return link to UoHyd site for this verb form. http://sanskrit.uohyd.ac.in/cgi-bin/scl/skt_gen/verb/verb_gen.cgi is the home page.
+        "dhatupradipa" - Return link to dhAtupradIpa. http://sanskrit.uohyd.ac.in/scl/dhaatupaatha is the home page.
 
-    "upasarga" - Return upasarga, if any. Currently we do not support verb forms with upasargas.
+        "jnu" - Return link to JNU site for this verb form. http://sanskrit.jnu.ac.in/tinanta/tinanta.jsp is the home page.
 
-    "padadecider_id" - Return the rule number which decides whether the verb is parasmaipadI, AtmanepadI or ubhayapadI.
+        "uohyd" - Return link to UoHyd site for this verb form. http://sanskrit.uohyd.ac.in/cgi-bin/scl/skt_gen/verb/verb_gen.cgi is the home page.
 
-    "padadecider_sutra" - Return the rule text which decides whether the verb is parasmaipadI, AtmanepadI or ubhayapadI.
+        "upasarga" - Return upasarga, if any. Currently we do not support verb forms with upasargas.
 
-    "it_id" - Returns whether the verb is seT, aniT or veT, provided the form has iDAgama.
+        "padadecider_id" - Return the rule number which decides whether the verb is parasmaipadI, AtmanepadI or ubhayapadI.
 
-    "it_status" - Returns whether the verb form has iDAgama or not. seT, veT, aniT are the output.
+        "padadecider_sutra" - Return the rule text which decides whether the verb is parasmaipadI, AtmanepadI or ubhayapadI.
 
-    "it_sutra" - Returns rule number if iDAgama is caused by some special rule.
+        "it_id" - Returns whether the verb is seT, aniT or veT, provided the form has iDAgama.
+
+        "it_status" - Returns whether the verb form has iDAgama or not. seT, veT, aniT are the output.
+
+        "it_sutra" - Returns rule number if iDAgama is caused by some special rule.
 
     """
     from prakriya import Prakriya
     p = Prakriya()
+    p.inputTranslit(intran)
+    p.outputTranslit(outtran)
     result = p[verbform, field]
     click.echo(result)

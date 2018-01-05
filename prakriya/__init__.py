@@ -4,7 +4,7 @@
 
 __author__ = """Dr. Dhaval Patel"""
 __email__ = 'drdhaval2785@gmail.com'
-__version__ = '0.0.3'
+__version__ = '0.0.4'
 __all__ = ['Prakriya']
 
 

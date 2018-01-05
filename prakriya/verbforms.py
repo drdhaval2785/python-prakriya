@@ -26,6 +26,7 @@ import os.path
 import json
 import sys
 import tarfile
+from utils import appDir
 from indic_transliteration import sanscript
 # import datetime
 
@@ -86,12 +87,16 @@ class Prakriya():
         """Start the class. Decompress tar file if asked for."""
         # Find the directory of the module.
         self.directory = os.path.abspath(os.path.dirname(__file__))
+        self.appdir = appDir('prakriya')
         # Path where to store the file
         self.filename = 'composite_v003.tar.gz'
-        self.tr = os.path.join(self.directory, 'data', self.filename)
+        self.tr = os.path.join(self.appdir, self.filename)
         self.inTran = 'slp1'
         self.outTran = 'slp1'
         # If the file does not exist, download from Github.
+        if not os.path.exists(self.appdir):
+            os.makedirs(self.appdir)
+            os.makedirs(os.path.join(self.appdir, 'json'))
         if not os.path.isfile(self.tr):
             url = 'https://github.com/drdhaval2785/python-prakriya/releases/download/v0.0.2/' + self.filename
             import requests
@@ -112,7 +117,7 @@ class Prakriya():
 
         It makes the future operations very fast.
         """
-        self.tar.extractall(os.path.join(self.directory, 'data'))
+        self.tar.extractall(self.appdir)
         print("data files extracted.")
         print("You shall not need to use decompress() function again.")
         print("Just do regular `p = Prakriya()`.")
@@ -191,11 +196,11 @@ def convertible(argument):
         return False
 
 
-def extract_from_tar(tar, filename, slugname, storagedir):
+def extract_from_tar(tar, filename, slugname, appdir):
     """Extracts a file from given tar object and places in the outdir."""
     if not os.path.isfile(filename):
-        member = tar.getmember(os.path.join('json', slugname + '.json'))
-        tar.extract(member, path=os.path.join(storagedir, 'data'))
+        member = tar.getmember('json/' + slugname + '.json')
+        tar.extract(member, appdir)
 
 
 def storeresult(data, inTran, outTran, sutrainfo):
@@ -255,9 +260,10 @@ def get_data(verbform, tar, inTran='slp1', outTran='slp1'):
     jsonindex = readJson(os.path.join(storagedir, 'data', 'jsonindex.json'))
     slugname = jsonindex[verbform[:3]]
     # path of json file.
-    json_in = os.path.join(storagedir, 'data', 'json', slugname + '.json')
+    appdir = appDir('prakriya')
+    json_in = os.path.join(appdir, 'json', slugname + '.json')
     # If the json is not already extracted in earlier usages, extract that.
-    extract_from_tar(tar, json_in, slugname, storagedir)
+    extract_from_tar(tar, json_in, slugname, appdir)
     # Load from json file. Data is in
     # {verbform1: verbdata1, verbform2: verbdata2 ...} format.
     compositedata = readJson(json_in)

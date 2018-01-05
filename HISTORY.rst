@@ -20,6 +20,7 @@ jsonindex.json file which was crucial and missed in v0.0.2, added back.
 
 0.0.4 (2018-01-03)
 ------------------
-
-Added support for various transliteration schemes.
-See this issue. https://github.com/drdhaval2785/python-prakriya/issues/5.
+Added transliteration support. See #5 .
+Adding data file in system specific locations like APPDATA. See #6 .
+Made code python 2.7, 3.3, 3.4, 3.5, 3.6 compliant.
+Corrected all errors / smells identified by landscape.io.

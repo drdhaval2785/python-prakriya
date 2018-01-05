@@ -29,7 +29,7 @@ setup(
     author="Dr. Dhaval Patel",
     author_email='drdhaval2785@gmail.com',
     url='https://github.com/drdhaval2785/python-prakriya',
-    packages=find_packages(include=['prakriya'], exclude=['docs', 'tests', 'prakriya/data/jsonsorted']),
+    packages=find_packages(include=['prakriya'], exclude=['docs', 'tests']),
     entry_points={
         'console_scripts': [
             'prakriya=prakriya.cli:main'
@@ -47,11 +47,13 @@ setup(
         'Development Status :: 2 - Pre-Alpha',
         'Intended Audience :: Developers',
         'License :: OSI Approved :: GNU General Public License v3 (GPLv3)',
-        'Natural Language :: Sanskrit',
         "Programming Language :: Python :: 2",
         'Programming Language :: Python :: 2.7',
         'Programming Language :: Python :: 3',
+        'Programming Language :: Python :: 3.6',
         'Programming Language :: Python :: 3.5',
+        'Programming Language :: Python :: 3.4',
+        'Programming Language :: Python :: 3.3',
     ],
     test_suite='tests',
     tests_require=test_requirements,

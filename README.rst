@@ -21,6 +21,10 @@ prakriya
      :target: https://landscape.io/github/drdhaval2785/python-prakriya/master
      :alt: Code health
 
+.. image:: https://img.shields.io/badge/Donate-PayPal-green.svg
+     :target: https://www.paypal.me/drdhaval2785/5
+     :alt: Paypal
+
 prakriya is a package to derive information about given Sanskrit verb form.
 
 

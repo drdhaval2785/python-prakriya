@@ -179,12 +179,15 @@ class Prakriya():
 def readJson(path):
     """Read the given JSON file into python object."""
     with open(path, 'r') as fin:
-        return json.load(fin)
+        return json.loads(fin.read())
 
 
 def convert(text, inTran, outTran):
     """Convert a text from inTran to outTran transliteration."""
-    return sanscript.transliterate(text, inTran, outTran)
+    if inTran == outTran:
+        return text
+    else:
+        return sanscript.transliterate(text, inTran, outTran)
 
 
 def convertible(argument):
@@ -296,8 +299,9 @@ if __name__ == '__main__':
         argument = sys.argv[2]
     # Parent directory.
     directory = os.path.abspath(os.path.dirname(__file__))
+    appdir = appDir('prakriya')
     # Path to tar.gz file.
-    tr = os.path.join(directory, 'data', 'composite_v002.tar.gz')
+    tr = os.path.join(appdir, 'composite_v003.tar.gz')
     # Open tar file
     tar = tarfile.open(tr, 'r:gz')
     # Fetch data. In the process, function also decompresses the queried json.

@@ -39,6 +39,16 @@ Features
 2. Supports various transliteration as input and output.
 3. Also provides a commandline tool.
 
+
+Support
+-------
+1. You can contribute monetarily at the following link.
+.. image:: https://img.shields.io/badge/Donate-PayPal-green.svg
+     :target: https://www.paypal.me/drdhaval2785/5
+     :alt: Paypal
+2. You can help development of code by testing and bug report.
+
+
 Credits
 ---------
 

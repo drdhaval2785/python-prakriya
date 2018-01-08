@@ -17,10 +17,10 @@ install:
 # command to run tests, e.g. python setup.py test
 script:
   - tox
-  - coverage run -m py.test
+  - coverage run -m py.test --source .
 
 after_success:
-  - coverage report --omit '/home/travis/virtualenv/*'
+  - coverage report --omit '*site-package*'
   - cat .coverage
   - coveralls
 

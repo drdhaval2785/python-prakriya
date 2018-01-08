@@ -9,5 +9,5 @@ Sphinx==1.6.5
 cryptography==2.1.4
 PyYAML==3.12
 click==6.7
-indic_transliteration
-coveralls
+indic_transliteration>=1.6.2
+coveralls>1.2.0

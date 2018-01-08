@@ -10,17 +10,18 @@ python:
   - 2.7
 
 # command to install dependencies, e.g. pip install -r requirements.txt --use-mirrors
-install: 
+install:
   - pip install -U tox-travis
   - pip install -r requirements_docs.txt
 
 # command to run tests, e.g. python setup.py test
-script: 
+script:
   - tox
   - coverage run -m py.test
-  - coverage report -m
 
 after_success:
+  - coverage report --omit '/home/travis/virtualenv/*'
+  - cat .coverage
   - coveralls
 
 # After you create the Github repo and add it to Travis, run the

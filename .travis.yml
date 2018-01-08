@@ -15,7 +15,9 @@ install:
   - pip install python-coveralls
 
 # command to run tests, e.g. python setup.py test
-script: tox
+script: 
+  - tox
+  - py.test
 
 after_success:
   - coveralls

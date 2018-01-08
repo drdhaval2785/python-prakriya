@@ -18,7 +18,7 @@ install:
 script: 
   - tox
   - coverage run -m py.test
-  - coverage report -m
+  - coverage report --omit=*site-package*
 
 after_success:
   - coveralls

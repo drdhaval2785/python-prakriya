@@ -17,7 +17,7 @@ install:
 # command to run tests, e.g. python setup.py test
 script:
   - tox
-  - coverage run -m py.test --source .
+  - coverage run -m py.test
 
 after_success:
   - coverage report --omit '*site-package*'

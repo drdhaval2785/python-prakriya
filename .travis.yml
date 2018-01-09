@@ -16,8 +16,8 @@ install:
 
 # command to run tests, e.g. python setup.py test
 script:
-  - tox
   - coverage run --source . --omit=setup.py,travis_pypi_setup.py,docs/conf.py -m py.test
+  - tox
 
 after_success:
   - coverage report --omit '*site-package*'

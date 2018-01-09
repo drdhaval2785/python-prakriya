@@ -40,6 +40,8 @@ class TestPrakriya(unittest.TestCase):
         p = Prakriya()
         p.decompress()
         print(p['Bavati'])
+        p.inputTranslit('asdfasdf')
+        p.outputTranslit('fdasfdas')
 
     def test_bhavati(self):
         """Test something."""

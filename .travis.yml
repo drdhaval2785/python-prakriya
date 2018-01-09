@@ -17,7 +17,7 @@ install:
 # command to run tests, e.g. python setup.py test
 script:
   - tox
-  - coverage run --source . --include=prakriya/*,tests/* -m py.test
+  - coverage run --source . --exclude=setup.py,travis_pypi_setup.py,docs/conf.py -m py.test
 
 after_success:
   - coverage report --omit '*site-package*'

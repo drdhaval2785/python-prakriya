@@ -23,7 +23,6 @@ def comparetranslit(verbform, inTran, outTran, arguments=''):
     p.inputTranslit(inTran)
     p.outputTranslit(outTran)
     calculated = p[verbform, arguments]
-    # superdata = readJson(os.path.join('tests', 'testdata', verbform + '.json'))
     superdata = readJson(os.path.join('tests', 'testdata', 'Bavati.json'))
     wholedata = superdata[outTran]
     if arguments == '':
@@ -36,13 +35,11 @@ def comparetranslit(verbform, inTran, outTran, arguments=''):
 class TestPrakriya(unittest.TestCase):
     """Tests for `prakriya` package."""
 
-    def setUp(self):
+    def test_setUp(self):
         """Set up test fixtures, if any."""
         p = Prakriya()
         p.decompress()
-
-    def tearDown(self):
-        """Tear down test fixtures, if any."""
+        print(p['Bavati'])
 
     def test_bhavati(self):
         """Test something."""

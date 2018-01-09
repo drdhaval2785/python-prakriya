@@ -38,6 +38,8 @@ class TestPrakriya(unittest.TestCase):
 
     def setUp(self):
         """Set up test fixtures, if any."""
+        p = Prakriya()
+        p.decompress()
 
     def tearDown(self):
         """Tear down test fixtures, if any."""

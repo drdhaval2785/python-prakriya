@@ -21,6 +21,10 @@ prakriya
      :target: https://landscape.io/github/drdhaval2785/python-prakriya/master
      :alt: Code health
 
+.. image:: https://coveralls.io/repos/github/drdhaval2785/python-prakriya/badge.svg
+    :target: https://coveralls.io/github/drdhaval2785/python-prakriya
+    :alt: Code coverage
+
 .. image:: https://img.shields.io/badge/Donate-PayPal-green.svg
      :target: https://www.paypal.me/drdhaval2785/500inr
      :alt: Paypal

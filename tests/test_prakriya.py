@@ -40,8 +40,18 @@ class TestPrakriya(unittest.TestCase):
         p = Prakriya()
         p.decompress()
         print(p['Bavati'])
-        p.inputTranslit('asdfasdf')
-        p.outputTranslit('fdasfdas')
+
+    def test_false_input(self):
+        """Test for false input transliteration."""
+        p = Prakriya()
+        with self.assertRaises(SystemExit):
+            p.inputTranslit('asdfasdf')
+
+    def test_false_output(self):
+        """Test for false output transliteration."""
+        p = Prakriya()
+        with self.assertRaises(SystemExit):
+            p.outputTranslit('fdasfdas')
 
     def test_bhavati(self):
         """Test something."""

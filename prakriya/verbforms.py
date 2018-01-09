@@ -281,36 +281,3 @@ def get_data(verbform, tar, inTran='slp1', outTran='slp1'):
 def keepSpecific(data, argument):
     """Create a list of only the relavent argument."""
     return [member[argument] for member in data]
-
-
-if __name__ == '__main__':
-    # print(timestamp())
-    syslen = len(sys.argv)
-    # There can be only zero / one argument. Throw error otherwise.
-    if syslen < 2 or syslen > 3:
-        error_message = 'Valid syntax - python prakriya.py verbform [argument]'
-        print(json.dumps({'error': error_message}))
-        exit(0)
-    # Initialize verbform
-    if syslen >= 2:
-        verbform = sys.argv[1]
-    # Initialize argument, if any.
-    if syslen == 3:
-        argument = sys.argv[2]
-    # Parent directory.
-    directory = os.path.abspath(os.path.dirname(__file__))
-    appdir = appDir('prakriya')
-    # Path to tar.gz file.
-    tr = os.path.join(appdir, 'composite_v003.tar.gz')
-    # Open tar file
-    tar = tarfile.open(tr, 'r:gz')
-    # Fetch data. In the process, function also decompresses the queried json.
-    data = get_data(verbform, tar)
-    # If there is no argument, return the whole data.
-    if syslen == 2:
-        result = data
-    # If there is an argument, return only the data relavent to that argument.
-    else:
-        result = keepSpecific(data, argument)
-    # Print result to the screen with proper indenting.
-    print(json.dumps(result, indent=4))

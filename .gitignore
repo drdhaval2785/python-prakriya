@@ -69,3 +69,4 @@ prakriya/data/composite_v003.tar.gz
 # Intermediary scripts
 prakriya/jsonind.py
 tests/speedtest.py
+prakriya/data/generated*

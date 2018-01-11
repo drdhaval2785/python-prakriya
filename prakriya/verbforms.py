@@ -23,11 +23,9 @@ Actual usage will be like the following.
 For details of valid values for field, see documentation on prakriya class.
 """
 import os.path
-import json
 import sys
 import tarfile
-from .utils import appDir
-from indic_transliteration import sanscript
+from .utils import appDir, readJson, convert
 # import datetime
 
 
@@ -174,20 +172,6 @@ class Prakriya():
         # print(datetime.datetime.now())
         # Return the result.
         return result
-
-
-def readJson(path):
-    """Read the given JSON file into python object."""
-    with open(path, 'r') as fin:
-        return json.loads(fin.read())
-
-
-def convert(text, inTran, outTran):
-    """Convert a text from inTran to outTran transliteration."""
-    if inTran == outTran:
-        return text
-    else:
-        return sanscript.transliterate(text, inTran, outTran)
 
 
 def convertible(argument):

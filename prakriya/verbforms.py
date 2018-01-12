@@ -107,7 +107,7 @@ class Prakriya():
             print('If you can spare 600 MB of storage space,')
             print(' use .decompress() method.')
             print('This will speed up subsequent runs very fast.')
-        self.mapform = 'mapforms.tar.gz'
+        self.mapform = os.path.join(self.appdir, 'mapforms.tar.gz')
         if not os.path.isfile(self.mapform):
             url = 'https://github.com/drdhaval2785/python-prakriya/releases/download/v0.0.2/' + self.mapform
             import requests

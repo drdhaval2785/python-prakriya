@@ -95,6 +95,15 @@ class Prakriya():
         if not os.path.exists(self.appdir):
             os.makedirs(self.appdir)
             os.makedirs(os.path.join(self.appdir, 'json'))
+        self.mapform = 'mapforms.json'
+        self.mp = os.path.join(self.appdir, self.mapform)
+        if not os.path.isfile(self.mp):
+            url = 'https://github.com/drdhaval2785/python-prakriya/releases/download/v0.0.2/mapforms.json'
+            import requests
+            print('Downloading mapform file. Roughly 8 MB.')
+            with open(self.mp, "wb") as f:
+                r = requests.get(url)
+                f.write(r.content)
         if not os.path.isfile(self.tr):
             url = 'https://github.com/drdhaval2785/python-prakriya/releases/download/v0.0.2/' + self.filename
             import requests
@@ -107,18 +116,8 @@ class Prakriya():
             print('If you can spare 600 MB of storage space,')
             print(' use .decompress() method.')
             print('This will speed up subsequent runs very fast.')
-        self.mapform = 'mapforms.tar.gz'
-        self.mp = os.path.join(self.appdir, self.mapform)
-        if not os.path.isfile(self.mapform):
-            url = 'https://github.com/drdhaval2785/python-prakriya/releases/download/v0.0.2/mapforms.tar.gz'
-            import requests
-            print('Downloading mapform file. Roughly 1 MB.')
-            with open(self.mp, "wb") as f:
-                r = requests.get(url)
-                f.write(r.content)
         # Open self.tar so that it can be used by function later on.
         self.tar = tarfile.open(self.tr, 'r:gz')
-        self.map = tarfile.open(self.mp, 'r:gz')
 
     def decompress(self):
         """Decompress the tar file if user asks for it.

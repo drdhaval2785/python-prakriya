@@ -125,7 +125,6 @@ class Prakriya():
         It makes the future operations very fast.
         """
         self.tar.extractall(self.appdir)
-        self.map.extractall(self.appdir)
         print("data files extracted.")
         print("You shall not need to use decompress() function again.")
         print("Just do regular `p = Prakriya()`.")

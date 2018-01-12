@@ -52,7 +52,7 @@ def getsuffix(purusha, vachana, suffix):
         return ['mas', 'mahiN']
 
 
-def getform(verb, tense='law', purusha='praTama', vachana='eka', suffix=''):
+def getform(verb, tense, purusha, vachana, suffix=''):
     if tense not in ['law', 'liw', 'luw', 'lfw', 'low', 'laN', 'viDiliN',
                      'ASIrliN', 'luN', 'lfN']:
         print({'error': 'Select proper tense.'})

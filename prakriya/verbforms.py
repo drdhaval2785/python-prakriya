@@ -107,8 +107,17 @@ class Prakriya():
             print('If you can spare 600 MB of storage space,')
             print(' use .decompress() method.')
             print('This will speed up subsequent runs very fast.')
+        self.mapform = os.path.join(self.appdir, 'mapforms.tar.gz')
+        if not os.path.isfile(self.mapform):
+            url = 'https://github.com/drdhaval2785/python-prakriya/releases/download/v0.0.2/' + self.mapform
+            import requests
+            print('Downloading mapform file. Roughly 1 MB.')
+            with open(self.tr, "wb") as f:
+                r = requests.get(url)
+                f.write(r.content)
         # Open self.tar so that it can be used by function later on.
         self.tar = tarfile.open(self.tr, 'r:gz')
+        self.map = tarfile.open(self.mapform, 'r:gz')
 
     def decompress(self):
         """Decompress the tar file if user asks for it.
@@ -116,6 +125,7 @@ class Prakriya():
         It makes the future operations very fast.
         """
         self.tar.extractall(self.appdir)
+        self.map.extractall(self.appdir)
         print("data files extracted.")
         print("You shall not need to use decompress() function again.")
         print("Just do regular `p = Prakriya()`.")

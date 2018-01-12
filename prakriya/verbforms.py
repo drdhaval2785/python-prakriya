@@ -104,6 +104,7 @@ class Prakriya():
                 r = requests.get(url)
                 f.write(r.content)
             print('Completed downloading data file.')
+            print(self.tr)
             print('If you can spare 600 MB of storage space,')
             print(' use .decompress() method.')
             print('This will speed up subsequent runs very fast.')

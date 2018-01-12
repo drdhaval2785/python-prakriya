@@ -22,11 +22,79 @@ Actual usage will be like the following.
 For details of valid values for field, see documentation on prakriya class.
 """
 import os.path
-import ujson
-import tarfile
+import sys
 from .utils import appDir, readJson, convert
-from indic_transliteration import sanscript
 # import datetime
+
+
+class Generate():
+    """Class to get the verb form from given verb, tense, suffix."""
+
+    def __init__(self):
+        self.appdir = appDir('prakriya')
+        self.data = readJson(os.path.join(self.appdir, 'mapforms.json'))
+        self.inTran = 'slp1'
+        self.outTran = 'slp1'
+
+    def inputTranslit(self, tran):
+        """Set input transliteration."""
+        # If valid transliteration, set transliteration.
+        if tran in ['slp1', 'itrans', 'hk', 'iast', 'devanagari', 'velthuis',
+                    'wx', 'kolkata', 'bengali', 'gujarati', 'gurmukhi',
+                    'kannada', 'malayalam', 'oriya', 'telugu', 'tamil']:
+            self.inTran = tran
+        # If not valid, throw error.
+        else:
+            print('Error. Not a valid transliteration scheme.')
+            exit(0)
+
+    def outputTranslit(self, tran):
+        """Set output transliteration."""
+        # If valid transliteration, set transliteration.
+        if tran in ['slp1', 'itrans', 'hk', 'iast', 'devanagari', 'velthuis',
+                    'wx', 'kolkata', 'bengali', 'gujarati', 'gurmukhi',
+                    'kannada', 'malayalam', 'oriya', 'telugu', 'tamil']:
+            self.outTran = tran
+        # If not valid, throw error.
+        else:
+            print('Error. Not a valid transliteration scheme.')
+            exit(0)
+
+    def __getitem__(self, items):
+        """Return the requested data by user."""
+        # Initiate without arguments
+        arguments = ''
+        # print(datetime.datetime.now())
+        # If there is only one entry in items, it is treated as verbform.
+        if isinstance(items, ("".__class__, u"".__class__)):
+            print({'error': 'Provide purusha and vachana or suffix.'})
+            exit(0)
+        else:
+            # Otherwise, first is verbform and the next is argument1.
+            verb = items[0]
+            if len(items) > 1:
+                arguments = items[1:]
+            for member in arguments:
+                if member in ['law', 'liw', 'luw', 'lfw', 'low', 'laN',
+                              'viDiliN', 'ASIrliN', 'luN', 'lfN']:
+                    tense = member
+                if member in ['praTama', 'maDyama', 'uttama']:
+                    purusha = member
+                if member in ['eka', 'dvi', 'bahu']:
+                    vachana = member
+                if member in ['tip', 'tas', 'Ji', 'sip', 'Tas', 'Ta', 'mip',
+                              'vas', 'mas', 'ta', 'AtAm', 'Ja', 'TAs', 'ATAm',
+                              'Dvam', 'iw', 'vahi', 'mahiN']:
+                    suffix = member
+        # Convert verbform from desired input transliteration to SLP1.
+        if sys.version_info[0] < 3:
+            verb = verb.decode('utf-8')
+        verb = convert(verb, self.inTran, 'slp1')
+        # Read from tar.gz file.
+        result = getform(verb, tense, purusha, vachana, suffix)
+        # Return the result.
+        result = [convert(member, 'slp1', self.outTran) for member in result]
+        return result
 
 
 def getsuffix(purusha, vachana, suffix):

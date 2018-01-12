@@ -74,6 +74,12 @@ class Generate():
             verb = items[0]
             if len(items) > 1:
                 arguments = items[1:]
+            # Define default values
+            tense = 'law'
+            purusha = 'praTama'
+            vachana = 'eka'
+            suffix = ''
+            # Enter user defined values
             for member in arguments:
                 if member in ['law', 'liw', 'luw', 'lfw', 'low', 'laN',
                               'viDiliN', 'ASIrliN', 'luN', 'lfN']:
@@ -86,6 +92,8 @@ class Generate():
                               'vas', 'mas', 'ta', 'AtAm', 'Ja', 'TAs', 'ATAm',
                               'Dvam', 'iw', 'vahi', 'mahiN']:
                     suffix = member
+            if suffix == '':
+                suffix = getsuffix(purusha, vachana)
         # Convert verbform from desired input transliteration to SLP1.
         if sys.version_info[0] < 3:
             verb = verb.decode('utf-8')
@@ -97,9 +105,7 @@ class Generate():
         return result
 
 
-def getsuffix(purusha, vachana, suffix):
-    if suffix not in ['', u'']:
-        return [suffix]
+def getsuffix(purusha, vachana):
     if purusha == 'praTama' and vachana == 'eka':
         return ['tip', 'ta']
     elif purusha == 'praTama' and vachana == 'dvi':
@@ -120,7 +126,7 @@ def getsuffix(purusha, vachana, suffix):
         return ['mas', 'mahiN']
 
 
-def getform(verb, tense, purusha, vachana, suffix=''):
+def getform(verb, tense='law', purusha='praTama', vachana='eka', suffix=''):
     if tense not in ['law', 'liw', 'luw', 'lfw', 'low', 'laN', 'viDiliN',
                      'ASIrliN', 'luN', 'lfN']:
         print({'error': 'Select proper tense.'})
@@ -131,16 +137,19 @@ def getform(verb, tense, purusha, vachana, suffix=''):
     if vachana not in ['eka', 'dvi', 'bahu']:
         print({'error': 'Select proper vachana.'})
         exit(0)
-    if suffix not in ['tip', 'tas', 'Ji', 'sip', 'Tas', 'Ta', 'mip', 'vas',
-                      'mas', 'ta', 'AtAm', 'Ja', 'TAs', 'ATAm', 'Dvam', 'iw',
-                      'vahi', 'mahiN']:
-        print({'error': 'Select proper suffix.'})
-        exit(0)
     data = readJson(os.path.join(appDir('prakriya'), 'mapforms.json'))
 
-    suffices = getsuffix(purusha, vachana, suffix)
     result = []
+    if not isinstance(suffix, ("".__class__, u"".__class__)):
+        suffices = getsuffix(purusha, vachana)
+    else:
+        suffices = [suffix]
     for suffix in suffices:
+        if suffix not in ['tip', 'tas', 'Ji', 'sip', 'Tas', 'Ta', 'mip', 'vas',
+                          'mas', 'ta', 'AtAm', 'Ja', 'TAs', 'ATAm', 'Dvam', 'iw',
+                          'vahi', 'mahiN']:
+            print({'error': 'Select proper suffix.'})
+            exit(0)
         if suffix in data[verb][tense]:
             lst = data[verb][tense][suffix]
             for member in lst:

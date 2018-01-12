@@ -8,7 +8,7 @@ import unittest
 import json
 import os.path
 from click.testing import CliRunner
-from prakriya import Prakriya
+from prakriya import Prakriya, Generate
 from prakriya import cli
 
 
@@ -97,3 +97,9 @@ class TestPrakriya(unittest.TestCase):
         help_result = runner.invoke(cli.main, ['--help'])
         assert(help_result.exit_code == 0)
         assert 'Show this message and exit.' in help_result.output
+
+    def test_generate(self):
+        """Test generation class."""
+        g = Generate()
+        assert(g['BU', 'law', 'mahiN'] == [u'BAvayAmahe'])
+        assert(g['eDa~', 'law', 'praTama', 'dvi'] == [u'eDete'])

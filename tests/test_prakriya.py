@@ -124,7 +124,7 @@ class TestPrakriya(unittest.TestCase):
         assert(g['bhU', 'laT', 'jhi'] == [u'bhavanti', u'bhAvayanti'])
         g.inputTranslit('devanagari')
         g.outputTranslit('iast')
-        assert(g['भू', 'ल‍ट्', 'झि'] == [u'bhavanti', u'bh\u0101vayanti'])
+        assert(g['भू', 'लट्', 'झि'] == [u'bhavanti', u'bh\u0101vayanti'])
 
     def test_false_in(self):
         """Test for false input transliteration."""

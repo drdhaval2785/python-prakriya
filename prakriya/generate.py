@@ -137,7 +137,6 @@ def getform(verb, tense, suffices):
 
     result = []
     for suffix in suffices:
-        print(suffix)
         if suffix not in ['tip', 'tas', 'Ji', 'sip', 'Tas', 'Ta', 'mip', 'vas',
                           'mas', 'ta', 'AtAm', 'Ja', 'TAs', 'ATAm', 'Dvam', 'iw',
                           'vahi', 'mahiN']:

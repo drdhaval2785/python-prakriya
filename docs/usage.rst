@@ -2,6 +2,9 @@
 Usage
 =====
 
+prakriya
+--------
+
 To use prakriya in a project::
 
     >>> from prakriya import Prakriya
@@ -77,6 +80,27 @@ Valid values of ``field`` and expected output are as follows.
 
     ``vachana`` - Returns the vacana of the given verb form.
 
+Generate verb forms
+-------------------
+
+To get verb form for given verb, tense, suffix / (purusha and vachana) in a project::
+
+    >>> from prakriya import Generate
+    >>> g = Generate()
+
+There are two ways to get verb forms for given verb.
+
+    >>> g[verb, tense, purusha, vachana]
+
+    >>> g[verb, tense, suffix]
+
+Examples are as follows
+
+  >>> g['BU', 'law', 'praTama', 'eka']
+
+  >>> g['BU', 'law', 'tip']
+
+
 Transliteration
 ---------------
 
@@ -95,3 +119,11 @@ If you want to set the input or output transliteration, follow these steps.
 Valid transliterations are slp1, itrans, hk, iast, devanagari, wx, bengali,
 gujarati, gurmukhi, kannada, malayalam, oriya and telugu.
 They can be used both as input transliteration and output transliteration schemes.
+
+For using transliterations in Generate class, use as below.
+
+>>> from prakriya import Generate
+>>> g = Generate()
+>>> g.inputTranslit('hk') # Customize 'hk'
+>>> g.outputTranslit('devanagari') # Customize 'devanagari'
+>>> g['bhU', 'laT', 'jhi'] # Takes the input in hk Transliteration

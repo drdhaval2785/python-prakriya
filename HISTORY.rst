@@ -25,3 +25,8 @@ jsonindex.json file which was crucial and missed in v0.0.2, added back.
 2. Adding data file in system specific locations like APPDATA. See #6 .
 3. Made code python 2.7, 3.3, 3.4, 3.5, 3.6 compliant.
 4. Corrected all errors / smells identified by landscape.io.
+
+0.0.5 (2018-01-13)
+------------------
+
+1. Added verb form generation facility. See https://github.com/drdhaval2785/prakriya/issues/39.

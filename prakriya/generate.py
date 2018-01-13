@@ -73,7 +73,7 @@ class Generate():
             # Otherwise, first is verbform and the next is argument1.
             verb = items[0]
             if len(items) > 1:
-                arguments = items[1:]
+                arguments = [convert(member.decode('utf-8'), self.inTran, 'slp1') for member in items[1:]]
             # Define default values
             tense = 'law'
             purusha = 'praTama'
@@ -93,13 +93,15 @@ class Generate():
                               'Dvam', 'iw', 'vahi', 'mahiN']:
                     suffix = member
             if suffix == '':
-                suffix = getsuffix(purusha, vachana)
+                suffices = getsuffix(purusha, vachana)
+            else:
+                suffices = [suffix]
         # Convert verbform from desired input transliteration to SLP1.
         if sys.version_info[0] < 3:
             verb = verb.decode('utf-8')
         verb = convert(verb, self.inTran, 'slp1')
         # Read from tar.gz file.
-        result = getform(verb, tense, purusha, vachana, suffix)
+        result = getform(verb, tense, suffices)
         # Return the result.
         result = [convert(member, 'slp1', self.outTran) for member in result]
         return result
@@ -126,25 +128,16 @@ def getsuffix(purusha, vachana):
         return ['mas', 'mahiN']
 
 
-def getform(verb, tense='law', purusha='praTama', vachana='eka', suffix=''):
+def getform(verb, tense, suffices):
     if tense not in ['law', 'liw', 'luw', 'lfw', 'low', 'laN', 'viDiliN',
                      'ASIrliN', 'luN', 'lfN']:
         print({'error': 'Select proper tense.'})
         exit(0)
-    if purusha not in ['praTama', 'maDyama', 'uttama']:
-        print({'error': 'Select proper purusha.'})
-        exit(0)
-    if vachana not in ['eka', 'dvi', 'bahu']:
-        print({'error': 'Select proper vachana.'})
-        exit(0)
     data = readJson(os.path.join(appDir('prakriya'), 'mapforms.json'))
 
     result = []
-    if not isinstance(suffix, ("".__class__, u"".__class__)):
-        suffices = getsuffix(purusha, vachana)
-    else:
-        suffices = [suffix]
     for suffix in suffices:
+        print(suffix)
         if suffix not in ['tip', 'tas', 'Ji', 'sip', 'Tas', 'Ta', 'mip', 'vas',
                           'mas', 'ta', 'AtAm', 'Ja', 'TAs', 'ATAm', 'Dvam', 'iw',
                           'vahi', 'mahiN']:

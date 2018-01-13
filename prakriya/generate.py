@@ -84,8 +84,12 @@ class Generate():
         else:
             # Otherwise, first is verbform and the next is argument1.
             verb = items[0]
-            if len(items) > 1:
+            # py2
+            if len(items) > 1 and sys.versioninfo[0] < 3:
                 arguments = [convert(member.decode('utf-8'), self.inTran, 'slp1') for member in items[1:]]
+            # py3
+            elif len(items) > 1:
+                arguments = [convert(member, self.inTran, 'slp1') for member in items[1:]]
             # Define default values
             tense = 'law'
             purusha = 'praTama'

@@ -35,6 +35,15 @@ class Generate():
         self.data = readJson(os.path.join(self.appdir, 'mapforms.json'))
         self.inTran = 'slp1'
         self.outTran = 'slp1'
+        self.mapform = 'mapforms.json'
+        self.mp = os.path.join(self.appdir, self.mapform)
+        if not os.path.isfile(self.mp):
+            url = 'https://github.com/drdhaval2785/python-prakriya/releases/download/v0.0.2/mapforms.json'
+            import requests
+            print('Downloading mapform file. Roughly 8 MB.')
+            with open(self.mp, "wb") as f:
+                r = requests.get(url)
+                f.write(r.content)
 
     def inputTranslit(self, tran):
         """Set input transliteration."""

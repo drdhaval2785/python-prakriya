@@ -95,15 +95,6 @@ class Prakriya():
         if not os.path.exists(self.appdir):
             os.makedirs(self.appdir)
             os.makedirs(os.path.join(self.appdir, 'json'))
-        self.mapform = 'mapforms.json'
-        self.mp = os.path.join(self.appdir, self.mapform)
-        if not os.path.isfile(self.mp):
-            url = 'https://github.com/drdhaval2785/python-prakriya/releases/download/v0.0.2/mapforms.json'
-            import requests
-            print('Downloading mapform file. Roughly 8 MB.')
-            with open(self.mp, "wb") as f:
-                r = requests.get(url)
-                f.write(r.content)
         if not os.path.isfile(self.tr):
             url = 'https://github.com/drdhaval2785/python-prakriya/releases/download/v0.0.2/' + self.filename
             import requests

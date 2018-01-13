@@ -110,6 +110,10 @@ class Generate():
             else:
                 print({'error': 'You must provide suffix or (purusha and vachana).'})
                 exit(0)
+            if 'tense' not in vars():
+                print({'error': 'You must provide lakAra (tense/mood).'})
+                exit(0)
+
         # Convert verbform from desired input transliteration to SLP1.
         if sys.version_info[0] < 3:
             verb = verb.decode('utf-8')

@@ -85,7 +85,7 @@ class Generate():
             # Otherwise, first is verbform and the next is argument1.
             verb = items[0]
             # py2
-            if len(items) > 1 and sys.versioninfo[0] < 3:
+            if len(items) > 1 and sys.version_info[0] < 3:
                 arguments = [convert(member.decode('utf-8'), self.inTran, 'slp1') for member in items[1:]]
             # py3
             elif len(items) > 1:

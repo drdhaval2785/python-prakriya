@@ -161,3 +161,9 @@ class TestPrakriya(unittest.TestCase):
         g = Generate()
         with self.assertRaises(SystemExit):
             g['BU']
+
+    def test_absent_verb(self):
+        """Test for false output transliteration."""
+        g = Generate()
+        with self.assertRaises(SystemExit):
+            g['adsfasdf']

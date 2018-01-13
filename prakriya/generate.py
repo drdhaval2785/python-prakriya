@@ -125,19 +125,10 @@ class Generate():
         return result
 
     def getform(self, verb, tense, suffices):
-        if tense not in ['law', 'liw', 'luw', 'lfw', 'low', 'laN', 'viDiliN',
-                         'ASIrliN', 'luN', 'lfN']:
-            print({'error': 'Select proper tense.'})
-            exit(0)
         data = self.data
 
         result = []
         for suffix in suffices:
-            if suffix not in ['tip', 'tas', 'Ji', 'sip', 'Tas', 'Ta', 'mip', 'vas',
-                              'mas', 'ta', 'AtAm', 'Ja', 'TAs', 'ATAm', 'Dvam', 'iw',
-                              'vahi', 'mahiN']:
-                print({'error': 'Select proper suffix.'})
-                exit(0)
             if suffix in data[verb][tense]:
                 lst = data[verb][tense][suffix]
                 for member in lst:

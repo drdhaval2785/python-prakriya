@@ -32,7 +32,6 @@ class Generate():
 
     def __init__(self):
         self.appdir = appDir('prakriya')
-        self.data = readJson(os.path.join(self.appdir, 'mapforms.json'))
         self.inTran = 'slp1'
         self.outTran = 'slp1'
         self.mapform = 'mapforms.json'
@@ -44,6 +43,7 @@ class Generate():
             with open(self.mp, "wb") as f:
                 r = requests.get(url)
                 f.write(r.content)
+        self.data = readJson(os.path.join(self.appdir, 'mapforms.json'))
 
     def inputTranslit(self, tran):
         """Set input transliteration."""

@@ -110,7 +110,15 @@ class TestPrakriya(unittest.TestCase):
         assert(g['BU', 'law', 'uttama', 'eka'] == [u'BavAmi', u'BAvayAmi', u'BAvaye'])
         assert(g['BU', 'law', 'uttama', 'dvi'] == [u'BavAvaH', u'BAvayAvaH', u'BAvayAvahe'])
         assert(g['BU', 'law', 'uttama', 'bahu'] == [u'BavAmaH', u'BAvayAmaH', u'BAvayAmahe'])
-        assert(g['eDa~', 'law', 'praTama', 'dvi'] == [u'eDete'])
+        assert(g['BU', 'low', 'tip'] == [u'BAvayatu', u'BAvayatAt', u'Bavatu', u'BavatAt'])
+        assert(g['BU', 'low', 'tas'] == [u'BAvayatAm', u'BavatAm'])
+        assert(g['BU', 'low', 'Ji'] == [u'BAvayantu', u'Bavantu'])
+        assert(g['BU', 'low', 'sip'] == [u'BAvaya', u'BAvayatAt', u'Bava', u'BavatAt'])
+        assert(g['BU', 'low', 'Tas'] == [u'BAvayatam', u'Bavatam'])
+        assert(g['BU', 'low', 'Ta'] == [u'BAvayata', u'Bavata'])
+        assert(g['BU', 'low', 'mip'] == [u'BAvayAni', u'BavAni'])
+        assert(g['BU', 'low', 'vas'] == [u'BAvayAva', u'BavAva'])
+        assert(g['BU', 'low', 'mas'] == [u'BAvayAma', u'BavAma'])
         g.inputTranslit('hk')
         g.outputTranslit('itrans')
         assert(g['bhU', 'laT', 'jhi'] == [u'bhavanti', u'bhAvayanti'])
@@ -134,4 +142,22 @@ class TestPrakriya(unittest.TestCase):
         """Test for false output transliteration."""
         g = Generate()
         with self.assertRaises(SystemExit):
-            g['भू']
+            g['BU', 'law']
+
+    def test_absent_purusha(self):
+        """Test for false output transliteration."""
+        g = Generate()
+        with self.assertRaises(SystemExit):
+            g['BU', 'law' 'eka']
+
+    def test_absent_vachana(self):
+        """Test for false output transliteration."""
+        g = Generate()
+        with self.assertRaises(SystemExit):
+            g['BU', 'law', 'maDyama']
+
+    def test_absent_lakara(self):
+        """Test for false output transliteration."""
+        g = Generate()
+        with self.assertRaises(SystemExit):
+            g['BU']

@@ -90,11 +90,6 @@ class Generate():
             # py3
             elif len(items) > 1:
                 arguments = [convert(member, self.inTran, 'slp1') for member in items[1:]]
-            # Define default values
-            tense = 'law'
-            purusha = 'praTama'
-            vachana = 'eka'
-            suffix = ''
             # Enter user defined values
             for member in arguments:
                 if member in ['law', 'liw', 'luw', 'lfw', 'low', 'laN',
@@ -108,10 +103,13 @@ class Generate():
                               'vas', 'mas', 'ta', 'AtAm', 'Ja', 'TAs', 'ATAm',
                               'Dvam', 'iw', 'vahi', 'mahiN']:
                     suffix = member
-            if suffix == '':
+            if 'suffix' in vars():
+                suffices = [suffix]
+            elif 'purusha' in vars() and 'vachana' in vars():
                 suffices = getsuffix(purusha, vachana)
             else:
-                suffices = [suffix]
+                print({'error': 'You must provide suffix or (purusha and vachana).'})
+                exit(0)
         # Convert verbform from desired input transliteration to SLP1.
         if sys.version_info[0] < 3:
             verb = verb.decode('utf-8')

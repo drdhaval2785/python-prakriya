@@ -117,11 +117,34 @@ class Generate():
             verb = verb.decode('utf-8')
         verb = convert(verb, self.inTran, 'slp1')
         # Read from tar.gz file.
-        result = getform(verb, tense, suffices)
+        result = self.getform(verb, tense, suffices)
         # Return the result.
         result = [convert(member, 'slp1', self.outTran) for member in result]
         return result
 
+    def getform(self, verb, tense, suffices):
+        if tense not in ['law', 'liw', 'luw', 'lfw', 'low', 'laN', 'viDiliN',
+                         'ASIrliN', 'luN', 'lfN']:
+            print({'error': 'Select proper tense.'})
+            exit(0)
+        data = self.data
+
+        result = []
+        for suffix in suffices:
+            if suffix not in ['tip', 'tas', 'Ji', 'sip', 'Tas', 'Ta', 'mip', 'vas',
+                              'mas', 'ta', 'AtAm', 'Ja', 'TAs', 'ATAm', 'Dvam', 'iw',
+                              'vahi', 'mahiN']:
+                print({'error': 'Select proper suffix.'})
+                exit(0)
+            if suffix in data[verb][tense]:
+                lst = data[verb][tense][suffix]
+                for member in lst:
+                    if member[0] not in result:
+                        result.append(member[0])
+        if len(result) == 0:
+            print({'error': 'Data is not available.'})
+            exit(0)
+        return result
 
 def getsuffix(purusha, vachana):
     if purusha == 'praTama' and vachana == 'eka':
@@ -142,28 +165,3 @@ def getsuffix(purusha, vachana):
         return ['vas', 'vahi']
     elif purusha == 'uttama' and vachana == 'bahu':
         return ['mas', 'mahiN']
-
-
-def getform(verb, tense, suffices):
-    if tense not in ['law', 'liw', 'luw', 'lfw', 'low', 'laN', 'viDiliN',
-                     'ASIrliN', 'luN', 'lfN']:
-        print({'error': 'Select proper tense.'})
-        exit(0)
-    data = readJson(os.path.join(appDir('prakriya'), 'mapforms.json'))
-
-    result = []
-    for suffix in suffices:
-        if suffix not in ['tip', 'tas', 'Ji', 'sip', 'Tas', 'Ta', 'mip', 'vas',
-                          'mas', 'ta', 'AtAm', 'Ja', 'TAs', 'ATAm', 'Dvam', 'iw',
-                          'vahi', 'mahiN']:
-            print({'error': 'Select proper suffix.'})
-            exit(0)
-        if suffix in data[verb][tense]:
-            lst = data[verb][tense][suffix]
-            for member in lst:
-                if member[0] not in result:
-                    result.append(member[0])
-    if len(result) == 0:
-        print({'error': 'Data is not available.'})
-        exit(0)
-    return result

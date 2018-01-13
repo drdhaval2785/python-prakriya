@@ -43,7 +43,7 @@ class Generate():
             url = 'https://github.com/drdhaval2785/python-prakriya/releases/download/v0.0.2/mapforms.json'
             import requests
             print('Downloading mapform file. Roughly 8 MB.')
-            with open(self.mp, "w") as f:
+            with open(self.mp, "wb") as f:
                 r = requests.get(url)
                 f.write(r.content)
         self.data = readJson(os.path.join(self.appdir, 'mapforms.json'))

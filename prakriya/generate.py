@@ -36,11 +36,14 @@ class Generate():
         self.outTran = 'slp1'
         self.mapform = 'mapforms.json'
         self.mp = os.path.join(self.appdir, self.mapform)
+        # If the file does not exist, download from Github.
+        if not os.path.exists(self.appdir):
+            os.makedirs(self.appdir)
         if not os.path.isfile(self.mp):
             url = 'https://github.com/drdhaval2785/python-prakriya/releases/download/v0.0.2/mapforms.json'
             import requests
             print('Downloading mapform file. Roughly 8 MB.')
-            with open(self.mp, "wb") as f:
+            with open(self.mp, "w") as f:
                 r = requests.get(url)
                 f.write(r.content)
         self.data = readJson(os.path.join(self.appdir, 'mapforms.json'))

@@ -166,4 +166,4 @@ class TestPrakriya(unittest.TestCase):
         """Test for false output transliteration."""
         g = Generate()
         with self.assertRaises(SystemExit):
-            g['adsfasdf']
+            g['adsfasdf', 'tip']

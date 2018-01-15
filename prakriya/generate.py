@@ -47,6 +47,7 @@ class Generate():
                 r = requests.get(url)
                 f.write(r.content)
         self.data = readJson(os.path.join(self.appdir, 'mapforms.json'))
+        self.verbmap = readJson(os.path.join(self.appdir, 'verbmap.json'))
 
     def inputTranslit(self, tran):
         """Set input transliteration."""
@@ -126,18 +127,31 @@ class Generate():
 
     def getform(self, verb, tense, suffices):
         data = self.data
-
         result = []
-        for suffix in suffices:
-            if suffix in data[verb][tense]:
-                lst = data[verb][tense][suffix]
-                for member in lst:
-                    if member[0] not in result:
-                        result.append(member[0])
+        mappedverbs = self.verbmap
+        # If the verb is in data, directly use it.
+        if verb in data:
+            for suffix in suffices:
+                if suffix in data[verb][tense]:
+                    lst = data[verb][tense][suffix]
+                    for member in lst:
+                        if member[0] not in result:
+                            result.append(member[0])
+        # Otherwise check whether the verb without anubandha is in data
+        elif verb in mappedverbs:
+            verbs = mappedverbs[verb]
+            for verb1 in verbs:
+                for suffix in suffices:
+                    if suffix in data[verb1][tense]:
+                        lst = data[verb1][tense][suffix]
+                        for member in lst:
+                            if member[0] not in result:
+                                result.append(member[0])
         if len(result) == 0:
             print({'error': 'Data is not available.'})
             exit(0)
         return result
+
 
 def getsuffix(purusha, vachana):
     if purusha == 'praTama' and vachana == 'eka':

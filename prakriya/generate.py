@@ -47,6 +47,13 @@ class Generate():
                 r = requests.get(url)
                 f.write(r.content)
         self.data = readJson(os.path.join(self.appdir, 'mapforms.json'))
+        if not os.path.isfile(os.path.join(self.appdir, 'verbmap.json')):
+            url = 'https://github.com/drdhaval2785/python-prakriya/releases/download/v0.0.2/verbmap.json'
+            import requests
+            print('Downloading verbmap file. Roughly 32 KB.')
+            with open(os.path.join(self.appdir, 'verbmap.json'), "wb") as f:
+                r = requests.get(url)
+                f.write(r.content)
         self.verbmap = readJson(os.path.join(self.appdir, 'verbmap.json'))
 
     def inputTranslit(self, tran):

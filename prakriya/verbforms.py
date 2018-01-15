@@ -25,6 +25,7 @@ For details of valid values for field, see documentation on prakriya class.
 import os.path
 import sys
 import tarfile
+import requests
 from .utils import appDir, readJson, convert
 # import datetime
 
@@ -84,7 +85,6 @@ class Prakriya():
     def __init__(self):
         """Start the class. Decompress tar file if asked for."""
         # Find the directory of the module.
-        self.directory = os.path.abspath(os.path.dirname(__file__))
         self.appdir = appDir('prakriya')
         # Path where to store the file
         self.filename = 'composite_v003.tar.gz'
@@ -95,24 +95,15 @@ class Prakriya():
         if not os.path.exists(self.appdir):
             os.makedirs(self.appdir)
             os.makedirs(os.path.join(self.appdir, 'json'))
-        if not os.path.isfile(self.tr):
-            url = 'https://github.com/drdhaval2785/python-prakriya/releases/download/v0.0.2/' + self.filename
-            import requests
-            print('Downloading data file.')
-            print('It will take a few minutes. Please be patient.')
-            with open(self.tr, "wb") as f:
-                r = requests.get(url)
-                f.write(r.content)
-            print('Completed downloading data file.')
-            print('If you can spare 600 MB of storage space,')
-            print(' use .decompress() method.')
-            print('This will speed up subsequent runs very fast.')
-        # Open self.tar so that it can be used by function later on.
+        # Download tar.gz data file
+        downloadFromGithub(self.appdir, 'composite_v003.tar.gz')
         self.tar = tarfile.open(self.tr, 'r:gz')
         # keep only first thee letters from verbform
-        self.jsonindex = readJson(os.path.join(self.directory, 'data', 'jsonindex.json'))
+        downloadFromGithub(self.appdir, 'jsonindex.json')
+        self.jsonindex = readJson(os.path.join(self.appdir, 'jsonindex.json'))
         # Read sutrainfo file. This is needed to convert sutra_num to sutra_text.
-        self.sutrainfo = readJson(os.path.join(self.directory, 'data', 'sutrainfo.json'))
+        downloadFromGithub(self.appdir, 'sutrainfo.json')
+        self.sutrainfo = readJson(os.path.join(self.appdir, 'sutrainfo.json'))
 
     def decompress(self):
         """Decompress the tar file if user asks for it.
@@ -263,3 +254,12 @@ def storeresult(data, inTran, outTran, sutrainfo):
 def keepSpecific(data, argument):
     """Create a list of only the relavent argument."""
     return [member[argument] for member in data]
+
+def downloadFromGithub(appdir, filename):
+    if not os.path.isfile(os.path.join(appdir, filename)):
+        print('downloading ' + filename)
+        url = 'https://github.com/drdhaval2785/python-prakriya/releases/download/v0.0.2/' + filename
+        with open(os.path.join(appdir, filename), "wb") as f:
+            r = requests.get(url)
+            f.write(r.content)
+        print('downloaded ' + filename)

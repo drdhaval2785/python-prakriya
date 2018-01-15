@@ -109,6 +109,10 @@ class Prakriya():
             print('This will speed up subsequent runs very fast.')
         # Open self.tar so that it can be used by function later on.
         self.tar = tarfile.open(self.tr, 'r:gz')
+        # keep only first thee letters from verbform
+        self.jsonindex = readJson(os.path.join(self.directory, 'data', 'jsonindex.json'))
+        # Read sutrainfo file. This is needed to convert sutra_num to sutra_text.
+        self.sutrainfo = readJson(os.path.join(self.directory, 'data', 'sutrainfo.json'))
 
     def decompress(self):
         """Decompress the tar file if user asks for it.
@@ -144,6 +148,23 @@ class Prakriya():
             print('Error. Not a valid transliteration scheme.')
             exit(0)
 
+    def get_data(self, verbform, tar, inTran='slp1', outTran='slp1'):
+        """Get whole data from the json file for given verb form."""
+        # Find the parent directory
+        slugname = self.jsonindex[verbform[:3]]
+        # path of json file.
+        appdir = appDir('prakriya')
+        json_in = os.path.join(appdir, 'json', slugname + '.json')
+        # If the json is not already extracted in earlier usages, extract that.
+        extract_from_tar(tar, json_in, slugname, appdir)
+        # Load from json file. Data is in
+        # {verbform1: verbdata1, verbform2: verbdata2 ...} format.
+        compositedata = readJson(json_in)
+        # Keep only the data related to inquired verbform.
+        data = compositedata[verbform]
+        # Return results
+        return storeresult(data, inTran, outTran, self.sutrainfo)
+
     def __getitem__(self, items):
         """Return the requested data by user."""
         # Initiate without arguments
@@ -162,7 +183,7 @@ class Prakriya():
             verbform = verbform.decode('utf-8')
         verbform = convert(verbform, self.inTran, 'slp1')
         # Read from tar.gz file.
-        data = get_data(verbform, self.tar, 'slp1', self.outTran)
+        data = self.get_data(verbform, self.tar, 'slp1', self.outTran)
         # If there is no argument, return whole data.
         if argument == '':
             result = data
@@ -237,29 +258,6 @@ def storeresult(data, inTran, outTran, sutrainfo):
         result.append(subresult)
     # Give result.
     return result
-
-
-def get_data(verbform, tar, inTran='slp1', outTran='slp1'):
-    """Get whole data from the json file for given verb form."""
-    # Find the parent directory
-    storagedir = os.path.abspath(os.path.dirname(__file__))
-    # keep only first thee letters from verbform
-    jsonindex = readJson(os.path.join(storagedir, 'data', 'jsonindex.json'))
-    slugname = jsonindex[verbform[:3]]
-    # path of json file.
-    appdir = appDir('prakriya')
-    json_in = os.path.join(appdir, 'json', slugname + '.json')
-    # If the json is not already extracted in earlier usages, extract that.
-    extract_from_tar(tar, json_in, slugname, appdir)
-    # Load from json file. Data is in
-    # {verbform1: verbdata1, verbform2: verbdata2 ...} format.
-    compositedata = readJson(json_in)
-    # Read sutrainfo file. This is needed to convert sutra_num to sutra_text.
-    sutrainfo = readJson(os.path.join(storagedir, 'data', 'sutrainfo.json'))
-    # Keep only the data related to inquired verbform.
-    data = compositedata[verbform]
-    # Return results
-    return storeresult(data, inTran, outTran, sutrainfo)
 
 
 def keepSpecific(data, argument):

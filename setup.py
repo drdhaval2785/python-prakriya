@@ -29,7 +29,8 @@ setup(
     author="Dr. Dhaval Patel",
     author_email='drdhaval2785@gmail.com',
     url='https://github.com/drdhaval2785/python-prakriya',
-    packages=find_packages(include=['prakriya'], exclude=['docs', 'tests']),
+    packages=find_packages(include=['prakriya'],
+                           exclude=['docs', 'tests', 'inhousescripts']),
     entry_points={
         'console_scripts': [
             'prakriya=prakriya.cli:main'

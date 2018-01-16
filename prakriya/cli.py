@@ -72,3 +72,33 @@ def main(verbform, field, intran, outtran):
     p.outputTranslit(outtran)
     result = p[verbform, field]
     click.echo(result)
+
+
+@click.command()
+@click.option('--intran', default='slp1',
+              type=click.Choice(['slp1', 'itrans', 'hk', 'iast', 'devanagari',
+                                 'wx', 'bengali', 'gujarati', 'gurmukhi',
+                                 'kannada', 'malayalam', 'oriya', 'telugu']))
+@click.option('--outtran', default='slp1',
+              type=click.Choice(['slp1', 'itrans', 'hk', 'iast', 'devanagari',
+                                 'wx', 'bengali', 'gujarati', 'gurmukhi',
+                                 'kannada', 'malayalam', 'oriya', 'telugu']))
+@click.argument('verb', required=True)
+@click.argument('lakara', required=True)
+@click.argument('purusha', required=True)
+@click.argument('vachana', required=True)
+def generate(verb, lakara, purusha, vachana, intran, outtran):
+    """Console script for prakriya.
+
+    CLI usage: generate [OPTIONS] VERB PURUSHA VACHANA
+
+    PURUSHA can take praTama, maDyama, uttama values.
+
+    VACHANA can take eka, dvi, bahu values.
+    """
+    from prakriya import Generate
+    g = Generate()
+    g.inputTranslit(intran)
+    g.outputTranslit(outtran)
+    result = g[verb, lakara, purusha, vachana]
+    click.echo(result)

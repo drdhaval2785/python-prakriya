@@ -96,7 +96,10 @@ class TestPrakriya(unittest.TestCase):
         assert('BUvAdayo DAtavaH' in result.output)
         help_result = runner.invoke(cli.main, ['--help'])
         assert(help_result.exit_code == 0)
-        assert 'Show this message and exit.' in help_result.output
+        assert('Show this message and exit.' in help_result.output)
+        result1 = runner.invoke(cli.generate, ['BU', 'law', 'praTama', 'eka'])
+        assert(result1.exit_code == 0)
+        assert('Bavati' in result1.output)
 
     def test_generate(self):
         """Test generation class."""
@@ -119,6 +122,8 @@ class TestPrakriya(unittest.TestCase):
         assert(g['BU', 'low', 'mip'] == [u'BAvayAni', u'BavAni'])
         assert(g['BU', 'low', 'vas'] == [u'BAvayAva', u'BavAva'])
         assert(g['BU', 'low', 'mas'] == [u'BAvayAma', u'BavAma'])
+        # Test for stripped verbs.
+        assert(g['eD', 'low', 'Ja'] == [u'eDantAm'])
         g.inputTranslit('hk')
         g.outputTranslit('itrans')
         assert(g['bhU', 'laT', 'jhi'] == [u'bhavanti', u'bhAvayanti'])

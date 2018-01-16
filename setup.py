@@ -33,7 +33,8 @@ setup(
                            exclude=['docs', 'tests', 'inhousescripts']),
     entry_points={
         'console_scripts': [
-            'prakriya=prakriya.cli:main'
+            'prakriya=prakriya.cli:main',
+            'generate=prakriya.cli:generate'
         ]
     },
     include_package_data=True,

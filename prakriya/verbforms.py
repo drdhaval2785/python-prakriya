@@ -255,6 +255,7 @@ def keepSpecific(data, argument):
     """Create a list of only the relavent argument."""
     return [member[argument] for member in data]
 
+
 def downloadFromGithub(appdir, filename):
     if not os.path.isfile(os.path.join(appdir, filename)):
         print('downloading ' + filename)

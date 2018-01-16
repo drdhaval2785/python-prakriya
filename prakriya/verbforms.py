@@ -104,6 +104,7 @@ class Prakriya():
         # Read sutrainfo file. This is needed to convert sutra_num to sutra_text.
         downloadFromGithub(self.appdir, 'sutrainfo.json')
         self.sutrainfo = readJson(os.path.join(self.appdir, 'sutrainfo.json'))
+        self.jsonCache = {}
 
     def decompress(self):
         """Decompress the tar file if user asks for it.
@@ -144,13 +145,16 @@ class Prakriya():
         # Find the parent directory
         slugname = self.jsonindex[verbform[:3]]
         # path of json file.
-        appdir = appDir('prakriya')
-        json_in = os.path.join(appdir, 'json', slugname + '.json')
-        # If the json is not already extracted in earlier usages, extract that.
-        extract_from_tar(tar, json_in, slugname, appdir)
-        # Load from json file. Data is in
-        # {verbform1: verbdata1, verbform2: verbdata2 ...} format.
-        compositedata = readJson(json_in)
+        json_in = os.path.join(self.appdir, 'json', slugname + '.json')
+        if slugname in self.jsonCache:
+            compositedata = self.jsonCache[slugname]
+        else:
+            # If the json is not already extracted in earlier usages, extract that.
+            extract_from_tar(tar, json_in, slugname, self.appdir)
+            # Load from json file. Data is in
+            # {verbform1: verbdata1, verbform2: verbdata2 ...} format.
+            compositedata = readJson(json_in)
+        self.jsonCache[slugname] = compositedata
         # Keep only the data related to inquired verbform.
         data = compositedata[verbform]
         # Return results

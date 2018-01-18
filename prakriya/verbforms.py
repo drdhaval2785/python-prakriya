@@ -146,18 +146,8 @@ class Prakriya():
         slugname = self.jsonindex[verbform[:3]]
         # path of json file.
         json_in = os.path.join(self.appdir, 'json', slugname + '.json')
-        # If we have already used that slugname, use memoized data.
-        if slugname in self.jsonCache:
-            compositedata = self.jsonCache[slugname]
-        # Else calculate afresh.
-        else:
-            # If the json is not already extracted, extract that.
-            extract_from_tar(tar, json_in, slugname, self.appdir)
-            # Load from json file. Data is in
-            # {verbform1: verbdata1, verbform2: verbdata2 ...} format.
-            compositedata = readJson(json_in)
-            # Update jsonCache.
-            self.jsonCache[slugname] = compositedata
+        extract_from_tar(tar, json_in, slugname, self.appdir)
+        compositedata = readJson(json_in)
         # Keep only the data related to inquired verbform.
         data = compositedata[verbform]
         # Return results

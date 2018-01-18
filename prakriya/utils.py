@@ -1,5 +1,21 @@
 import ujson
 from indic_transliteration import sanscript
+from functools import wraps
+
+
+# https://stackoverflow.com/questions/15585493/store-the-cache-to-a-file-functools-lru-cache-in-python-3-2
+def cached(func):
+    func.cache = {}
+
+    @wraps(func)
+    def wrapper(*args):
+        try:
+            return func.cache[args]
+        except KeyError:
+            func.cache[args] = result = func(*args)
+            return result
+    return wrapper
+
 
 # https://stackoverflow.com/questions/1084697/how-do-i-store-desktop-application-data-in-a-cross-platform-way-for-python
 def appDir(appname):
@@ -17,6 +33,7 @@ def appDir(appname):
     return appdata
 
 
+@cached
 def readJson(path):
     """Read the given JSON file into python object."""
     with open(path, 'r') as fin:

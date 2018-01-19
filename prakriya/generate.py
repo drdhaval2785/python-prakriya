@@ -31,22 +31,33 @@ class Generate():
     """Class to get the verb form from given verb, tense, suffix."""
 
     def __init__(self):
+        self.validtenses = ['law', 'liw', 'luw', 'lfw', 'low', 'laN',
+                            'viDiliN', 'ASIrliN', 'luN', 'lfN']
+        self.validpurushas = ['praTama', 'maDyama', 'uttama']
+        self.validvachanas = ['eka', 'dvi', 'bahu']
+        self.validsuffices = ['tip', 'tas', 'Ji', 'sip', 'Tas', 'Ta', 'mip',
+                              'vas', 'mas', 'ta', 'AtAm', 'Ja', 'TAs', 'ATAm',
+                              'Dvam', 'iw', 'vahi', 'mahiN']
+        self.validtrans = ['slp1', 'itrans', 'hk', 'iast', 'devanagari',
+                           'velthuis', 'wx', 'kolkata', 'bengali', 'gujarati',
+                           'gurmukhi', 'kannada', 'malayalam', 'oriya',
+                           'telugu', 'tamil']
         self.appdir = appDir('prakriya')
         self.inTran = 'slp1'
         self.outTran = 'slp1'
-        self.mapform = 'mapforms.json'
+        self.mapform = 'mapforms1.json'
         self.mp = os.path.join(self.appdir, self.mapform)
         # If the file does not exist, download from Github.
         if not os.path.exists(self.appdir):
             os.makedirs(self.appdir)
         if not os.path.isfile(self.mp):
-            url = 'https://github.com/drdhaval2785/python-prakriya/releases/download/v0.0.2/mapforms.json'
+            url = 'https://github.com/drdhaval2785/python-prakriya/releases/download/v0.0.2/mapforms1.json'
             import requests
             print('Downloading mapform file. Roughly 8 MB.')
             with open(self.mp, "wb") as f:
                 r = requests.get(url)
                 f.write(r.content)
-        self.data = readJson(os.path.join(self.appdir, 'mapforms.json'))
+        self.data = readJson(os.path.join(self.appdir, 'mapforms1.json'))
         if not os.path.isfile(os.path.join(self.appdir, 'verbmap.json')):
             url = 'https://github.com/drdhaval2785/python-prakriya/releases/download/v0.0.2/verbmap.json'
             import requests
@@ -59,9 +70,7 @@ class Generate():
     def inputTranslit(self, tran):
         """Set input transliteration."""
         # If valid transliteration, set transliteration.
-        if tran in ['slp1', 'itrans', 'hk', 'iast', 'devanagari', 'velthuis',
-                    'wx', 'kolkata', 'bengali', 'gujarati', 'gurmukhi',
-                    'kannada', 'malayalam', 'oriya', 'telugu', 'tamil']:
+        if tran in self.validtrans:
             self.inTran = tran
         # If not valid, throw error.
         else:
@@ -71,9 +80,7 @@ class Generate():
     def outputTranslit(self, tran):
         """Set output transliteration."""
         # If valid transliteration, set transliteration.
-        if tran in ['slp1', 'itrans', 'hk', 'iast', 'devanagari', 'velthuis',
-                    'wx', 'kolkata', 'bengali', 'gujarati', 'gurmukhi',
-                    'kannada', 'malayalam', 'oriya', 'telugu', 'tamil']:
+        if tran in self.validtrans:
             self.outTran = tran
         # If not valid, throw error.
         else:
@@ -85,75 +92,87 @@ class Generate():
         # Initiate without arguments
         arguments = ''
         # print(datetime.datetime.now())
-        # If there is only one entry in items, it is treated as verbform.
+        # If there is only one entry in items, it is treated as verb.
         if isinstance(items, ("".__class__, u"".__class__)):
-            print({'error': 'Provide purusha and vachana or suffix.'})
-            exit(0)
+            inputverb = items
         else:
             # Otherwise, first is verbform and the next is argument1.
-            verb = items[0]
+            inputverb = items[0]
             # py2
             if len(items) > 1 and sys.version_info[0] < 3:
                 arguments = [convert(member.decode('utf-8'), self.inTran, 'slp1') for member in items[1:]]
             # py3
             elif len(items) > 1:
                 arguments = [convert(member, self.inTran, 'slp1') for member in items[1:]]
+            # Convert verbform from desired input transliteration to SLP1.
+            if sys.version_info[0] < 3:
+                inputverb = inputverb.decode('utf-8')
+            inputverb = convert(inputverb, self.inTran, 'slp1')
             # Enter user defined values
             for member in arguments:
-                if member in ['law', 'liw', 'luw', 'lfw', 'low', 'laN',
-                              'viDiliN', 'ASIrliN', 'luN', 'lfN']:
+                if member in self.validtenses:
                     tense = member
-                if member in ['praTama', 'maDyama', 'uttama']:
+                if member in self.validpurushas:
                     purusha = member
-                if member in ['eka', 'dvi', 'bahu']:
+                if member in self.validvachanas:
                     vachana = member
-                if member in ['tip', 'tas', 'Ji', 'sip', 'Tas', 'Ta', 'mip',
-                              'vas', 'mas', 'ta', 'AtAm', 'Ja', 'TAs', 'ATAm',
-                              'Dvam', 'iw', 'vahi', 'mahiN']:
+                if member in self.validsuffices:
                     suffix = member
-            if 'suffix' in vars():
-                suffices = [suffix]
-            elif 'purusha' in vars() and 'vachana' in vars():
-                suffices = getsuffix(purusha, vachana)
-            else:
-                print({'error': 'You must provide suffix or (purusha and vachana).'})
-                exit(0)
-            if 'tense' not in vars():
-                print({'error': 'You must provide lakAra (tense/mood).'})
-                exit(0)
 
-        # Convert verbform from desired input transliteration to SLP1.
-        if sys.version_info[0] < 3:
-            verb = verb.decode('utf-8')
-        verb = convert(verb, self.inTran, 'slp1')
-        # Read from tar.gz file.
-        result = self.getform(verb, tense, suffices)
+        # Start calculations
+        result = {}
+        if inputverb in self.data:
+            verbs = [inputverb]
+        elif inputverb in self.verbmap:
+            verbs = self.verbmap[inputverb]
+
+        for verb in verbs:
+            wholeresult = self.data[verb]
+            for verb_num in wholeresult:
+                # Tense not specified. Return whole data
+                if 'tense' not in vars():
+                    result[verb_num] = wholeresult
+                # Tense specified.
+                else:
+                        # Tense defined, but suffices not clarified.
+                        if 'suffix' not in vars() and ('purusha' not in vars() or 'vachana' not in vars()):
+                            result[verb_num] = wholeresult[verb_num][tense]
+                        # suffices clarified
+                        elif 'suffix' in vars() and suffix in wholeresult[verb_num][tense]:
+                            result[verb_num] = wholeresult[verb_num][tense][suffix]
+                        elif 'purusha' in vars() and 'vachana' in vars():
+                            suffices = getsuffix(purusha, vachana)
+                            for suff in suffices:
+                                if suff in wholeresult[verb_num][tense]:
+                                    result[verb_num] = wholeresult[verb_num][tense][suff]
         # Return the result.
-        result = [convert(member, 'slp1', self.outTran) for member in result]
+        # result = [convert(member, 'slp1', self.outTran) for member in result]
         return result
 
-    def getform(self, verb, tense, suffices):
+    def getform(self, verb, tenses, suffices):
         data = self.data
         result = []
         mappedverbs = self.verbmap
         # If the verb is in data, directly use it.
         if verb in data:
-            for suffix in suffices:
-                if suffix in data[verb][tense]:
-                    lst = data[verb][tense][suffix]
-                    for member in lst:
-                        if member[0] not in result:
-                            result.append(member[0])
+            for tense in tenses:
+                for suffix in suffices:
+                    if suffix in data[verb][tense]:
+                        lst = data[verb][tense][suffix]
+                        for member in lst:
+                            if member[0] not in result:
+                                result.append(member[0])
         # Otherwise check whether the verb without anubandha is in data
         elif verb in mappedverbs:
             verbs = mappedverbs[verb]
             for verb1 in verbs:
-                for suffix in suffices:
-                    if suffix in data[verb1][tense]:
-                        lst = data[verb1][tense][suffix]
-                        for member in lst:
-                            if member[0] not in result:
-                                result.append(member[0])
+                for tense in tenses:
+                    for suffix in suffices:
+                        if suffix in data[verb1][tense]:
+                            lst = data[verb1][tense][suffix]
+                            for member in lst:
+                                if member[0] not in result:
+                                    result.append(member[0])
         if len(result) == 0:
             print({'error': 'Data is not available.'})
             exit(0)

@@ -134,17 +134,17 @@ class Generate():
                     result[verb_num] = wholeresult
                 # Tense specified.
                 else:
-                        # Tense defined, but suffices not clarified.
-                        if 'suffix' not in vars() and ('purusha' not in vars() or 'vachana' not in vars()):
-                            result[verb_num] = wholeresult[verb_num][tense]
-                        # suffices clarified
-                        elif 'suffix' in vars() and suffix in wholeresult[verb_num][tense]:
-                            result[verb_num] = wholeresult[verb_num][tense][suffix]
-                        elif 'purusha' in vars() and 'vachana' in vars():
-                            suffices = getsuffix(purusha, vachana)
-                            for suff in suffices:
-                                if suff in wholeresult[verb_num][tense]:
-                                    result[verb_num] = wholeresult[verb_num][tense][suff]
+                    # Tense defined, but suffices not clarified.
+                    if 'suffix' not in vars() and ('purusha' not in vars() or 'vachana' not in vars()):
+                        result[verb_num] = wholeresult[verb_num][tense]
+                    # suffices clarified
+                    elif 'suffix' in vars() and suffix in wholeresult[verb_num][tense]:
+                        result[verb_num] = wholeresult[verb_num][tense][suffix]
+                    elif 'purusha' in vars() and 'vachana' in vars():
+                        suffices = getsuffix(purusha, vachana)
+                        for suff in suffices:
+                            if suff in wholeresult[verb_num][tense]:
+                                result[verb_num] = wholeresult[verb_num][tense][suff]
         # Return the result.
         # result = [convert(member, 'slp1', self.outTran) for member in result]
         return result

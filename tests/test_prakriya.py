@@ -148,30 +148,6 @@ class TestPrakriya(unittest.TestCase):
         with self.assertRaises(SystemExit):
             g.outputTranslit('fdasfdas')
 
-    def test_absent_purusha_vachana(self):
-        """Test for false output transliteration."""
-        g = Generate()
-        with self.assertRaises(SystemExit):
-            g['BU', 'law']
-
-    def test_absent_purusha(self):
-        """Test for false output transliteration."""
-        g = Generate()
-        with self.assertRaises(SystemExit):
-            g['BU', 'law' 'eka']
-
-    def test_absent_vachana(self):
-        """Test for false output transliteration."""
-        g = Generate()
-        with self.assertRaises(SystemExit):
-            g['BU', 'law', 'maDyama']
-
-    def test_absent_lakara(self):
-        """Test for false output transliteration."""
-        g = Generate()
-        with self.assertRaises(SystemExit):
-            g['BU']
-
     def test_absent_verb(self):
         """Test for false output transliteration."""
         g = Generate()

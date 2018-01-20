@@ -125,7 +125,9 @@ class Generate():
             verbs = [inputverb]
         elif inputverb in self.verbmap:
             verbs = self.verbmap[inputverb]
-
+        else:
+            print('Verb is not in our database. Sorry!')
+            exit(0)
         for verb in verbs:
             wholeresult = self.data[verb]
             for verb_num in wholeresult:

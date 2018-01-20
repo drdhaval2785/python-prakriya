@@ -151,35 +151,6 @@ class Generate():
         # result = [convert(member, 'slp1', self.outTran) for member in result]
         return result
 
-    def getform(self, verb, tenses, suffices):
-        data = self.data
-        result = []
-        mappedverbs = self.verbmap
-        # If the verb is in data, directly use it.
-        if verb in data:
-            for tense in tenses:
-                for suffix in suffices:
-                    if suffix in data[verb][tense]:
-                        lst = data[verb][tense][suffix]
-                        for member in lst:
-                            if member[0] not in result:
-                                result.append(member[0])
-        # Otherwise check whether the verb without anubandha is in data
-        elif verb in mappedverbs:
-            verbs = mappedverbs[verb]
-            for verb1 in verbs:
-                for tense in tenses:
-                    for suffix in suffices:
-                        if suffix in data[verb1][tense]:
-                            lst = data[verb1][tense][suffix]
-                            for member in lst:
-                                if member[0] not in result:
-                                    result.append(member[0])
-        if len(result) == 0:
-            print({'error': 'Data is not available.'})
-            exit(0)
-        return result
-
 
 def getsuffix(purusha, vachana):
     if purusha == 'praTama' and vachana == 'eka':

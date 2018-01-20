@@ -125,16 +125,17 @@ class TestPrakriya(unittest.TestCase):
         # Test for stripped verbs.
         assert(g['eD', 'lfw', 'Ja'] == {u'01.0002': [u'eDizyante']})
 
-    """
+    def test_generate_without_suffix(self):
+        g = Generate()
+        assert('01.0002' in g['eD', 'law'])
+        assert('01.0001' in g['BU', 'low'])
+        assert('01.0001' in g['BU'])
+
     def test_generate_translit(self):
         g = Generate()
         g.inputTranslit('hk')
         g.outputTranslit('itrans')
         assert(g['bhU', 'laT', 'jhi'] == {u'10.0277': [u'bhaavayanti'], u'10.0382': [u'bhaavayanti'], u'01.0001': [u'bhavanti']})
-        g.inputTranslit('devanagari')
-        g.outputTranslit('iast')
-        assert(g['भू', 'लट्', 'झि'] == {u'10.0277': [u'bh\u0101vayanti'], u'10.0382': [u'bh\u0101vayanti'], u'01.0001': [u'bhavanti']})
-    """
 
     def test_false_in(self):
         """Test for false input transliteration."""
@@ -148,8 +149,8 @@ class TestPrakriya(unittest.TestCase):
         with self.assertRaises(SystemExit):
             g.outputTranslit('fdasfdas')
 
-    def test_absent_verb(self):
-        """Test for false output transliteration."""
+    def test_wrong_verb(self):
+        """Test for verb absent in database."""
         g = Generate()
         with self.assertRaises(SystemExit):
             g['adsfasdf', 'tip']

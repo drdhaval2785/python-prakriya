@@ -123,13 +123,18 @@ class TestPrakriya(unittest.TestCase):
         assert(g['BU', 'low', 'vas'] == {u'10.0277': [u'BAvayAva'], u'10.0382': [u'BAvayAva'], u'01.0001': [u'BavAva']})
         assert(g['BU', 'low', 'mas'] == {u'10.0277': [u'BAvayAma'], u'10.0382': [u'BAvayAma'], u'01.0001': [u'BavAma']})
         # Test for stripped verbs.
-        assert(g['eD', 'low', 'Ja'] == [u'eDantAm'])
+        assert(g['eD', 'lfw', 'Ja'] == {u'01.0002': [u'eDizyante']})
+
+    """
+    def test_generate_translit(self):
+        g = Generate()
         g.inputTranslit('hk')
         g.outputTranslit('itrans')
-        assert(g['bhU', 'laT', 'jhi'] == [u'bhavanti', u'bhAvayanti'])
+        assert(g['bhU', 'laT', 'jhi'] == {u'10.0277': [u'bhaavayanti'], u'10.0382': [u'bhaavayanti'], u'01.0001': [u'bhavanti']})
         g.inputTranslit('devanagari')
         g.outputTranslit('iast')
-        assert(g['भू', 'लट्', 'झि'] == [u'bhavanti', u'bh\u0101vayanti'])
+        assert(g['भू', 'लट्', 'झि'] == {u'10.0277': [u'bh\u0101vayanti'], u'10.0382': [u'bh\u0101vayanti'], u'01.0001': [u'bhavanti']})
+    """
 
     def test_false_in(self):
         """Test for false input transliteration."""

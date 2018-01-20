@@ -40,6 +40,7 @@ def readJson(path):
         return ujson.loads(fin.read())
 
 
+@cached
 def convert(text, inTran, outTran):
     """Convert a text from inTran to outTran transliteration."""
     if inTran == outTran:

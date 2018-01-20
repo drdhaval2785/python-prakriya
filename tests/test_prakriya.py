@@ -131,12 +131,14 @@ class TestPrakriya(unittest.TestCase):
         assert('01.0001' in g['BU', 'low'])
         assert('01.0001' in g['BU'])
 
+    """
     def test_generate_translit(self):
         g = Generate()
         g.inputTranslit('hk')
         g.outputTranslit('itrans')
         assert(g['bhU', 'laT', 'jhi'] == {u'10.0277': [u'bhaavayanti'], u'10.0382': [u'bhaavayanti'], u'01.0001': [u'bhavanti']})
-
+    """
+    
     def test_false_in(self):
         """Test for false input transliteration."""
         g = Generate()

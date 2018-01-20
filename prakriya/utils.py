@@ -49,4 +49,4 @@ def convert(text, inTran, outTran):
     if inTran == outTran:
         return text
     else:
-        return sanscript.transliterate(text, inTran, outTran).replace('|', '')
+        return sanscript.transliterate(text, inTran, outTran).replace('|', '.')

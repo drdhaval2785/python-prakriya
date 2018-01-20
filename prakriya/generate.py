@@ -23,6 +23,7 @@ For details of valid values for field, see documentation on prakriya class.
 """
 import os.path
 import sys
+import ujson
 from .utils import appDir, readJson, convert
 # import datetime
 
@@ -39,7 +40,7 @@ class Generate():
                               'vas', 'mas', 'ta', 'AtAm', 'Ja', 'TAs', 'ATAm',
                               'Dvam', 'iw', 'vahi', 'mahiN']
         self.validtrans = ['slp1', 'itrans', 'hk', 'iast', 'devanagari',
-                           'velthuis', 'wx', 'kolkata', 'bengali', 'gujarati',
+                           'wx', 'bengali', 'gujarati',
                            'gurmukhi', 'kannada', 'malayalam', 'oriya',
                            'telugu', 'tamil']
         self.appdir = appDir('prakriya')
@@ -148,8 +149,7 @@ class Generate():
                             if suff in wholeresult[verb_num][tense]:
                                 result[verb_num] = wholeresult[verb_num][tense][suff]
         # Return the result.
-        # result = [convert(member, 'slp1', self.outTran) for member in result]
-        return result
+        return ujson.loads(convert(ujson.dumps(result), 'slp1', self.outTran))
 
 
 def getsuffix(purusha, vachana):

@@ -46,7 +46,4 @@ def convert(text, inTran, outTran):
     if inTran == outTran:
         return text
     else:
-        interim = sanscript.transliterate(text, inTran, outTran)
-        interim = interim.replace('|', '.')
-        interim = interim.replace(u'।', u'.')
-        return interim
+        return sanscript.transliterate(text, inTran, outTran).replace('|', '.')

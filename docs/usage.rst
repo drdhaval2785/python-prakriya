@@ -5,7 +5,7 @@ Usage
 Get step by step derivation
 ---------------------------
 
-.. automodule:: Prakriya
+.. automodule:: verbforms
   :members:
   :undoc-members:
   :show-inheritence:
@@ -13,7 +13,7 @@ Get step by step derivation
 Generate Verb forms
 -------------------
 
-.. automodule:: VerbFormGenerator
+.. automodule:: generate
   :members:
   :undoc-members:
   :show-inheritence:

@@ -116,11 +116,10 @@ If you want to set the input or output transliteration, follow these steps.
   >>> p = Prakriya()
   >>> p.inputTranslit('hk') # Customize 'hk'
   >>> p.outputTranslit('devanagari') # Customize 'devanagari'
-  >>> p['bhavati'] # Takes the input in hk Transliteration
-  # Gives output in Devangari.
+  >>> p['bhavati'] # Input in HK and output in Devanagari.
   >>> p.inputTranslit('devanagari')
   >>> p.outputTranslit('iast')
-  >>> p['गच्छति']
+  >>> p['गच्छति'] # Input in Devanagari and output in IAST.
 
 Valid transliterations are slp1, itrans, hk, iast, devanagari, wx, bengali,
 gujarati, gurmukhi, kannada, malayalam, oriya and telugu.
@@ -132,4 +131,4 @@ For using transliterations in Generate class, use as below.
   >>> g = Generate()
   >>> g.inputTranslit('hk') # Customize 'hk'
   >>> g.outputTranslit('devanagari') # Customize 'devanagari'
-  >>> g['bhU', 'laT', 'jhi'] # Takes the input in hk Transliteration
+  >>> g['bhU', 'laT', 'jhi'] # Input in HK and output in Devanagari.

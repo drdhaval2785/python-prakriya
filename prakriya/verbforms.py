@@ -84,15 +84,14 @@ transliteration
 ---------------
 If you want to set the input or output transliteration, follow these steps.
 
-    >>> from prakriya import Prakriya
-    >>> p = Prakriya()
-    >>> p.inputTranslit('hk') # Customize 'hk'
-    >>> p.outputTranslit('devanagari') # Customize 'devanagari'
-    >>> p['bhavati'] # Takes the input in hk Transliteration
-    # Gives output in Devangari.
-    >>> p.inputTranslit('devanagari')
-    >>> p.outputTranslit('iast')
-    >>> p['गच्छति']
+  >>> from prakriya import Prakriya
+  >>> p = Prakriya()
+  >>> p.inputTranslit('hk') # Customize 'hk'
+  >>> p.outputTranslit('devanagari') # Customize 'devanagari'
+  >>> p['bhavati'] # Input in HK and output in Devanagari.
+  >>> p.inputTranslit('devanagari')
+  >>> p.outputTranslit('iast')
+  >>> p['गच्छति'] # Input in Devanagari and output in IAST.
 
 Valid transliterations are slp1, itrans, hk, iast, devanagari, wx, bengali,
 gujarati, gurmukhi, kannada, malayalam, oriya and telugu.

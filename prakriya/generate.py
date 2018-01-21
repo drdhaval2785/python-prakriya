@@ -32,11 +32,11 @@ transliteration
 ---------------
 For using transliterations in Generate class, use as below.
 
-    >>> from prakriya import Generate
-    >>> g = Generate()
-    >>> g.inputTranslit('hk') # Customize 'hk'
-    >>> g.outputTranslit('devanagari') # Customize 'devanagari'
-    >>> g['bhU', 'laT', 'jhi'] # Takes the input in hk Transliteration
+  >>> from prakriya import Generate
+  >>> g = Generate()
+  >>> g.inputTranslit('hk') # Customize 'hk'
+  >>> g.outputTranslit('devanagari') # Customize 'devanagari'
+  >>> g['bhU', 'laT', 'jhi'] # Input in HK and output in Devanagari.
 
 Valid transliterations are slp1, itrans, hk, iast, devanagari, wx, bengali,
 gujarati, gurmukhi, kannada, malayalam, oriya and telugu.

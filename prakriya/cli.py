@@ -97,8 +97,8 @@ def generate(verb, lakara, purusha, vachana, intran, outtran):
 
     VACHANA can take eka, dvi, bahu values.
     """
-    from prakriya import Generate
-    g = Generate()
+    from prakriya import VerbFormGenerator
+    g = VerbFormGenerator()
     g.inputTranslit(intran)
     g.outputTranslit(outtran)
     result = g[verb, lakara, purusha, vachana]

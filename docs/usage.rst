@@ -2,8 +2,5 @@
 Usage
 =====
 
-.. automodule:: verbforms
-  :members:
-
-.. automodule:: generate
+.. automodule:: prakriya
   :members:

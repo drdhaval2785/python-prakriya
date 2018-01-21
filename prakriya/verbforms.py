@@ -1,16 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-"""Create a python library which returns details about a verb form."""
-import os.path
-import sys
-import tarfile
-import requests
-from .utils import appDir, readJson, convert
-# import datetime
-
-
-class Prakriya():
-    r"""Generate a prakriya class.
+"""Create a python library which returns details about a verb form.
 
     Example
     -------
@@ -106,8 +96,17 @@ class Prakriya():
     Valid transliterations are slp1, itrans, hk, iast, devanagari, wx, bengali,
     gujarati, gurmukhi, kannada, malayalam, oriya and telugu.
     They can be used both as input transliteration and output transliteration.
+"""
+import os.path
+import sys
+import tarfile
+import requests
+from .utils import appDir, readJson, convert
+# import datetime
 
-    """
+
+class Prakriya():
+    """Generate a prakriya class."""
 
     def __init__(self):
         """Start the class. Decompress tar file if asked for."""

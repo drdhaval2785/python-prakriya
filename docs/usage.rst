@@ -5,7 +5,7 @@ Usage
 prakriya
 --------
 
-.. automodule:: verbforms
+.. autoclass:: Prakriya
   :members:
   :undoc-members:
   :show-inheritence:
@@ -13,7 +13,7 @@ prakriya
 Generate Verb forms
 -------------------
 
-.. automodule:: generate
+.. autoclass:: VerbFormGenerator
   :members:
   :undoc-members:
   :show-inheritence:

@@ -1,47 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-"""Create a python library which gives derivation for given verb and tense.
-
-Example
--------
-
-To get verb form for given verb, tense, suffix / (purusha and vachana) in a project::
-
-    >>> from prakriya import VerbFormGenerator
-    >>> g = VerbFormGenerator()
-    # If you are using the library the first time, be patient.
-    # This will take a long time.
-    # Data file (30 MB) is being downloaded.
-    # If you can spare around 600 MB space, decompress the tar.gz first time.
-    # Subsequent actions will be very fast. This is one time requirement.
-    >>> g.decompress()
-
-There are two ways to get verb forms for given verb.
-
-    >>> g[verb, tense, purusha, vachana]
-
-    >>> g[verb, tense, suffix]
-
-Examples are as follows
-
-  >>> g['BU', 'law', 'praTama', 'eka']
-
-  >>> g['BU', 'law', 'tip']
-
-transliteration
----------------
-For using transliterations in VerbFormGenerator class, use as below.
-
-  >>> from prakriya import VerbFormGenerator
-  >>> g = VerbFormGenerator()
-  >>> g.inputTranslit('hk') # Customize 'hk'
-  >>> g.outputTranslit('devanagari') # Customize 'devanagari'
-  >>> g['bhU', 'laT', 'jhi'] # Input in HK and output in Devanagari.
-
-Valid transliterations are slp1, itrans, hk, iast, devanagari, wx, bengali,
-gujarati, gurmukhi, kannada, malayalam, oriya and telugu.
-They can be used both as input transliteration and output transliteration.
-"""
+"""Create a python library which gives derivation for given verb and tense."""
 import os.path
 import sys
 import ujson
@@ -50,7 +9,48 @@ from .utils import appDir, readJson, convert
 
 
 class VerbFormGenerator():
-    """Class to get the verb form from given verb, tense, suffix."""
+    """Class to get the verb form from given verb, tense, suffix.
+
+    Example
+    -------
+
+    To get verb form for given verb, tense, suffix / (purusha and vachana) in a project::
+
+        >>> from prakriya import VerbFormGenerator
+        >>> g = VerbFormGenerator()
+        # If you are using the library the first time, be patient.
+        # This will take a long time.
+        # Data file (30 MB) is being downloaded.
+        # If you can spare around 600 MB space, decompress the tar.gz first time.
+        # Subsequent actions will be very fast. This is one time requirement.
+        >>> g.decompress()
+
+    There are two ways to get verb forms for given verb.
+
+        >>> g[verb, tense, purusha, vachana]
+
+        >>> g[verb, tense, suffix]
+
+    Examples are as follows
+
+      >>> g['BU', 'law', 'praTama', 'eka']
+
+      >>> g['BU', 'law', 'tip']
+
+    transliteration
+    ---------------
+    For using transliterations in VerbFormGenerator class, use as below.
+
+      >>> from prakriya import VerbFormGenerator
+      >>> g = VerbFormGenerator()
+      >>> g.inputTranslit('hk') # Customize 'hk'
+      >>> g.outputTranslit('devanagari') # Customize 'devanagari'
+      >>> g['bhU', 'laT', 'jhi'] # Input in HK and output in Devanagari.
+
+    Valid transliterations are slp1, itrans, hk, iast, devanagari, wx, bengali,
+    gujarati, gurmukhi, kannada, malayalam, oriya and telugu.
+    They can be used both as input transliteration and output transliteration.
+    """
 
     def __init__(self):
         self.validtenses = ['law', 'liw', 'luw', 'lfw', 'low', 'laN',

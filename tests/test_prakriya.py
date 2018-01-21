@@ -8,7 +8,7 @@ import unittest
 import json
 import os.path
 from click.testing import CliRunner
-from prakriya import Prakriya, Generate
+from prakriya import Prakriya, VerbFormGenerator
 from prakriya import cli
 
 
@@ -103,7 +103,7 @@ class TestPrakriya(unittest.TestCase):
 
     def test_generate(self):
         """Test generation class."""
-        g = Generate()
+        g = VerbFormGenerator()
         assert(g['BU', 'law', 'praTama', 'eka'] == {u'10.0277': [u'BAvayate'], u'10.0382': [u'BAvayate'], u'01.0001': [u'Bavati']})
         assert(g['BU', 'law', 'praTama', 'dvi'] == {u'10.0277': [u'BAvayete'], u'10.0382': [u'BAvayete'], u'01.0001': [u'BavataH']})
         assert(g['BU', 'law', 'praTama', 'bahu'] == {u'10.0277': [u'BAvayante'], u'10.0382': [u'BAvayante'], u'01.0001': [u'Bavanti']})
@@ -126,31 +126,31 @@ class TestPrakriya(unittest.TestCase):
         assert(g['eD', 'lfw', 'Ja'] == {u'01.0002': [u'eDizyante']})
 
     def test_generate_without_suffix(self):
-        g = Generate()
+        g = VerbFormGenerator()
         assert('01.0002' in g['eD', 'law'])
         assert('01.0001' in g['BU', 'low'])
         assert('01.0001' in g['BU'])
 
     def test_generate_translit(self):
-        g = Generate()
+        g = VerbFormGenerator()
         g.inputTranslit('hk')
         g.outputTranslit('itrans')
         assert(g['bhU', 'laT', 'jhi'] == {u'01.0001': [u'bhavanti'], u'10.0382': [u'bhAvayanti'], u'10.0277': [u'bhAvayanti']})
 
     def test_false_in(self):
         """Test for false input transliteration."""
-        g = Generate()
+        g = VerbFormGenerator()
         with self.assertRaises(SystemExit):
             g.inputTranslit('asdfasdf')
 
     def test_false_out(self):
         """Test for false output transliteration."""
-        g = Generate()
+        g = VerbFormGenerator()
         with self.assertRaises(SystemExit):
             g.outputTranslit('fdasfdas')
 
     def test_wrong_verb(self):
         """Test for verb absent in database."""
-        g = Generate()
+        g = VerbFormGenerator()
         with self.assertRaises(SystemExit):
             g['adsfasdf', 'tip']

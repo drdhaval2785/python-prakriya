@@ -7,8 +7,8 @@ Example
 
 To get verb form for given verb, tense, suffix / (purusha and vachana) in a project::
 
-    >>> from prakriya import Generate
-    >>> g = Generate()
+    >>> from prakriya import VerbFormGenerator
+    >>> g = VerbFormGenerator()
     # If you are using the library the first time, be patient.
     # This will take a long time.
     # Data file (30 MB) is being downloaded.
@@ -30,10 +30,10 @@ Examples are as follows
 
 transliteration
 ---------------
-For using transliterations in Generate class, use as below.
+For using transliterations in VerbFormGenerator class, use as below.
 
-  >>> from prakriya import Generate
-  >>> g = Generate()
+  >>> from prakriya import VerbFormGenerator
+  >>> g = VerbFormGenerator()
   >>> g.inputTranslit('hk') # Customize 'hk'
   >>> g.outputTranslit('devanagari') # Customize 'devanagari'
   >>> g['bhU', 'laT', 'jhi'] # Input in HK and output in Devanagari.
@@ -49,7 +49,7 @@ from .utils import appDir, readJson, convert
 # import datetime
 
 
-class Generate():
+class VerbFormGenerator():
     """Class to get the verb form from given verb, tense, suffix."""
 
     def __init__(self):

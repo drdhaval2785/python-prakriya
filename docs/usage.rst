@@ -85,8 +85,8 @@ Generate verb forms
 
 To get verb form for given verb, tense, suffix / (purusha and vachana) in a project::
 
-    >>> from prakriya import Generate
-    >>> g = Generate()
+    >>> from prakriya import VerbFormGenerator
+    >>> g = VerbFormGenerator()
     # If you are using the library the first time, be patient.
     # This will take a long time.
     # Data file (30 MB) is being downloaded.
@@ -125,10 +125,10 @@ Valid transliterations are slp1, itrans, hk, iast, devanagari, wx, bengali,
 gujarati, gurmukhi, kannada, malayalam, oriya and telugu.
 They can be used both as input transliteration and output transliteration.
 
-For using transliterations in Generate class, use as below.
+For using transliterations in VerbFormGenerator class, use as below.
 
-  >>> from prakriya import Generate
-  >>> g = Generate()
+  >>> from prakriya import VerbFormGenerator
+  >>> g = VerbFormGenerator()
   >>> g.inputTranslit('hk') # Customize 'hk'
   >>> g.outputTranslit('devanagari') # Customize 'devanagari'
   >>> g['bhU', 'laT', 'jhi'] # Input in HK and output in Devanagari.

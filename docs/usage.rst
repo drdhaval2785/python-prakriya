@@ -2,8 +2,8 @@
 Usage
 =====
 
-prakriya
---------
+Get step by step derivation
+---------------------------
 
 .. autoclass:: Prakriya
   :members:

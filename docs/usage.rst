@@ -5,7 +5,7 @@ Usage
 prakriya
 --------
 
-..automodule:: prakriya
+.. automodule:: prakriya
   :members:
   :undoc-members:
   :show-inheritence:
@@ -13,7 +13,7 @@ prakriya
 Generate verb forms
 -------------------
 
-..automodule:: prakriya
+.. automodule:: generate
   :members:
   :undoc-members:
   :show-inheritence:

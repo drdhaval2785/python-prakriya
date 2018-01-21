@@ -5,6 +5,7 @@
 import click
 
 
+# Start a click command for testing Prakriya class.
 @click.command()
 @click.option('--intran', default='slp1',
               type=click.Choice(['slp1', 'itrans', 'hk', 'iast', 'devanagari',

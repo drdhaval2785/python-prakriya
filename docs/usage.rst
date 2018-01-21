@@ -87,6 +87,12 @@ To get verb form for given verb, tense, suffix / (purusha and vachana) in a proj
 
     >>> from prakriya import Generate
     >>> g = Generate()
+    # If you are using the library the first time, be patient.
+    # This will take a long time.
+    # Data file (30 MB) is being downloaded.
+    # If you can spare around 600 MB space, decompress the tar.gz first time.
+    # Subsequent actions will be very fast. This is one time requirement.
+    >>> g.decompress()
 
 There are two ways to get verb forms for given verb.
 
@@ -106,24 +112,24 @@ Transliteration
 
 If you want to set the input or output transliteration, follow these steps.
 
->>> from prakriya import Prakriya
->>> p = Prakriya()
->>> p.inputTranslit('hk') # Customize 'hk'
->>> p.outputTranslit('devanagari') # Customize 'devanagari'
->>> p['bhavati'] # Takes the input in hk Transliteration
-# Gives output in Devangari.
->>> p.inputTranslit('devanagari')
->>> p.outputTranslit('iast')
->>> p['गच्छति']
+  >>> from prakriya import Prakriya
+  >>> p = Prakriya()
+  >>> p.inputTranslit('hk') # Customize 'hk'
+  >>> p.outputTranslit('devanagari') # Customize 'devanagari'
+  >>> p['bhavati'] # Takes the input in hk Transliteration
+  # Gives output in Devangari.
+  >>> p.inputTranslit('devanagari')
+  >>> p.outputTranslit('iast')
+  >>> p['गच्छति']
 
 Valid transliterations are slp1, itrans, hk, iast, devanagari, wx, bengali,
 gujarati, gurmukhi, kannada, malayalam, oriya and telugu.
-They can be used both as input transliteration and output transliteration schemes.
+They can be used both as input transliteration and output transliteration.
 
 For using transliterations in Generate class, use as below.
 
->>> from prakriya import Generate
->>> g = Generate()
->>> g.inputTranslit('hk') # Customize 'hk'
->>> g.outputTranslit('devanagari') # Customize 'devanagari'
->>> g['bhU', 'laT', 'jhi'] # Takes the input in hk Transliteration
+  >>> from prakriya import Generate
+  >>> g = Generate()
+  >>> g.inputTranslit('hk') # Customize 'hk'
+  >>> g.outputTranslit('devanagari') # Customize 'devanagari'
+  >>> g['bhU', 'laT', 'jhi'] # Takes the input in hk Transliteration

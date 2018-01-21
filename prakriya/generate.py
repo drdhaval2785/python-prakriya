@@ -5,21 +5,42 @@
 Example
 -------
 
->>> from prakriya import Generate
->>> g = Generate()
-# If you are using the library the first time, be patient.
-# This will take a long time.
-# Data file (30 MB) is being downloaded.
-# If you can spare around 600 MB space, decompress the tar.gz first time.
-# Subsequent actions will be very fast. This is one time requirement.
->>> g.decompress()
-The format is as follows
->>> g[verb, tense]
-Actual usage will be like the following.
->>> g['BU']
->>> g['BU', 'law']
+To get verb form for given verb, tense, suffix / (purusha and vachana) in a project::
 
-For details of valid values for field, see documentation on prakriya class.
+    >>> from prakriya import Generate
+    >>> g = Generate()
+    # If you are using the library the first time, be patient.
+    # This will take a long time.
+    # Data file (30 MB) is being downloaded.
+    # If you can spare around 600 MB space, decompress the tar.gz first time.
+    # Subsequent actions will be very fast. This is one time requirement.
+    >>> g.decompress()
+
+There are two ways to get verb forms for given verb.
+
+    >>> g[verb, tense, purusha, vachana]
+
+    >>> g[verb, tense, suffix]
+
+Examples are as follows
+
+  >>> g['BU', 'law', 'praTama', 'eka']
+
+  >>> g['BU', 'law', 'tip']
+
+transliteration
+---------------
+For using transliterations in Generate class, use as below.
+
+    >>> from prakriya import Generate
+    >>> g = Generate()
+    >>> g.inputTranslit('hk') # Customize 'hk'
+    >>> g.outputTranslit('devanagari') # Customize 'devanagari'
+    >>> g['bhU', 'laT', 'jhi'] # Takes the input in hk Transliteration
+
+Valid transliterations are slp1, itrans, hk, iast, devanagari, wx, bengali,
+gujarati, gurmukhi, kannada, malayalam, oriya and telugu.
+They can be used both as input transliteration and output transliteration.
 """
 import os.path
 import sys

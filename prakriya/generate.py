@@ -1,6 +1,15 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-"""Create a python library which gives derivation for given verb and tense.
+"""Create a python library which gives derivation for given verb and tense."""
+import os.path
+import sys
+import ujson
+from .utils import appDir, readJson, convert
+# import datetime
+
+
+class VerbFormGenerator():
+    """Return the verb form for given verb, tense, purusha-vachana or suffix.
 
     Example
     -------
@@ -42,15 +51,6 @@
     gujarati, gurmukhi, kannada, malayalam, oriya and telugu.
     They can be used both as input transliteration and output transliteration.
     """
-import os.path
-import sys
-import ujson
-from .utils import appDir, readJson, convert
-# import datetime
-
-
-class VerbFormGenerator():
-    """Class to get the verb form from given verb, tense, suffix."""
 
     def __init__(self):
         self.validtenses = ['law', 'liw', 'luw', 'lfw', 'low', 'laN',

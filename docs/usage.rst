@@ -7,9 +7,5 @@ prakriya
 
 .. automodule:: prakriya
   :members:
-
-Generate verb forms
--------------------
-
-.. automodule:: generate
-  :members:
+  :undoc-members:
+  :show-inheritence:

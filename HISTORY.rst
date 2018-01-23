@@ -31,7 +31,7 @@ jsonindex.json file which was crucial and missed in v0.0.2, added back.
 
 1. Added verb form generation facility. See https://github.com/drdhaval2785/prakriya/issues/39.
 
-0.0.6 (2018-10-16)
+0.0.6 (2018-01-16)
 ------------------
 
 1. Added CLI functionality 'generate'. See https://github.com/drdhaval2785/python-prakriya/issues/12.
@@ -39,3 +39,8 @@ jsonindex.json file which was crucial and missed in v0.0.2, added back.
 3. All data files moved to appdata folder. See https://github.com/drdhaval2785/python-prakriya/issues/14.
 4. Memoize data read from JSONs for speedup. See https://github.com/drdhaval2785/python-prakriya/issues/15.
 5. Removed unnecessary duplicate loading of JSONs. See https://github.com/drdhaval2785/python-prakriya/issues/11.
+
+0.0.7 (2018-01-21)
+------------------
+
+1. Changed the output format of Generate class. See https://github.com/drdhaval2785/prakriya/issues/37#issuecomment-359224797.

@@ -17,7 +17,7 @@ install:
 
 # command to run tests, e.g. python setup.py test
 script:
-  - coverage run --source . --omit=setup.py,travis_pypi_setup.py,docs/conf.py,inhousescripts/dcs_db_to_json.py,inhousescripts/reversegen.py,inhousescripts/stripped_to_verb.py -m py.test
+  - coverage run --source . --omit=setup.py,travis_pypi_setup.py,docs/conf.py -m py.test --ignore=inhousescripts/dcs_db_to_json.py,inhousescripts/reversegen.py,inhousescripts/stripped_to_verb.py
   - tox
 
 after_success:

@@ -66,6 +66,9 @@ prakriya/data/json/*
 prakriya/data/jsonsorted/*
 prakriya/data/composite_v003.tar.gz
 
+# Inhouse usage scripts
+scrap/*
+
 # Intermediary scripts
 prakriya/jsonind.py
 tests/speedtest.py

@@ -3,7 +3,7 @@
 import ujson
 from indic_transliteration import sanscript
 from functools import wraps
-import re
+import sys
 
 
 # https://stackoverflow.com/questions/15585493/store-the-cache-to-a-file-functools-lru-cache-in-python-3-2
@@ -48,5 +48,7 @@ def convert(text, inTran, outTran):
     """Convert a text from inTran to outTran transliteration."""
     if inTran == outTran:
         return text
+    elif sys.version_info[0] < 3:
+        return sanscript.transliterate(text.decode('utf-8'), inTran, outTran).replace('|', '.')
     else:
         return sanscript.transliterate(text, inTran, outTran).replace('|', '.')

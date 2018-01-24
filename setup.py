@@ -30,7 +30,7 @@ setup(
     author_email='drdhaval2785@gmail.com',
     url='https://github.com/drdhaval2785/python-prakriya',
     packages=find_packages(include=['prakriya'],
-                           exclude=['docs', 'tests', 'inhousescripts']),
+                           exclude=['docs', 'tests', 'scrap']),
     entry_points={
         'console_scripts': [
             'prakriya=prakriya.cli:main',

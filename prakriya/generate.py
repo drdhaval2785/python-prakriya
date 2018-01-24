@@ -67,19 +67,19 @@ class VerbFormGenerator():
         self.appdir = appDir('prakriya')
         self.inTran = 'slp1'
         self.outTran = 'slp1'
-        self.mapform = 'mapforms1.json'
+        self.mapform = 'mapforms2.json'
         self.mp = os.path.join(self.appdir, self.mapform)
         # If the file does not exist, download from Github.
         if not os.path.exists(self.appdir):
             os.makedirs(self.appdir)
         if not os.path.isfile(self.mp):
-            url = 'https://github.com/drdhaval2785/python-prakriya/releases/download/v0.0.2/mapforms1.json'
+            url = 'https://github.com/drdhaval2785/python-prakriya/releases/download/v0.0.2/mapforms2.json'
             import requests
             print('Downloading mapform file. Roughly 8 MB.')
             with open(self.mp, "wb") as f:
                 r = requests.get(url)
                 f.write(r.content)
-        self.data = readJson(os.path.join(self.appdir, 'mapforms1.json'))
+        self.data = readJson(os.path.join(self.appdir, 'mapforms2.json'))
         if not os.path.isfile(os.path.join(self.appdir, 'verbmap.json')):
             url = 'https://github.com/drdhaval2785/python-prakriya/releases/download/v0.0.2/verbmap.json'
             import requests
@@ -109,8 +109,38 @@ class VerbFormGenerator():
             print('Error. Not a valid transliteration scheme.')
             exit(0)
 
+    def getforms(self, inputverb, lakara='', suffix='', purusha='', vachana=''):
+        # Change the transliteration to SLP1.
+        inputverb = convert(inputverb, self.inTran, 'slp1')
+        lakara = convert(lakara, self.inTran, 'slp1')
+        suffix = convert(suffix, self.inTran, 'slp1')
+        purusha = convert(purusha, self.inTran, 'slp1')
+        vachana = convert(vachana, self.inTran, 'slp1')
+        suffices = ['']
+        # Get suffices
+        if suffix in self.validsuffices:
+            suffices = [suffix]
+        elif purusha in self.validpurushas and vachana in self.validvachanas:
+            suffices = getsuffix(purusha, vachana)
+        # Start calculations
+        output = []
+        if inputverb in self.data:
+            verbs = [inputverb]
+        elif inputverb in self.verbmap:
+            verbs = self.verbmap[inputverb]
+        else:
+            print('Verb is not in our database. Sorry!')
+            exit(0)
+        for verb in verbs:
+            wholeresult = self.data[verb]
+        output = removeUnnecessary(wholeresult, lakara, suffices)
+        return output
+
+
+
     def __getitem__(self, items):
         """Return the requested data by user."""
+        """
         # Initiate without arguments
         arguments = ''
         # print(datetime.datetime.now())
@@ -171,7 +201,7 @@ class VerbFormGenerator():
                                 result[verb_num] = wholeresult[verb_num][tense][suff]
         # Return the result.
         return ujson.loads(convert(ujson.dumps(result), 'slp1', self.outTran))
-
+        """
 
 def getsuffix(purusha, vachana):
     if purusha == 'praTama' and vachana == 'eka':
@@ -192,3 +222,17 @@ def getsuffix(purusha, vachana):
         return ['vas', 'vahi']
     elif purusha == 'uttama' and vachana == 'bahu':
         return ['mas', 'mahiN']
+
+
+def removeUnnecessary(wholeresult, lakara='', suffices=['']):
+    output = []
+    for member in wholeresult:
+        if lakara == '' and suffices == ['']:
+            output.append(member)
+        elif lakara != '' and suffices == ['']:
+            output.append(member[lakara])
+        elif lakara != '' and suffices != ['']:
+            for suffix in suffices:
+                if suffix in member[lakara]:
+                    output += member[lakara][suffix]
+    return output

@@ -49,6 +49,6 @@ def convert(text, inTran, outTran):
     if inTran == outTran:
         return text
     elif sys.version_info[0] < 3:
-        return sanscript.transliterate(text.decode('utf-8'), inTran, outTran).replace('|', '.')
+        return sanscript.transliterate(text.decode('utf-8'), inTran, outTran).replace(u'|', u'.')
     else:
         return sanscript.transliterate(text, inTran, outTran).replace('|', '.')

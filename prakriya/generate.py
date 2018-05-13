@@ -140,7 +140,6 @@ class VerbFormGenerator():
 
     def __getitem__(self, items):
         """Return the requested data by user."""
-        """
         # Initiate without arguments
         arguments = ''
         # print(datetime.datetime.now())
@@ -201,7 +200,6 @@ class VerbFormGenerator():
                                 result[verb_num] = wholeresult[verb_num][tense][suff]
         # Return the result.
         return ujson.loads(convert(ujson.dumps(result), 'slp1', self.outTran))
-        """
 
 def getsuffix(purusha, vachana):
     if purusha == 'praTama' and vachana == 'eka':

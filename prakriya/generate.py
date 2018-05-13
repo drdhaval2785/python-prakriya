@@ -75,7 +75,7 @@ class VerbFormGenerator():
         if not os.path.isfile(self.mp):
             url = 'https://github.com/drdhaval2785/python-prakriya/releases/download/v0.0.2/mapforms2.json'
             import requests
-            print('Downloading mapform file. Roughly 8 MB.')
+            # print('Downloading mapform file. Roughly 8 MB.')
             with open(self.mp, "wb") as f:
                 r = requests.get(url)
                 f.write(r.content)
@@ -83,7 +83,7 @@ class VerbFormGenerator():
         if not os.path.isfile(os.path.join(self.appdir, 'verbmap.json')):
             url = 'https://github.com/drdhaval2785/python-prakriya/releases/download/v0.0.2/verbmap.json'
             import requests
-            print('Downloading verbmap file. Roughly 32 KB.')
+            # print('Downloading verbmap file. Roughly 32 KB.')
             with open(os.path.join(self.appdir, 'verbmap.json'), "wb") as f:
                 r = requests.get(url)
                 f.write(r.content)

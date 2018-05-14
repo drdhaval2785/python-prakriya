@@ -161,7 +161,7 @@ class TestPrakriya(unittest.TestCase):
         g.inputTranslit('hk')
         g.outputTranslit('itrans')
         # assert(g['bhU', 'laT', 'jhi'] == {u'01.0001': [u'bhavanti'], u'10.0382': [u'bhAvayanti'], u'10.0277': [u'bhAvayanti']})
-		assert(g.getforms('bhU', 'laT', 'jhi') == {u'01.0001': [u'bhavanti'], u'10.0382': [u'bhAvayanti'], u'10.0277': [u'bhAvayanti']})
+        assert(g.getforms('bhU', 'laT', 'jhi') == {u'01.0001': [u'bhavanti'], u'10.0382': [u'bhAvayanti'], u'10.0277': [u'bhAvayanti']})
 
     def test_false_in(self):
         """Test for false input transliteration."""

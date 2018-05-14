@@ -180,4 +180,4 @@ class TestPrakriya(unittest.TestCase):
         g = VerbFormGenerator()
         with self.assertRaises(SystemExit):
             # g['adsfasdf', 'tip']
-			g.getforms('adsfasdf', 'tip')
+            g.getforms('adsfasdf', 'tip')

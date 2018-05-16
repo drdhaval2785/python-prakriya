@@ -136,7 +136,7 @@ class VerbFormGenerator():
         output = self.removeUnnecessary(wholeresult, lakara, suffices)
         # Transliterate the output
         outputstr = ujson.dumps(output)
-        outputstr = convert(oputputstr, 'slp1', self.outTran)
+        outputstr = convert(outputstr, 'slp1', self.outTran)
         output = ujson.loads(outputstr)
         return output
 

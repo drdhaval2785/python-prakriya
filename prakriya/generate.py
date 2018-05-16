@@ -134,7 +134,10 @@ class VerbFormGenerator():
         for verb in verbs:
             wholeresult = self.data[verb]
         output = self.removeUnnecessary(wholeresult, lakara, suffices)
-        output = applyTranslitToDict(output, self.outTran)
+        # Transliterate the output
+		outputstr = ujson.dumps(output)
+		outputstr = convert(oputputstr, 'slp1', self.outTran)
+		output = ujson.loads(outputstr)
         return output
 
 
@@ -238,10 +241,3 @@ def getsuffix(purusha, vachana):
     elif purusha == 'uttama' and vachana == 'bahu':
         return ['mas', 'mahiN']
 
-
-def applyTranslitToDict(outputdict, outTran='slp1'):
-    for member in outputdict:
-        if isinstance(member, list):
-            return [convert(item, 'slp1', outTran) for item in member]
-        else:
-            applyTranslitToDict(member)

@@ -138,7 +138,7 @@ class VerbFormGenerator():
         return output
 
 
-    def removeUnnecessary(wholeresult, lakara='', suffices=['']):
+    def removeUnnecessary(self, wholeresult, lakara='', suffices=['']):
         output = {}
         for member in wholeresult:
             if lakara == '' and suffices == ['']:

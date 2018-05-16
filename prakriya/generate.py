@@ -109,7 +109,7 @@ class VerbFormGenerator():
             print('Error. Not a valid transliteration scheme.')
             exit(0)
 
-    def getforms(self, inputverb, lakara='', suffix='', purusha='', vachana=''):
+    def getforms(self, inputverb, lakara='', purusha='', vachana='', suffix=''):
         # Change the transliteration to SLP1.
         inputverb = convert(inputverb, self.inTran, 'slp1')
         lakara = convert(lakara, self.inTran, 'slp1')

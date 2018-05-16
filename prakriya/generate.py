@@ -223,14 +223,14 @@ def getsuffix(purusha, vachana):
 
 
 def removeUnnecessary(wholeresult, lakara='', suffices=['']):
-    output = []
+    output = {}
     for member in wholeresult:
         if lakara == '' and suffices == ['']:
-            output.append(wholeresult[member])
+            output[member] = wholeresult[member]
         elif lakara != '' and suffices == ['']:
-            output.append(wholeresult[member][lakara])
+            output[member] = wholeresult[member][lakara]
         elif lakara != '' and suffices != ['']:
             for suffix in suffices:
                 if suffix in wholeresult[member][lakara]:
-                    output += wholeresult[member][lakara][suffix]
+                    output[member] = wholeresult[member][lakara][suffix]
     return output

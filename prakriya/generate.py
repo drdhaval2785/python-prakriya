@@ -134,7 +134,7 @@ class VerbFormGenerator():
         for verb in verbs:
             wholeresult = self.data[verb]
         output = self.removeUnnecessary(wholeresult, lakara, suffices)
-		output = applyTranslitToDict(output, self.outTran)
+        output = applyTranslitToDict(output, self.outTran)
         return output
 
 

@@ -133,11 +133,28 @@ class VerbFormGenerator():
             exit(0)
         for verb in verbs:
             wholeresult = self.data[verb]
-        output = removeUnnecessary(wholeresult, lakara, suffices)
+        output = self.removeUnnecessary(wholeresult, lakara, suffices)
+		output = applyTranslitToDict(output, self.outTran)
         return output
 
 
+	def removeUnnecessary(wholeresult, lakara='', suffices=['']):
+    	output = {}
+    	for member in wholeresult:
+    		if lakara == '' and suffices == ['']:
+    			print('debug1')
+    			output[member] = wholeresult[member]
+    		elif lakara != '' and suffices == ['']:
+    			print('debug2')
+    			output[member] = wholeresult[member][lakara]
+    		elif lakara != '' and suffices != ['']:
+    			print('debug3')
+    			for suffix in suffices:
+    				if suffix in wholeresult[member][lakara]:
+    					output[member] = wholeresult[member][lakara][suffix]
+    	return output
 
+   
     def __getitem__(self, items):
         """Return the requested data by user."""
         # Initiate without arguments
@@ -222,18 +239,9 @@ def getsuffix(purusha, vachana):
         return ['mas', 'mahiN']
 
 
-def removeUnnecessary(wholeresult, lakara='', suffices=['']):
-    output = {}
-    for member in wholeresult:
-        if lakara == '' and suffices == ['']:
-            print('debug1')
-            output[member] = wholeresult[member]
-        elif lakara != '' and suffices == ['']:
-            print('debug2')
-            output[member] = wholeresult[member][lakara]
-        elif lakara != '' and suffices != ['']:
-            print('debug3')
-            for suffix in suffices:
-                if suffix in wholeresult[member][lakara]:
-                    output[member] = wholeresult[member][lakara][suffix]
-    return output
+def applyTranslitToDict(outputdict, outTran='slp1'):
+    for member in outputdict:
+	    if isinstance(member, list):
+            return [convert(item, 'slp1', outTran) for item in member]
+        else:
+            applyTranslitToDict(member)

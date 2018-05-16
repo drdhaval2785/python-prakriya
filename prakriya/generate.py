@@ -226,10 +226,13 @@ def removeUnnecessary(wholeresult, lakara='', suffices=['']):
     output = {}
     for member in wholeresult:
         if lakara == '' and suffices == ['']:
+            print('debug1')
             output[member] = wholeresult[member]
         elif lakara != '' and suffices == ['']:
+            print('debug2')
             output[member] = wholeresult[member][lakara]
         elif lakara != '' and suffices != ['']:
+            print('debug3')
             for suffix in suffices:
                 if suffix in wholeresult[member][lakara]:
                     output[member] = wholeresult[member][lakara][suffix]

@@ -3,7 +3,7 @@
 """Create a python library which gives derivation for given verb and tense."""
 import os.path
 import sys
-import ujson
+import json
 from .utils import appDir, readJson, convert
 # import datetime
 
@@ -25,10 +25,11 @@ class VerbFormGenerator():
         # Subsequent actions will be very fast. This is one time requirement.
         >>> g.decompress()
 
-    There are two ways to get verb forms for given verb.
+    There are four ways to get verb forms for given verb.
 
+        >>> g.getforms(self, inputverb, lakara='', purusha='', vachana='')
+        >>> g.getforms(self, inputverb, lakara='', suffix='')
         >>> g[verb, tense, purusha, vachana]
-
         >>> g[verb, tense, suffix]
 
     Examples are as follows
@@ -140,9 +141,9 @@ class VerbFormGenerator():
             wholeresult = self.data[verb]
         output = self.removeUnnecessary(wholeresult, lakara, suffices)
         # Transliterate the output
-        outputstr = ujson.dumps(output)
+        outputstr = json.dumps(output)
         outputstr = convert(outputstr, 'slp1', self.outTran)
-        output = ujson.loads(outputstr)
+        output = json.loads(outputstr)
         return output
 
 
@@ -221,7 +222,7 @@ class VerbFormGenerator():
                             if suff in wholeresult[verb_num][tense]:
                                 result[verb_num] = wholeresult[verb_num][tense][suff]
         # Return the result.
-        return ujson.loads(convert(ujson.dumps(result), 'slp1', self.outTran))
+        return json.loads(convert(json.dumps(result), 'slp1', self.outTran))
 
 def getsuffix(purusha, vachana):
     if purusha == 'praTama' and vachana == 'eka':

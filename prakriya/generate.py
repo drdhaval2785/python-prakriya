@@ -45,7 +45,14 @@ class VerbFormGenerator():
       >>> g = VerbFormGenerator()
       >>> g.inputTranslit('hk') # Customize 'hk'
       >>> g.outputTranslit('devanagari') # Customize 'devanagari'
-      >>> g['bhU', 'laT', 'jhi'] # Input in HK and output in Devanagari.
+      # g.getforms(self, inputverb, lakara='', purusha='', vachana='', suffix='')
+      # Generating forms via purusha and vachana parameters. 
+      >>> g.getforms(self, 'bhU', 'laT', 'praTama', 'bahu')
+      # Generating forms via suffix directly. 
+      >>> g.getforms(self, 'bhU', 'laT', 'jhi')
+	  # __getitem__ method. Discouraged. Will be deprecated in later versions.
+      >>> g['bhU', 'laT', 'praTama', 'eka']
+      >>> g['bhU', 'laT', 'jhi']
 
     Valid transliterations are slp1, itrans, hk, iast, devanagari, wx, bengali,
     gujarati, gurmukhi, kannada, malayalam, oriya and telugu.

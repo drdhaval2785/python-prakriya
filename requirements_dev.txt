@@ -11,4 +11,3 @@ PyYAML>=3.13
 click>=7.0
 indic_transliteration==1.7.4
 coveralls>=1.2.0
-ujson>=1.35

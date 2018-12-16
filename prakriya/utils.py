@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-import ujson
+import json
 from indic_transliteration import sanscript
 from functools import wraps
 import sys
@@ -40,7 +40,7 @@ def appDir(appname):
 def readJson(path):
     """Read the given JSON file into python object."""
     with open(path, 'r') as fin:
-        return ujson.loads(fin.read())
+        return json.loads(fin.read())
 
 
 @cached

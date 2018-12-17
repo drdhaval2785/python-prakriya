@@ -11,6 +11,7 @@ from .utils import appDir, readJson, convert
 class VerbFormGenerator():
     """Return the verb form for given verb, tense, purusha-vachana or suffix.
 
+    
     Example
     -------
 
@@ -31,16 +32,15 @@ class VerbFormGenerator():
         >>> g.getforms(inputverb, lakara='', suffix='')
         >>> g[verb, tense, purusha, vachana]
         >>> g[verb, tense, suffix]
-
-    Examples are as follows
-
+        # Examples of four formats are as follows. Default input transliteration is SLP1.
         >>> g.getforms('BU', 'law', 'praTama', 'bahu')
         >>> g.getforms('BU', 'law', 'Ji')
         >>> g['BU', 'law', 'praTama', 'eka']
         >>> g['BU', 'law', 'tip']
+    
+	__getitem__ method is iscouraged. Will be deprecated in later versions.
 
-    # __getitem__ method is iscouraged. Will be deprecated in later versions.
-
+    
     transliteration
     ---------------
     For using transliterations in VerbFormGenerator class, use as below.

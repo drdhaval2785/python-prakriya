@@ -12,6 +12,7 @@ from .utils import appDir, readJson, convert
 class Prakriya():
     """Generate a prakriya class.
 
+
     Example
     -------
 
@@ -90,7 +91,8 @@ class Prakriya():
 
         ``vachana`` - Returns the vacana of the given verb form.
 
-    transliteration
+
+	transliteration
     ---------------
     If you want to set the input or output transliteration, follow these steps.
 

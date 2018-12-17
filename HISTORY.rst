@@ -44,3 +44,8 @@ jsonindex.json file which was crucial and missed in v0.0.2, added back.
 ------------------
 
 1. Changed the output format of Generate class. See https://github.com/drdhaval2785/prakriya/issues/37#issuecomment-359224797.
+
+0.1.0 (2018-12-17)
+------------------
+
+1. VerbFormGenerator now uses methods instead of getitem. See https://github.com/drdhaval2785/python-prakriya/issues/36.

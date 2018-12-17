@@ -37,6 +37,7 @@ class VerbFormGenerator():
     
     transliteration
     ---------------
+	
     For using transliterations in VerbFormGenerator class, use as below.
 
       >>> from prakriya import VerbFormGenerator

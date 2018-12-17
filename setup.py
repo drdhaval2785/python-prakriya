@@ -23,7 +23,7 @@ test_requirements = []
 
 setup(
     name='prakriya',
-    version='0.0.7',
+    version='0.1.0',
     description="prakriya is a package to derive information about given Sanskrit verb form.",
     long_description=readme + '\n\n' + history,
     author="Dr. Dhaval Patel",
@@ -55,7 +55,6 @@ setup(
         'Programming Language :: Python :: 3.6',
         'Programming Language :: Python :: 3.5',
         'Programming Language :: Python :: 3.4',
-        'Programming Language :: Python :: 3.3',
     ],
     test_suite='tests',
     tests_require=test_requirements,

@@ -19,12 +19,6 @@ class VerbFormGenerator():
 
         >>> from prakriya import VerbFormGenerator
         >>> g = VerbFormGenerator()
-        # If you are using the library the first time, be patient.
-        # This will take a long time.
-        # Data file (30 MB) is being downloaded.
-        # If you can spare around 600 MB space, decompress the tar.gz first time.
-        # Subsequent actions will be very fast. This is one time requirement.
-        >>> g.decompress()
 
     There are four ways to get verb forms for given verb.
 

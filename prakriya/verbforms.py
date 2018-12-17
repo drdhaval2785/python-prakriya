@@ -94,6 +94,7 @@ class Prakriya():
 
 	transliteration
     ---------------
+	
     If you want to set the input or output transliteration, follow these steps.
 
       >>> from prakriya import Prakriya

@@ -32,7 +32,7 @@ class VerbFormGenerator():
         >>> g['BU', 'law', 'praTama', 'eka']
         >>> g['BU', 'law', 'tip']
     
-	__getitem__ method is iscouraged. Will be deprecated in later versions.
+	__getitem__ method is discouraged. Will be deprecated in later versions.
 
     
     transliteration

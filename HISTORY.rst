@@ -49,3 +49,8 @@ jsonindex.json file which was crucial and missed in v0.0.2, added back.
 ------------------
 
 1. VerbFormGenerator now uses methods instead of getitem. See https://github.com/drdhaval2785/python-prakriya/issues/36.
+
+0.2.0 (2019-01-13)
+------------------
+
+1. Prakriya now uses method instead of getitem. See https://github.com/drdhaval2785/python-prakriya/issues/75.

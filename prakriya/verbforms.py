@@ -207,6 +207,11 @@ class Prakriya():
         # print(datetime.datetime.now())
         # Return the result.
         return result
+    
+    def get_info(self, verbform, field='prakriya'):
+        """Return the data requested by user."""
+        items = [verbform, field]
+        return self.__getitem__(items)
 
 
 def convertible(argument):

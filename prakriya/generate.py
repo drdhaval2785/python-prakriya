@@ -216,6 +216,10 @@ class VerbFormGenerator():
                                 result[verb_num] = wholeresult[verb_num][tense][suff]
         # Return the result.
         return json.loads(convert(json.dumps(result), 'slp1', self.outTran))
+    
+    def get_info(self, items):
+        """Return the requested data by user."""
+        return self.__getitem__(items)
 
 def getsuffix(purusha, vachana):
     if purusha == 'praTama' and vachana == 'eka':

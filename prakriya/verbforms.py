@@ -35,7 +35,7 @@ class Prakriya():
 
     The generic format for usage is as follows:
 
-        >>> p[verbform, field]
+        >>> p.get_info(verbform, field)
 
     ``verbform`` is mandatory. It is the verb form to be investigated.
     The input should be in SLP1 encoding.
@@ -44,9 +44,9 @@ class Prakriya():
 
     Actual usage examples will be like the following.
 
-        >>> p['Bavati']
-        >>> p['Bavati', 'prakriya']
-        >>> p['Bavati', 'verb']
+        >>> p.get_info('Bavati')
+        >>> p.get_info('Bavati', 'prakriya')
+        >>> p.get_info('Bavati', 'verb')
 
 
     Valid values of ``field`` and expected output are as follows.
@@ -101,10 +101,10 @@ class Prakriya():
       >>> p = Prakriya()
       >>> p.inputTranslit('hk') # Customize 'hk'
       >>> p.outputTranslit('devanagari') # Customize 'devanagari'
-      >>> p['bhavati'] # Input in HK and output in Devanagari.
+      >>> p.get_info('bhavati') # Input in HK and output in Devanagari.
       >>> p.inputTranslit('devanagari')
       >>> p.outputTranslit('iast')
-      >>> p['गच्छति'] # Input in Devanagari and output in IAST.
+      >>> p.get_info('गच्छति') # Input in Devanagari and output in IAST.
 
     Valid transliterations are slp1, itrans, hk, iast, devanagari, wx, bengali,
     gujarati, gurmukhi, kannada, malayalam, oriya and telugu.

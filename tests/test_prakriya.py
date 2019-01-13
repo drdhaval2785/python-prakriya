@@ -22,7 +22,7 @@ def comparetranslit(verbform, inTran, outTran, arguments=''):
     p = Prakriya()
     p.inputTranslit(inTran)
     p.outputTranslit(outTran)
-    calculated = p[verbform, arguments]
+    calculated = p.get_info(verbform, arguments)
     superdata = readJson(os.path.join('tests', 'testdata', 'Bavati.json'))
     wholedata = superdata[outTran]
     if arguments == '':

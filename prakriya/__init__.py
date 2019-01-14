@@ -10,3 +10,5 @@ __all__ = ['Prakriya', 'VerbFormGenerator']
 
 from .verbforms import Prakriya
 from .generate import VerbFormGenerator
+from .cli import main
+from .cli import generate

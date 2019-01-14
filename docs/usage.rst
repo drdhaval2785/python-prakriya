@@ -5,7 +5,7 @@ Usage
 .. automodule:: prakriya
   :members:
 .. click:: prakriya.cli:main
-  :prog: prakriya
+  :prog: Prakriya CLI usage
   :show-nested:
 
  

@@ -4,5 +4,5 @@ Usage
 
 .. automodule:: prakriya
   :members:
-.. automodule:; prakriya.cli
+.. automodule:: prakriya.cli
   :members:

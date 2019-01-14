@@ -92,9 +92,12 @@ def generate(verb, lakara, purusha, vachana, intran, outtran):
 
         $ generate [OPTIONS] VERB LAKARA PURUSHA VACHANA
 
-    ``LAKARA`` can take law, liw, luw, lfw, low, laN, viDiliN, ASIrliN, luN, lfN values.
-    ``PURUSHA`` can take praTama, maDyama, uttama values.
-    ``VACHANA`` can take eka, dvi, bahu values.
+       ``LAKARA`` can take law, liw, luw, lfw, low, laN, viDiliN, ASIrliN, luN, lfN values.
+       
+       ``PURUSHA`` can take praTama, maDyama, uttama values.
+       
+       ``VACHANA`` can take eka, dvi, bahu values.
+       
     """
     from prakriya import VerbFormGenerator
     g = VerbFormGenerator()

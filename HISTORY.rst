@@ -54,3 +54,9 @@ jsonindex.json file which was crucial and missed in v0.0.2, added back.
 ------------------
 
 1. Prakriya now uses method instead of getitem. See https://github.com/drdhaval2785/python-prakriya/issues/75.
+
+0.2.1 (2019-01-14)
+------------------
+
+1. Documentation of commandline (CLI) tools added in documentation.
+

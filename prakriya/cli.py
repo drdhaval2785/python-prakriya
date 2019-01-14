@@ -20,7 +20,7 @@ import click
                 required=False,
                 default='')
 def main(verbform, field, intran, outtran):
-    """Console script for prakriya.
+    """Console script to get derivation and other information for given verb form.
 
     CLI usage: prakriya [OPTIONS] VERBFORM [FIELD]
 
@@ -89,10 +89,12 @@ def main(verbform, field, intran, outtran):
 @click.argument('purusha', required=True)
 @click.argument('vachana', required=True)
 def generate(verb, lakara, purusha, vachana, intran, outtran):
-    """Console script for prakriya.
+    """Console script to get verb form for given verb, lakara, purusha and vachana.
 
-    CLI usage: generate [OPTIONS] VERB PURUSHA VACHANA
+    CLI usage: generate [OPTIONS] VERB LAKARA PURUSHA VACHANA
 
+    LAKARA can take law, liw, luw, lfw, low, laN, viDiliN, ASIrliN, luN, lfN values.
+    
     PURUSHA can take praTama, maDyama, uttama values.
 
     VACHANA can take eka, dvi, bahu values.

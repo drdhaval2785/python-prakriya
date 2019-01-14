@@ -4,5 +4,9 @@ Usage
 
 .. automodule:: prakriya
   :members:
-.. automodule:: prakriya.cli
-  :members:
+.. click:: prakriya.cli:main
+  :prog: prakriya
+  :show-nested:
+
+ 
+  

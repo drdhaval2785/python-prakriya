@@ -5,12 +5,7 @@
 import click
 
 
-def decorator(f):
-    return f
-
-
 # Start a click command for testing Prakriya class.
-@decorator
 @click.command()
 @click.option('--intran', default='slp1',
               type=click.Choice(['slp1', 'itrans', 'hk', 'iast', 'devanagari',
@@ -80,7 +75,6 @@ def main(verbform, field, intran, outtran):
     click.echo(result)
 
 
-@decorator
 @click.command()
 @click.option('--intran', default='slp1',
               type=click.Choice(['slp1', 'itrans', 'hk', 'iast', 'devanagari',

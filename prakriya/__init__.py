@@ -5,7 +5,7 @@
 __author__ = """Dr. Dhaval Patel"""
 __email__ = 'drdhaval2785@gmail.com'
 __version__ = '0.1.0'
-__all__ = ['Prakriya', 'VerbFormGenerator']
+__all__ = ['Prakriya', 'VerbFormGenerator', 'main', 'generate']
 
 
 from .verbforms import Prakriya

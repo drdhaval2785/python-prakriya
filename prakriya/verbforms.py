@@ -92,9 +92,9 @@ class Prakriya():
         ``vachana`` - Returns the vacana of the given verb form.
 
 
-	transliteration
+        transliteration
     ---------------
-	
+
     If you want to set the input or output transliteration, follow these steps.
 
       >>> from prakriya import Prakriya
@@ -207,7 +207,7 @@ class Prakriya():
         # print(datetime.datetime.now())
         # Return the result.
         return result
-    
+
     def get_info(self, verbform, field='prakriya'):
         """Return the data requested by user."""
         items = [verbform, field]
@@ -271,7 +271,7 @@ def storeresult(data, inTran, outTran, sutrainfo):
                     form = convert(form, inTran, outTran)
                     # Add to derivationlist.
                     derivationlist.append({'sutra': sutratext,
-                                          'sutra_num': sutranum, 'form': form})
+                                           'sutra_num': sutranum, 'form': form})
         # Add the derivationlist to the prakriya key.
         subresult['prakriya'] = derivationlist
         # Append subresult to result and start again.

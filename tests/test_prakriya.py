@@ -124,28 +124,47 @@ class TestPrakriya(unittest.TestCase):
         # assert(g['BU', 'low', 'mas'] == {u'10.0277': [u'BAvayAma'], u'10.0382': [u'BAvayAma'], u'01.0001': [u'BavAma']})
         # Test for stripped verbs.
         # assert(g['eD', 'lfw', 'Ja'] == {u'01.0002': [u'eDizyante']})
-		
-		# Tests changed to use getforms function
-        assert(g.getforms('BU', 'law', 'praTama', 'eka') == {u'10.0277': [u'BAvayate'], u'10.0382': [u'BAvayate'], u'01.0001': [u'Bavati']})
-        assert(g.getforms('BU', 'law', 'praTama', 'dvi') == {u'10.0277': [u'BAvayete'], u'10.0382': [u'BAvayete'], u'01.0001': [u'BavataH']})
-        assert(g.getforms('BU', 'law', 'praTama', 'bahu') == {u'10.0277': [u'BAvayante'], u'10.0382': [u'BAvayante'], u'01.0001': [u'Bavanti']})
-        assert(g.getforms('BU', 'law', 'maDyama', 'eka') == {u'10.0277': [u'BAvayase'], u'10.0382': [u'BAvayase'], u'01.0001': [u'Bavasi']})
-        assert(g.getforms('BU', 'law', 'maDyama', 'dvi') == {u'10.0277': [u'BAvayeTe'], u'10.0382': [u'BAvayeTe'], u'01.0001': [u'BavaTaH']})
-        assert(g.getforms('BU', 'law', 'maDyama', 'bahu')== {u'10.0277': [u'BAvayaDve'], u'10.0382': [u'BAvayaDve'], u'01.0001': [u'BavaTa']})
-        assert(g.getforms('BU', 'law', 'uttama', 'eka') == {u'10.0277': [u'BAvaye'], u'10.0382': [u'BAvaye'], u'01.0001': [u'BavAmi']})
-        assert(g.getforms('BU', 'law', 'uttama', 'dvi') == {u'10.0277': [u'BAvayAvahe'], u'10.0382': [u'BAvayAvahe'], u'01.0001': [u'BavAvaH']})
-        assert(g.getforms('BU', 'law', 'uttama', 'bahu') == {u'10.0277': [u'BAvayAmahe'], u'10.0382': [u'BAvayAmahe'], u'01.0001': [u'BavAmaH']})
-        assert(g.getforms('BU', 'low', suffix='tip') == {u'10.0277': [u'BAvayatu', u'BAvayatAt'], u'10.0382': [u'BAvayatu', u'BAvayatAt'], u'01.0001': [u'Bavatu', u'BavatAt']})
-        assert(g.getforms('BU', 'low', suffix='tas') == {u'10.0277': [u'BAvayatAm'], u'10.0382': [u'BAvayatAm'], u'01.0001': [u'BavatAm']})
-        assert(g.getforms('BU', 'low', suffix='Ji') == {u'10.0277': [u'BAvayantu'], u'10.0382': [u'BAvayantu'], u'01.0001': [u'Bavantu']})
-        assert(g.getforms('BU', 'low', suffix='sip') == {u'10.0277': [u'BAvaya', u'BAvayatAt'], u'10.0382': [u'BAvaya', u'BAvayatAt'], u'01.0001': [u'Bava', u'BavatAt']})
-        assert(g.getforms('BU', 'low', suffix='Tas') == {u'10.0277': [u'BAvayatam'], u'10.0382': [u'BAvayatam'], u'01.0001': [u'Bavatam']})
-        assert(g.getforms('BU', 'low', suffix='Ta') == {u'10.0277': [u'BAvayata'], u'10.0382': [u'BAvayata'], u'01.0001': [u'Bavata']})
-        assert(g.getforms('BU', 'low', suffix='mip') == {u'10.0277': [u'BAvayAni'], u'10.0382': [u'BAvayAni'], u'01.0001': [u'BavAni']})
-        assert(g.getforms('BU', 'low', suffix='vas') == {u'10.0277': [u'BAvayAva'], u'10.0382': [u'BAvayAva'], u'01.0001': [u'BavAva']})
-        assert(g.getforms('BU', 'low', suffix='mas') == {u'10.0277': [u'BAvayAma'], u'10.0382': [u'BAvayAma'], u'01.0001': [u'BavAma']})
+
+        # Tests changed to use getforms function
+        assert(g.getforms('BU', 'law', 'praTama', 'eka') == {u'10.0277': [
+               u'BAvayate'], u'10.0382': [u'BAvayate'], u'01.0001': [u'Bavati']})
+        assert(g.getforms('BU', 'law', 'praTama', 'dvi') == {u'10.0277': [
+               u'BAvayete'], u'10.0382': [u'BAvayete'], u'01.0001': [u'BavataH']})
+        assert(g.getforms('BU', 'law', 'praTama', 'bahu') == {u'10.0277': [
+               u'BAvayante'], u'10.0382': [u'BAvayante'], u'01.0001': [u'Bavanti']})
+        assert(g.getforms('BU', 'law', 'maDyama', 'eka') == {u'10.0277': [
+               u'BAvayase'], u'10.0382': [u'BAvayase'], u'01.0001': [u'Bavasi']})
+        assert(g.getforms('BU', 'law', 'maDyama', 'dvi') == {u'10.0277': [
+               u'BAvayeTe'], u'10.0382': [u'BAvayeTe'], u'01.0001': [u'BavaTaH']})
+        assert(g.getforms('BU', 'law', 'maDyama', 'bahu') == {u'10.0277': [
+               u'BAvayaDve'], u'10.0382': [u'BAvayaDve'], u'01.0001': [u'BavaTa']})
+        assert(g.getforms('BU', 'law', 'uttama', 'eka') == {u'10.0277': [
+               u'BAvaye'], u'10.0382': [u'BAvaye'], u'01.0001': [u'BavAmi']})
+        assert(g.getforms('BU', 'law', 'uttama', 'dvi') == {u'10.0277': [
+               u'BAvayAvahe'], u'10.0382': [u'BAvayAvahe'], u'01.0001': [u'BavAvaH']})
+        assert(g.getforms('BU', 'law', 'uttama', 'bahu') == {u'10.0277': [
+               u'BAvayAmahe'], u'10.0382': [u'BAvayAmahe'], u'01.0001': [u'BavAmaH']})
+        assert(g.getforms('BU', 'low', suffix='tip') == {u'10.0277': [u'BAvayatu', u'BAvayatAt'], u'10.0382': [
+               u'BAvayatu', u'BAvayatAt'], u'01.0001': [u'Bavatu', u'BavatAt']})
+        assert(g.getforms('BU', 'low', suffix='tas') == {u'10.0277': [
+               u'BAvayatAm'], u'10.0382': [u'BAvayatAm'], u'01.0001': [u'BavatAm']})
+        assert(g.getforms('BU', 'low', suffix='Ji') == {u'10.0277': [
+               u'BAvayantu'], u'10.0382': [u'BAvayantu'], u'01.0001': [u'Bavantu']})
+        assert(g.getforms('BU', 'low', suffix='sip') == {u'10.0277': [u'BAvaya', u'BAvayatAt'], u'10.0382': [
+               u'BAvaya', u'BAvayatAt'], u'01.0001': [u'Bava', u'BavatAt']})
+        assert(g.getforms('BU', 'low', suffix='Tas') == {u'10.0277': [
+               u'BAvayatam'], u'10.0382': [u'BAvayatam'], u'01.0001': [u'Bavatam']})
+        assert(g.getforms('BU', 'low', suffix='Ta') == {u'10.0277': [
+               u'BAvayata'], u'10.0382': [u'BAvayata'], u'01.0001': [u'Bavata']})
+        assert(g.getforms('BU', 'low', suffix='mip') == {u'10.0277': [
+               u'BAvayAni'], u'10.0382': [u'BAvayAni'], u'01.0001': [u'BavAni']})
+        assert(g.getforms('BU', 'low', suffix='vas') == {u'10.0277': [
+               u'BAvayAva'], u'10.0382': [u'BAvayAva'], u'01.0001': [u'BavAva']})
+        assert(g.getforms('BU', 'low', suffix='mas') == {u'10.0277': [
+               u'BAvayAma'], u'10.0382': [u'BAvayAma'], u'01.0001': [u'BavAma']})
         # Test for stripped verbs.
-        assert(g.getforms('eD', 'lfw', suffix='Ja') == {u'01.0002': [u'eDizyante']})
+        assert(g.getforms('eD', 'lfw', suffix='Ja')
+               == {u'01.0002': [u'eDizyante']})
 
     def test_generate_without_suffix(self):
         g = VerbFormGenerator()
@@ -161,7 +180,8 @@ class TestPrakriya(unittest.TestCase):
         g.inputTranslit('hk')
         g.outputTranslit('itrans')
         # assert(g['bhU', 'laT', 'jhi'] == {u'01.0001': [u'bhavanti'], u'10.0382': [u'bhAvayanti'], u'10.0277': [u'bhAvayanti']})
-        assert(g.getforms('bhU', 'laT', suffix='jhi') == {u'01.0001': [u'bhavanti'], u'10.0382': [u'bhAvayanti'], u'10.0277': [u'bhAvayanti']})
+        assert(g.getforms('bhU', 'laT', suffix='jhi') == {u'01.0001': [
+               u'bhavanti'], u'10.0382': [u'bhAvayanti'], u'10.0277': [u'bhAvayanti']})
 
     def test_false_in(self):
         """Test for false input transliteration."""

@@ -11,7 +11,7 @@ from .utils import appDir, readJson, convert
 class VerbFormGenerator():
     """Return the verb form for given verb, tense, purusha-vachana or suffix.
 
-    
+
     Example
     -------
 
@@ -31,10 +31,10 @@ class VerbFormGenerator():
         >>> g.getforms('BU', 'law', 'Ji')
         >>> g['BU', 'law', 'praTama', 'eka']
         >>> g['BU', 'law', 'tip']
-    
-	__getitem__ method is discouraged. Will be deprecated in later versions.
 
-    
+        __getitem__ method is discouraged. Will be deprecated in later versions.
+
+
     transliteration
     ---------------
 
@@ -139,7 +139,6 @@ class VerbFormGenerator():
         output = json.loads(outputstr)
         return output
 
-
     def removeUnnecessary(self, wholeresult, lakara='', suffices=['']):
         output = {}
         for member in wholeresult:
@@ -153,7 +152,6 @@ class VerbFormGenerator():
                         output[member] = wholeresult[member][lakara][suffix]
         return output
 
-   
     def __getitem__(self, items):
         """Return the requested data by user."""
         # Initiate without arguments
@@ -167,10 +165,12 @@ class VerbFormGenerator():
             inputverb = items[0]
             # py2
             if len(items) > 1 and sys.version_info[0] < 3:
-                arguments = [convert(member.decode('utf-8'), self.inTran, 'slp1') for member in items[1:]]
+                arguments = [convert(member.decode(
+                    'utf-8'), self.inTran, 'slp1') for member in items[1:]]
             # py3
             elif len(items) > 1:
-                arguments = [convert(member, self.inTran, 'slp1') for member in items[1:]]
+                arguments = [convert(member, self.inTran, 'slp1')
+                             for member in items[1:]]
             # Convert verbform from desired input transliteration to SLP1.
             if sys.version_info[0] < 3:
                 inputverb = inputverb.decode('utf-8')
@@ -237,4 +237,3 @@ def getsuffix(purusha, vachana):
         return ['vas', 'vahi']
     elif purusha == 'uttama' and vachana == 'bahu':
         return ['mas', 'mahiN']
-

@@ -101,7 +101,7 @@ def generate(verb, lakara, purusha, vachana, intran, outtran):
     """
     from prakriya import VerbFormGenerator
     g = VerbFormGenerator()
-    g.inputTranslit(intran)
-    g.outputTranslit(outtran)
+    g.input_translit(intran)
+    g.output_translit(outtran)
     result = g[verb, lakara, purusha, vachana]
     click.echo(result)

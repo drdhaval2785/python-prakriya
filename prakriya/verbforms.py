@@ -24,7 +24,8 @@ class Prakriya():
     If you are using the library the first time, be patient.
     This will take a long time, because the data file (30 MB) is being downloaded.
 
-    If you can spare around 600 MB space, It is highly recommended to decompress the tar.gz first time.
+    If you can spare around 600 MB space,
+    it is highly recommended to decompress the tar.gz first time.
     Subsequent actions will be very fast. This is one time requirement.
     If the data is not decompressed, the code will read from tar.gz file every time.
     It introduces slowness to a great extent. So highly recommended to decompress.
@@ -65,25 +66,34 @@ class Prakriya():
 
         ``number`` - Return number of the verb in dhAtupATha.
 
-        ``madhaviya`` - Return link to mAdhaviyadhAtuvRtti. http://sanskrit.uohyd.ac.in/scl/dhaatupaatha is the home page.
+        ``madhaviya`` - Return link to mAdhaviyadhAtuvRtti.
+        http://sanskrit.uohyd.ac.in/scl/dhaatupaatha is the home page.
 
-        ``kshiratarangini`` - Return link to kSIrataraGgiNI. http://sanskrit.uohyd.ac.in/scl/dhaatupaatha is the home page.
+        ``kshiratarangini`` - Return link to kSIrataraGgiNI.
+        http://sanskrit.uohyd.ac.in/scl/dhaatupaatha is the home page.
 
-        ``dhatupradipa`` - Return link to dhAtupradIpa. http://sanskrit.uohyd.ac.in/scl/dhaatupaatha is the home page.
+        ``dhatupradipa`` - Return link to dhAtupradIpa.
+        http://sanskrit.uohyd.ac.in/scl/dhaatupaatha is the home page.
 
-        ``jnu`` - Return link to JNU site for this verb form. http://sanskrit.jnu.ac.in/tinanta/tinanta.jsp is the home page.
+        ``jnu`` - Return link to JNU site for this verb form.
+        http://sanskrit.jnu.ac.in/tinanta/tinanta.jsp is the home page.
 
-        ``uohyd`` - Return link to UoHyd site for this verb form. http://sanskrit.uohyd.ac.in/cgi-bin/scl/skt_gen/verb/verb_gen.cgi is the home page.
+        ``uohyd`` - Return link to UoHyd site for this verb form.
+        http://sanskrit.uohyd.ac.in/cgi-bin/scl/skt_gen/verb/verb_gen.cgi is the home page.
 
-        ``upasarga`` - Return upasarga, if any. Currently we do not support verb forms with upasargas.
+        ``upasarga`` - Return upasarga, if any.
+        Currently we do not support verb forms with upasargas.
 
-        ``padadecider_id`` - Return the rule number which decides whether the verb is parasmaipadI, AtmanepadI or ubhayapadI.
+        ``padadecider_id`` - Return the rule number which decides whether the verb is
+        parasmaipadI, AtmanepadI or ubhayapadI.
 
-        ``padadecider_sutra`` - Return the rule text which decides whether the verb is parasmaipadI, AtmanepadI or ubhayapadI.
+        ``padadecider_sutra`` - Return the rule text which decides whether the verb is
+        parasmaipadI, AtmanepadI or ubhayapadI.
 
         ``it_id`` - Returns whether the verb is seT, aniT or veT, provided the form has iDAgama.
 
-        ``it_status`` - Returns whether the verb form has iDAgama or not. seT, veT, aniT are the output.
+        ``it_status`` - Returns whether the verb form has iDAgama or not.
+        seT, veT, aniT are the output.
 
         ``it_sutra`` - Returns rule number if iDAgama is caused by some special rule.
 
@@ -92,18 +102,18 @@ class Prakriya():
         ``vachana`` - Returns the vacana of the given verb form.
 
 
-        transliteration
+    transliteration
     ---------------
 
     If you want to set the input or output transliteration, follow these steps.
 
       >>> from prakriya import Prakriya
       >>> p = Prakriya()
-      >>> p.inputTranslit('hk') # Customize 'hk'
-      >>> p.outputTranslit('devanagari') # Customize 'devanagari'
+      >>> p.input_translit('hk') # Customize 'hk'
+      >>> p.output_translit('devanagari') # Customize 'devanagari'
       >>> p.get_info('bhavati') # Input in HK and output in Devanagari.
-      >>> p.inputTranslit('devanagari')
-      >>> p.outputTranslit('iast')
+      >>> p.input_translit('devanagari')
+      >>> p.output_translit('iast')
       >>> p.get_info('गच्छति') # Input in Devanagari and output in IAST.
 
     Valid transliterations are slp1, itrans, hk, iast, devanagari, wx, bengali,
@@ -117,23 +127,23 @@ class Prakriya():
         self.appdir = appDir('prakriya')
         # Path where to store the file
         self.filename = 'composite_v003.tar.gz'
-        self.tr = os.path.join(self.appdir, self.filename)
-        self.inTran = 'slp1'
-        self.outTran = 'slp1'
+        self.tarfile = os.path.join(self.appdir, 'composite_v003.tar.gz')
+        self.intran = 'slp1'
+        self.outtran = 'slp1'
         # If the file does not exist, download from Github.
         if not os.path.exists(self.appdir):
             os.makedirs(self.appdir)
             os.makedirs(os.path.join(self.appdir, 'json'))
         # Download tar.gz data file
-        downloadFromGithub(self.appdir, 'composite_v003.tar.gz')
-        self.tar = tarfile.open(self.tr, 'r:gz')
+        download_from_github(self.appdir, 'composite_v003.tar.gz')
+        self.tar = tarfile.open(self.tarfile, 'r:gz')
         # keep only first thee letters from verbform
-        downloadFromGithub(self.appdir, 'jsonindex.json')
+        download_from_github(self.appdir, 'jsonindex.json')
         self.jsonindex = readJson(os.path.join(self.appdir, 'jsonindex.json'))
         # Read sutrainfo file. This is needed to convert sutra_num to sutra_text.
-        downloadFromGithub(self.appdir, 'sutrainfo.json')
+        download_from_github(self.appdir, 'sutrainfo.json')
         self.sutrainfo = readJson(os.path.join(self.appdir, 'sutrainfo.json'))
-        self.jsonCache = {}
+        self.json_cache = {}
 
     def decompress(self):
         """Decompress the tar file if user asks for it."""
@@ -142,31 +152,31 @@ class Prakriya():
         print("You shall not need to use decompress() function again.")
         print("Just do regular `p = Prakriya()`.")
 
-    def inputTranslit(self, tran):
+    def input_translit(self, tran):
         """Set input transliteration."""
         # If valid transliteration, set transliteration.
         if tran in ['slp1', 'itrans', 'hk', 'iast', 'devanagari', 'velthuis',
                     'wx', 'kolkata', 'bengali', 'gujarati', 'gurmukhi',
                     'kannada', 'malayalam', 'oriya', 'telugu', 'tamil']:
-            self.inTran = tran
+            self.intran = tran
         # If not valid, throw error.
         else:
             print('Error. Not a valid transliteration scheme.')
             exit(0)
 
-    def outputTranslit(self, tran):
+    def output_translit(self, tran):
         """Set output transliteration."""
         # If valid transliteration, set transliteration.
         if tran in ['slp1', 'itrans', 'hk', 'iast', 'devanagari', 'velthuis',
                     'wx', 'kolkata', 'bengali', 'gujarati', 'gurmukhi',
                     'kannada', 'malayalam', 'oriya', 'telugu', 'tamil']:
-            self.outTran = tran
+            self.outtran = tran
         # If not valid, throw error.
         else:
             print('Error. Not a valid transliteration scheme.')
             exit(0)
 
-    def get_data(self, verbform, tar, inTran='slp1', outTran='slp1'):
+    def get_data(self, verbform, tar, intran='slp1', outtran='slp1'):
         """Get whole data from the json file for given verb form."""
         # Find the parent directory
         slugname = self.jsonindex[verbform[:3]]
@@ -177,7 +187,7 @@ class Prakriya():
         # Keep only the data related to inquired verbform.
         data = compositedata[verbform]
         # Return results
-        return storeresult(data, inTran, outTran, self.sutrainfo)
+        return storeresult(data, intran, outtran, self.sutrainfo)
 
     def __getitem__(self, items):
         """Return the requested data by user."""
@@ -195,15 +205,15 @@ class Prakriya():
         # Convert verbform from desired input transliteration to SLP1.
         if sys.version_info[0] < 3:
             verbform = verbform.decode('utf-8')
-        verbform = convert(verbform, self.inTran, 'slp1')
+        verbform = convert(verbform, self.intran, 'slp1')
         # Read from tar.gz file.
-        data = self.get_data(verbform, self.tar, 'slp1', self.outTran)
+        data = self.get_data(verbform, self.tar, 'slp1', self.outtran)
         # If there is no argument, return whole data.
         if argument == '':
             result = data
         # Else, keep only the data related to the provided argument.
         else:
-            result = keepSpecific(data, argument)
+            result = keep_specific(data, argument)
         # print(datetime.datetime.now())
         # Return the result.
         return result
@@ -215,13 +225,14 @@ class Prakriya():
 
 
 def convertible(argument):
+    """Returns whether the item is convertible to Devanagari or not."""
+    result = False
     if argument in set(['verb', 'lakara', 'gana', 'meaning', 'upasarga',
                         'padadecider_id', 'padadecider_sutra', 'suffix',
                         'it_status', 'it_sutra', 'it_id', 'vachana',
                         'purusha']):
-        return True
-    else:
-        return False
+        result = True
+    return result
 
 
 def extract_from_tar(tar, filename, slugname, appdir):
@@ -231,7 +242,7 @@ def extract_from_tar(tar, filename, slugname, appdir):
         tar.extract(member, appdir)
 
 
-def storeresult(data, inTran, outTran, sutrainfo):
+def storeresult(data, intran, outtran, sutrainfo):
     """Store the result with necessary transliteration conversions."""
     # Initialize empty result stack.
     result = []
@@ -252,7 +263,7 @@ def storeresult(data, inTran, outTran, sutrainfo):
                 tmp = tmp.replace('!', '~')
                 # Store in subresult dict.
                 if convertible(item):
-                    subresult[item] = convert(tmp, inTran, outTran)
+                    subresult[item] = convert(tmp, intran, outtran)
                 else:
                     subresult[item] = tmp
             # derivation is a list (as compared to others which are strings.)
@@ -261,14 +272,14 @@ def storeresult(data, inTran, outTran, sutrainfo):
                 for member in datum['derivation']:
                     # Fetch sutratext
                     sutratext = sutrainfo[member['sutra_num']]
-                    sutratext = convert(sutratext, inTran, outTran)
+                    sutratext = convert(sutratext, intran, outtran)
                     # Replace tilde with hyphen.
                     # Otherwise wrong transliteration will happen.
                     sutranum = member['sutra_num'].replace('~', '-')
-                    # sutranum = convert(sutranum, inTran, outTran)
+                    # sutranum = convert(sutranum, intran, outtran)
                     # A decent representation for rutva.
                     form = member['form'].replace('@', 'u~')
-                    form = convert(form, inTran, outTran)
+                    form = convert(form, intran, outtran)
                     # Add to derivationlist.
                     derivationlist.append({'sutra': sutratext,
                                            'sutra_num': sutranum, 'form': form})
@@ -280,16 +291,17 @@ def storeresult(data, inTran, outTran, sutrainfo):
     return result
 
 
-def keepSpecific(data, argument):
+def keep_specific(data, argument):
     """Create a list of only the relavent argument."""
     return [member[argument] for member in data]
 
 
-def downloadFromGithub(appdir, filename):
+def download_from_github(appdir, filename):
+    """Download specific data file from Github release page."""
     if not os.path.isfile(os.path.join(appdir, filename)):
         print('downloading ' + filename)
         url = 'https://github.com/drdhaval2785/python-prakriya/releases/download/v0.0.2/' + filename
-        with open(os.path.join(appdir, filename), "wb") as f:
-            r = requests.get(url)
-            f.write(r.content)
+        with open(os.path.join(appdir, filename), "wb") as fin:
+            ret = requests.get(url)
+            fin.write(ret.content)
         print('downloaded ' + filename)

@@ -43,34 +43,44 @@ def main(verbform, field, intran, outtran):
 
         ``number`` - Return number of the verb in dhAtupATha.
 
-        ``madhaviya`` - Return link to mAdhaviyadhAtuvRtti. http://sanskrit.uohyd.ac.in/scl/dhaatupaatha is the home page.
+        ``madhaviya`` - Return link to mAdhaviyadhAtuvRtti.
+        http://sanskrit.uohyd.ac.in/scl/dhaatupaatha is the home page.
 
-        ``kshiratarangini`` - Return link to kSIrataraGgiNI. http://sanskrit.uohyd.ac.in/scl/dhaatupaatha is the home page.
+        ``kshiratarangini`` - Return link to kSIrataraGgiNI.
+        http://sanskrit.uohyd.ac.in/scl/dhaatupaatha is the home page.
 
-        ``dhatupradipa`` - Return link to dhAtupradIpa. http://sanskrit.uohyd.ac.in/scl/dhaatupaatha is the home page.
+        ``dhatupradipa`` - Return link to dhAtupradIpa.
+        http://sanskrit.uohyd.ac.in/scl/dhaatupaatha is the home page.
 
-        ``jnu`` - Return link to JNU site for this verb form. http://sanskrit.jnu.ac.in/tinanta/tinanta.jsp is the home page.
+        ``jnu`` - Return link to JNU site for this verb form.
+        http://sanskrit.jnu.ac.in/tinanta/tinanta.jsp is the home page.
 
-        ``uohyd`` - Return link to UoHyd site for this verb form. http://sanskrit.uohyd.ac.in/cgi-bin/scl/skt_gen/verb/verb_gen.cgi is the home page.
+        ``uohyd`` - Return link to UoHyd site for this verb form.
+        http://sanskrit.uohyd.ac.in/cgi-bin/scl/skt_gen/verb/verb_gen.cgi is the home page.
 
-        ``upasarga`` - Return upasarga, if any. Currently we do not support verb forms with upasargas.
+        ``upasarga`` - Return upasarga, if any.
+        Currently we do not support verb forms with upasargas.
 
-        ``padadecider_id`` - Return the rule number which decides whether the verb is parasmaipadI, AtmanepadI or ubhayapadI.
+        ``padadecider_id`` - Return the rule number which decides
+        whether the verb is parasmaipadI, AtmanepadI or ubhayapadI.
 
-        ``padadecider_sutra`` - Return the rule text which decides whether the verb is parasmaipadI, AtmanepadI or ubhayapadI.
+        ``padadecider_sutra`` - Return the rule text which decides
+        whether the verb is parasmaipadI, AtmanepadI or ubhayapadI.
 
-        ``it_id`` - Returns whether the verb is seT, aniT or veT, provided the form has iDAgama.
+        ``it_id`` - Returns whether the verb is
+        seT, aniT or veT, provided the form has iDAgama.
 
-        ``it_status`` - Returns whether the verb form has iDAgama or not. seT, veT, aniT are the output.
+        ``it_status`` - Returns whether the verb form has iDAgama or not.
+        seT, veT, aniT are the output.
 
         ``it_sutra`` - Returns rule number if iDAgama is caused by some special rule.
 
     """
     from prakriya import Prakriya
-    p = Prakriya()
-    p.inputTranslit(intran)
-    p.outputTranslit(outtran)
-    result = p[verbform, field]
+    prak = Prakriya()
+    prak.input_translit(intran)
+    prak.output_translit(outtran)
+    result = prak[verbform, field]
     click.echo(result)
 
 
@@ -100,8 +110,8 @@ def generate(verb, lakara, purusha, vachana, intran, outtran):
 
     """
     from prakriya import VerbFormGenerator
-    g = VerbFormGenerator()
-    g.input_translit(intran)
-    g.output_translit(outtran)
-    result = g[verb, lakara, purusha, vachana]
+    gen = VerbFormGenerator()
+    gen.input_translit(intran)
+    gen.output_translit(outtran)
+    result = gen[verb, lakara, purusha, vachana]
     click.echo(result)

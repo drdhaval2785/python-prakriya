@@ -18,13 +18,13 @@ def readJson(path):
         return json.load(fin)
 
 
-def comparetranslit(verbform, inTran, outTran, arguments=''):
+def comparetranslit(verbform, intran, outtran, arguments=''):
     p = Prakriya()
-    p.inputTranslit(inTran)
-    p.outputTranslit(outTran)
+    p.input_translit(intran)
+    p.output_translit(outtran)
     calculated = p.get_info(verbform, arguments)
     superdata = readJson(os.path.join('tests', 'testdata', 'Bavati.json'))
-    wholedata = superdata[outTran]
+    wholedata = superdata[outtran]
     if arguments == '':
         assert(calculated == wholedata)
     else:
@@ -45,48 +45,48 @@ class TestPrakriya(unittest.TestCase):
         """Test for false input transliteration."""
         p = Prakriya()
         with self.assertRaises(SystemExit):
-            p.inputTranslit('asdfasdf')
+            p.input_translit('asdfasdf')
 
     def test_false_output(self):
         """Test for false output transliteration."""
         p = Prakriya()
         with self.assertRaises(SystemExit):
-            p.outputTranslit('fdasfdas')
+            p.output_translit('fdasfdas')
 
     def test_bhavati(self):
         """Test something."""
-        for (verbform, inTran) in [('Bavati', 'slp1'), ('ഭവതി', 'malayalam'),
+        for (verbform, intran) in [('Bavati', 'slp1'), ('ഭവതി', 'malayalam'),
                                    ('భవతి', 'telugu'), ('bhavati', 'iast'),
                                    ('भवति', 'devanagari'), ('Bavawi', 'wx'),
                                    ('ભવતિ', 'gujarati'), ('bhavati', 'itrans'),
                                    ('ଭଵତି', 'oriya'), ('ಭವತಿ', 'kannada'),
                                    ('bhavati', 'hk'), ('ভবতি', 'bengali'),
                                    ('ਭਵਤਿ', 'gurmukhi')]:
-            for outTran in ['slp1', 'itrans', 'hk', 'iast', 'devanagari', 'wx',
+            for outtran in ['slp1', 'itrans', 'hk', 'iast', 'devanagari', 'wx',
                             'bengali', 'gujarati', 'gurmukhi', 'kannada',
                             'malayalam', 'oriya', 'telugu']:
-                print('Testing ' + inTran + ' ' + outTran)
-                comparetranslit(verbform, inTran, outTran)
-                comparetranslit(verbform, inTran, outTran, 'prakriya')
-                comparetranslit(verbform, inTran, outTran, 'verb')
-                comparetranslit(verbform, inTran, outTran, 'verbaccent')
-                comparetranslit(verbform, inTran, outTran, 'lakara')
-                comparetranslit(verbform, inTran, outTran, 'gana')
-                comparetranslit(verbform, inTran, outTran, 'meaning')
-                comparetranslit(verbform, inTran, outTran, 'number')
-                comparetranslit(verbform, inTran, outTran, 'madhaviya')
-                comparetranslit(verbform, inTran, outTran, 'kshiratarangini')
-                comparetranslit(verbform, inTran, outTran, 'dhatupradipa')
-                comparetranslit(verbform, inTran, outTran, 'jnu')
-                comparetranslit(verbform, inTran, outTran, 'uohyd')
-                comparetranslit(verbform, inTran, outTran, 'upasarga')
-                comparetranslit(verbform, inTran, outTran, 'padadecider_id')
-                comparetranslit(verbform, inTran, outTran, 'padadecider_sutra')
-                comparetranslit(verbform, inTran, outTran, 'it_id')
-                comparetranslit(verbform, inTran, outTran, 'it_status')
-                comparetranslit(verbform, inTran, outTran, 'it_sutra')
-                comparetranslit(verbform, inTran, outTran, 'purusha')
-                comparetranslit(verbform, inTran, outTran, 'vachana')
+                print('Testing ' + intran + ' ' + outtran)
+                comparetranslit(verbform, intran, outtran)
+                comparetranslit(verbform, intran, outtran, 'prakriya')
+                comparetranslit(verbform, intran, outtran, 'verb')
+                comparetranslit(verbform, intran, outtran, 'verbaccent')
+                comparetranslit(verbform, intran, outtran, 'lakara')
+                comparetranslit(verbform, intran, outtran, 'gana')
+                comparetranslit(verbform, intran, outtran, 'meaning')
+                comparetranslit(verbform, intran, outtran, 'number')
+                comparetranslit(verbform, intran, outtran, 'madhaviya')
+                comparetranslit(verbform, intran, outtran, 'kshiratarangini')
+                comparetranslit(verbform, intran, outtran, 'dhatupradipa')
+                comparetranslit(verbform, intran, outtran, 'jnu')
+                comparetranslit(verbform, intran, outtran, 'uohyd')
+                comparetranslit(verbform, intran, outtran, 'upasarga')
+                comparetranslit(verbform, intran, outtran, 'padadecider_id')
+                comparetranslit(verbform, intran, outtran, 'padadecider_sutra')
+                comparetranslit(verbform, intran, outtran, 'it_id')
+                comparetranslit(verbform, intran, outtran, 'it_status')
+                comparetranslit(verbform, intran, outtran, 'it_sutra')
+                comparetranslit(verbform, intran, outtran, 'purusha')
+                comparetranslit(verbform, intran, outtran, 'vachana')
 
     def test_command_line_interface(self):
         """Test the CLI."""
@@ -104,26 +104,44 @@ class TestPrakriya(unittest.TestCase):
     def test_generate(self):
         """Test generation class."""
         g = VerbFormGenerator()
-        # assert(g['BU', 'law', 'praTama', 'eka'] == {u'10.0277': [u'BAvayate'], u'10.0382': [u'BAvayate'], u'01.0001': [u'Bavati']})
-        # assert(g['BU', 'law', 'praTama', 'dvi'] == {u'10.0277': [u'BAvayete'], u'10.0382': [u'BAvayete'], u'01.0001': [u'BavataH']})
-        # assert(g['BU', 'law', 'praTama', 'bahu'] == {u'10.0277': [u'BAvayante'], u'10.0382': [u'BAvayante'], u'01.0001': [u'Bavanti']})
-        # assert(g['BU', 'law', 'maDyama', 'eka'] == {u'10.0277': [u'BAvayase'], u'10.0382': [u'BAvayase'], u'01.0001': [u'Bavasi']})
-        # assert(g['BU', 'law', 'maDyama', 'dvi'] == {u'10.0277': [u'BAvayeTe'], u'10.0382': [u'BAvayeTe'], u'01.0001': [u'BavaTaH']})
-        # assert(g['BU', 'law', 'maDyama', 'bahu'] == {u'10.0277': [u'BAvayaDve'], u'10.0382': [u'BAvayaDve'], u'01.0001': [u'BavaTa']})
-        # assert(g['BU', 'law', 'uttama', 'eka'] == {u'10.0277': [u'BAvaye'], u'10.0382': [u'BAvaye'], u'01.0001': [u'BavAmi']})
-        # assert(g['BU', 'law', 'uttama', 'dvi'] == {u'10.0277': [u'BAvayAvahe'], u'10.0382': [u'BAvayAvahe'], u'01.0001': [u'BavAvaH']})
-        # assert(g['BU', 'law', 'uttama', 'bahu'] == {u'10.0277': [u'BAvayAmahe'], u'10.0382': [u'BAvayAmahe'], u'01.0001': [u'BavAmaH']})
-        # assert(g['BU', 'low', 'tip'] == {u'10.0277': [u'BAvayatu', u'BAvayatAt'], u'10.0382': [u'BAvayatu', u'BAvayatAt'], u'01.0001': [u'Bavatu', u'BavatAt']})
-        # assert(g['BU', 'low', 'tas'] == {u'10.0277': [u'BAvayatAm'], u'10.0382': [u'BAvayatAm'], u'01.0001': [u'BavatAm']})
-        # assert(g['BU', 'low', 'Ji'] == {u'10.0277': [u'BAvayantu'], u'10.0382': [u'BAvayantu'], u'01.0001': [u'Bavantu']})
-        # assert(g['BU', 'low', 'sip'] == {u'10.0277': [u'BAvaya', u'BAvayatAt'], u'10.0382': [u'BAvaya', u'BAvayatAt'], u'01.0001': [u'Bava', u'BavatAt']})
-        # assert(g['BU', 'low', 'Tas'] == {u'10.0277': [u'BAvayatam'], u'10.0382': [u'BAvayatam'], u'01.0001': [u'Bavatam']})
-        # assert(g['BU', 'low', 'Ta'] == {u'10.0277': [u'BAvayata'], u'10.0382': [u'BAvayata'], u'01.0001': [u'Bavata']})
-        # assert(g['BU', 'low', 'mip'] == {u'10.0277': [u'BAvayAni'], u'10.0382': [u'BAvayAni'], u'01.0001': [u'BavAni']})
-        # assert(g['BU', 'low', 'vas'] == {u'10.0277': [u'BAvayAva'], u'10.0382': [u'BAvayAva'], u'01.0001': [u'BavAva']})
-        # assert(g['BU', 'low', 'mas'] == {u'10.0277': [u'BAvayAma'], u'10.0382': [u'BAvayAma'], u'01.0001': [u'BavAma']})
+        assert(g['BU', 'law', 'praTama', 'eka'] == {u'10.0277': [
+               u'BAvayate'], u'10.0382': [u'BAvayate'], u'01.0001': [u'Bavati']})
+        assert(g['BU', 'law', 'praTama', 'dvi'] == {u'10.0277': [
+               u'BAvayete'], u'10.0382': [u'BAvayete'], u'01.0001': [u'BavataH']})
+        assert(g['BU', 'law', 'praTama', 'bahu'] == {u'10.0277': [
+               u'BAvayante'], u'10.0382': [u'BAvayante'], u'01.0001': [u'Bavanti']})
+        assert(g['BU', 'law', 'maDyama', 'eka'] == {u'10.0277': [
+               u'BAvayase'], u'10.0382': [u'BAvayase'], u'01.0001': [u'Bavasi']})
+        assert(g['BU', 'law', 'maDyama', 'dvi'] == {u'10.0277': [
+               u'BAvayeTe'], u'10.0382': [u'BAvayeTe'], u'01.0001': [u'BavaTaH']})
+        assert(g['BU', 'law', 'maDyama', 'bahu'] == {u'10.0277': [
+               u'BAvayaDve'], u'10.0382': [u'BAvayaDve'], u'01.0001': [u'BavaTa']})
+        assert(g['BU', 'law', 'uttama', 'eka'] == {u'10.0277': [
+               u'BAvaye'], u'10.0382': [u'BAvaye'], u'01.0001': [u'BavAmi']})
+        assert(g['BU', 'law', 'uttama', 'dvi'] == {u'10.0277': [
+               u'BAvayAvahe'], u'10.0382': [u'BAvayAvahe'], u'01.0001': [u'BavAvaH']})
+        assert(g['BU', 'law', 'uttama', 'bahu'] == {u'10.0277': [
+               u'BAvayAmahe'], u'10.0382': [u'BAvayAmahe'], u'01.0001': [u'BavAmaH']})
+        assert(g['BU', 'low', 'tip'] == {u'10.0277': [u'BAvayatu', u'BAvayatAt'], u'10.0382': [
+               u'BAvayatu', u'BAvayatAt'], u'01.0001': [u'Bavatu', u'BavatAt']})
+        assert(g['BU', 'low', 'tas'] == {u'10.0277': [u'BAvayatAm'], u'10.0382': [
+               u'BAvayatAm'], u'01.0001': [u'BavatAm']})
+        assert(g['BU', 'low', 'Ji'] == {u'10.0277': [u'BAvayantu'], u'10.0382': [
+               u'BAvayantu'], u'01.0001': [u'Bavantu']})
+        assert(g['BU', 'low', 'sip'] == {u'10.0277': [u'BAvaya', u'BAvayatAt'], u'10.0382': [
+               u'BAvaya', u'BAvayatAt'], u'01.0001': [u'Bava', u'BavatAt']})
+        assert(g['BU', 'low', 'Tas'] == {u'10.0277': [u'BAvayatam'], u'10.0382': [
+               u'BAvayatam'], u'01.0001': [u'Bavatam']})
+        assert(g['BU', 'low', 'Ta'] == {u'10.0277': [u'BAvayata'], u'10.0382': [
+               u'BAvayata'], u'01.0001': [u'Bavata']})
+        assert(g['BU', 'low', 'mip'] == {u'10.0277': [
+               u'BAvayAni'], u'10.0382': [u'BAvayAni'], u'01.0001': [u'BavAni']})
+        assert(g['BU', 'low', 'vas'] == {u'10.0277': [
+               u'BAvayAva'], u'10.0382': [u'BAvayAva'], u'01.0001': [u'BavAva']})
+        assert(g['BU', 'low', 'mas'] == {u'10.0277': [
+               u'BAvayAma'], u'10.0382': [u'BAvayAma'], u'01.0001': [u'BavAma']})
         # Test for stripped verbs.
-        # assert(g['eD', 'lfw', 'Ja'] == {u'01.0002': [u'eDizyante']})
+        assert(g['eD', 'lfw', 'Ja'] == {u'01.0002': [u'eDizyante']})
 
         # Tests changed to use getforms function
         assert(g.getforms('BU', 'law', 'praTama', 'eka') == {u'10.0277': [
@@ -168,9 +186,9 @@ class TestPrakriya(unittest.TestCase):
 
     def test_generate_without_suffix(self):
         g = VerbFormGenerator()
-        # assert('01.0002' in g['eD', 'law'])
-        # assert('01.0001' in g['BU', 'low'])
-        # assert('01.0001' in g['BU'])
+        assert('01.0002' in g['eD', 'law'])
+        assert('01.0001' in g['BU', 'low'])
+        assert('01.0001' in g['BU'])
         assert('01.0002' in g.getforms('eD', suffix='law'))
         assert('01.0001' in g.getforms('BU', suffix='low'))
         assert('01.0001' in g.getforms('BU'))
@@ -179,7 +197,8 @@ class TestPrakriya(unittest.TestCase):
         g = VerbFormGenerator()
         g.input_translit('hk')
         g.output_translit('itrans')
-        # assert(g['bhU', 'laT', 'jhi'] == {u'01.0001': [u'bhavanti'], u'10.0382': [u'bhAvayanti'], u'10.0277': [u'bhAvayanti']})
+        assert(g['bhU', 'laT', 'jhi'] == {u'01.0001': [u'bhavanti'], u'10.0382': [
+               u'bhAvayanti'], u'10.0277': [u'bhAvayanti']})
         assert(g.getforms('bhU', 'laT', suffix='jhi') == {u'01.0001': [
                u'bhavanti'], u'10.0382': [u'bhAvayanti'], u'10.0277': [u'bhAvayanti']})
 

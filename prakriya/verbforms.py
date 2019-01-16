@@ -5,7 +5,7 @@ import os.path
 import sys
 import tarfile
 import requests
-from .utils import appDir, readJson, convert
+from .utils import appDir, read_json, convert
 # import datetime
 
 
@@ -139,10 +139,10 @@ class Prakriya():
         self.tar = tarfile.open(self.tarfile, 'r:gz')
         # keep only first thee letters from verbform
         download_from_github(self.appdir, 'jsonindex.json')
-        self.jsonindex = readJson(os.path.join(self.appdir, 'jsonindex.json'))
+        self.jsonindex = read_json(os.path.join(self.appdir, 'jsonindex.json'))
         # Read sutrainfo file. This is needed to convert sutra_num to sutra_text.
         download_from_github(self.appdir, 'sutrainfo.json')
-        self.sutrainfo = readJson(os.path.join(self.appdir, 'sutrainfo.json'))
+        self.sutrainfo = read_json(os.path.join(self.appdir, 'sutrainfo.json'))
         self.json_cache = {}
 
     def decompress(self):
@@ -183,7 +183,7 @@ class Prakriya():
         # path of json file.
         json_in = os.path.join(self.appdir, 'json', slugname + '.json')
         extract_from_tar(tar, json_in, slugname, self.appdir)
-        compositedata = readJson(json_in)
+        compositedata = read_json(json_in)
         # Keep only the data related to inquired verbform.
         data = compositedata[verbform]
         # Return results

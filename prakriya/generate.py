@@ -4,7 +4,7 @@
 import os.path
 import sys
 import json
-from .utils import appDir, readJson, convert
+from .utils import appDir, read_json, convert
 # import datetime
 
 
@@ -78,7 +78,7 @@ class VerbFormGenerator():
             with open(self.mapjson, "wb") as fin1:
                 ret1 = requests.get(url1)
                 fin1.write(ret1.content)
-        self.data = readJson(os.path.join(self.appdir, 'mapforms2.json'))
+        self.data = read_json(os.path.join(self.appdir, 'mapforms2.json'))
         if not os.path.isfile(os.path.join(self.appdir, 'verbmap.json')):
             url2 = 'https://github.com/drdhaval2785/python-prakriya/releases/download/v0.0.2/verbmap.json'
             import requests
@@ -86,7 +86,7 @@ class VerbFormGenerator():
             with open(os.path.join(self.appdir, 'verbmap.json'), "wb") as fin2:
                 ret2 = requests.get(url2)
                 fin2.write(ret2.content)
-        self.verbmap = readJson(os.path.join(self.appdir, 'verbmap.json'))
+        self.verbmap = read_json(os.path.join(self.appdir, 'verbmap.json'))
 
     def input_translit(self, tran):
         """Set input transliteration."""

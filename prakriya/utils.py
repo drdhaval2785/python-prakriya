@@ -1,13 +1,17 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
+
+"""Helper functions for prakriya package."""
+
 import json
-from indic_transliteration import sanscript
-from functools import wraps
 import sys
+from functools import wraps
+from indic_transliteration import sanscript
 
 
 # https://stackoverflow.com/questions/15585493/store-the-cache-to-a-file-functools-lru-cache-in-python-3-2
 def cached(func):
+    """Create a decorator for cacheing."""
     func.cache = {}
 
     @wraps(func)
@@ -22,7 +26,7 @@ def cached(func):
 
 # https://stackoverflow.com/questions/1084697/how-do-i-store-desktop-application-data-in-a-cross-platform-way-for-python
 def appDir(appname):
-    import sys
+    """Return the repository where the system stores APPDATA."""
     from os import path, environ
     if sys.platform == 'darwin':
         from AppKit import NSSearchPathForDirectoriesInDomains as searchin
@@ -37,18 +41,20 @@ def appDir(appname):
 
 
 @cached
-def readJson(path):
+def read_json(path):
     """Read the given JSON file into python object."""
     with open(path, 'r') as fin:
         return json.loads(fin.read())
 
 
 @cached
-def convert(text, inTran, outTran):
-    """Convert a text from inTran to outTran transliteration."""
-    if inTran == outTran:
-        return text
+def convert(text, intran, outtran):
+    """Convert a text from intran to outtran transliteration."""
+    result = ''
+    if intran == outtran:
+        result = text
     elif sys.version_info[0] < 3:
-        return sanscript.transliterate(text, inTran, outTran).replace(u'|', u'.')
+        result = sanscript.transliterate(text, intran, outtran).replace(u'|', u'.')
     else:
-        return sanscript.transliterate(text, inTran, outTran).replace('|', '.')
+        result = sanscript.transliterate(text, intran, outtran).replace('|', '.')
+    return result

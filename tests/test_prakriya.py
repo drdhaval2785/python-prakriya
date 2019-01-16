@@ -177,8 +177,8 @@ class TestPrakriya(unittest.TestCase):
 
     def test_generate_translit(self):
         g = VerbFormGenerator()
-        g.inputTranslit('hk')
-        g.outputTranslit('itrans')
+        g.input_translit('hk')
+        g.output_translit('itrans')
         # assert(g['bhU', 'laT', 'jhi'] == {u'01.0001': [u'bhavanti'], u'10.0382': [u'bhAvayanti'], u'10.0277': [u'bhAvayanti']})
         assert(g.getforms('bhU', 'laT', suffix='jhi') == {u'01.0001': [
                u'bhavanti'], u'10.0382': [u'bhAvayanti'], u'10.0277': [u'bhAvayanti']})
@@ -187,13 +187,13 @@ class TestPrakriya(unittest.TestCase):
         """Test for false input transliteration."""
         g = VerbFormGenerator()
         with self.assertRaises(SystemExit):
-            g.inputTranslit('asdfasdf')
+            g.input_translit('asdfasdf')
 
     def test_false_out(self):
         """Test for false output transliteration."""
         g = VerbFormGenerator()
         with self.assertRaises(SystemExit):
-            g.outputTranslit('fdasfdas')
+            g.output_translit('fdasfdas')
 
     def test_wrong_verb(self):
         """Test for verb absent in database."""

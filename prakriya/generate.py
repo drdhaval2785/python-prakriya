@@ -4,7 +4,7 @@
 import os.path
 import sys
 import json
-from .utils import appDir, read_json, convert
+from .utils import app_dir, read_json, convert
 # import datetime
 
 
@@ -63,7 +63,7 @@ class VerbFormGenerator():
                            'wx', 'bengali', 'gujarati',
                            'gurmukhi', 'kannada', 'malayalam', 'oriya',
                            'telugu', 'tamil']
-        self.appdir = appDir('prakriya')
+        self.appdir = app_dir('prakriya')
         self.intran = 'slp1'
         self.outtran = 'slp1'
         self.mapform = 'mapforms2.json'

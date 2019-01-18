@@ -25,7 +25,7 @@ def cached(func):
 
 
 # https://stackoverflow.com/questions/1084697/how-do-i-store-desktop-application-data-in-a-cross-platform-way-for-python
-def appDir(appname):
+def app_dir(appname):
     """Return the repository where the system stores APPDATA."""
     from os import path, environ
     if sys.platform == 'darwin':

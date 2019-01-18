@@ -5,7 +5,7 @@ import os.path
 import sys
 import tarfile
 import requests
-from .utils import appDir, read_json, convert
+from .utils import app_dir, read_json, convert
 # import datetime
 
 
@@ -124,7 +124,7 @@ class Prakriya():
     def __init__(self):
         """Start the class. Decompress tar file if asked for."""
         # Find the directory of the module.
-        self.appdir = appDir('prakriya')
+        self.appdir = app_dir('prakriya')
         # Path where to store the file
         self.filename = 'composite_v003.tar.gz'
         self.tarfile = os.path.join(self.appdir, 'composite_v003.tar.gz')

@@ -1,4 +1,4 @@
 click>=6.7
-indic_transliteration==1.7.4
+indic_transliteration==1.8.7
 coveralls>=1.2.0
 sphinx-click>=1.4.1

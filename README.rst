@@ -13,14 +13,6 @@ prakriya
         :target: https://prakriya.readthedocs.io/en/latest/?badge=latest
         :alt: Documentation Status
 
-.. image:: https://pyup.io/repos/github/drdhaval2785/python-prakriya/shield.svg
-     :target: https://pyup.io/repos/github/drdhaval2785/python-prakriya/
-     :alt: Updates
-
-.. image:: https://landscape.io/github/drdhaval2785/python-prakriya/master/landscape.svg?style=flat
-     :target: https://landscape.io/github/drdhaval2785/python-prakriya/master
-     :alt: Code health
-
 .. image:: https://coveralls.io/repos/github/drdhaval2785/python-prakriya/badge.svg?branch=master
      :target: https://coveralls.io/github/drdhaval2785/python-prakriya?branch=master
      :alt: Code coverage

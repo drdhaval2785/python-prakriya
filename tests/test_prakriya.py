@@ -182,8 +182,8 @@ class TestPrakriya(unittest.TestCase):
         assert(gen.getforms('BU', 'low', suffix='mas') == {u'10.0277': [
             u'BAvayAma'], u'10.0382': [u'BAvayAma'], u'01.0001': [u'BavAma']})
         # Test for stripped verbs.
-        assert(gen.getforms('eD', 'lfw', suffix='Ja')
-               == {u'01.0002': [u'eDizyante']})
+        assert(gen.getforms('eD', 'lfw', suffix='Ja') == {u'01.0002': [
+            u'eDizyante']})
 
     def test_generate_without_suffix(self):
         """Test without suffix."""

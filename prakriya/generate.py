@@ -133,25 +133,11 @@ class VerbFormGenerator():
             exit(0)
         for verb in verbs:
             wholeresult = self.data[verb]
-        output = self._remove_unnecessary(wholeresult, lakara, suffices)
+        output = remove_unnecessary(wholeresult, lakara, suffices)
         # Transliterate the output
         outputstr = json.dumps(output)
         outputstr = convert(outputstr, 'slp1', self.outtran)
         output = json.loads(outputstr)
-        return output
-
-    def _remove_unnecessary(self, wholeresult, lakara='', suffices=['']):
-        """Remove redundant data."""
-        output = {}
-        for member in wholeresult:
-            if lakara == '' and suffices == ['']:
-                output[member] = wholeresult[member]
-            elif lakara != '' and suffices == ['']:
-                output[member] = wholeresult[member][lakara]
-            elif lakara != '' and suffices != ['']:
-                for suffix in suffices:
-                    if suffix in wholeresult[member][lakara]:
-                        output[member] = wholeresult[member][lakara][suffix]
         return output
 
     def __getitem__(self, items):
@@ -218,6 +204,21 @@ class VerbFormGenerator():
                                 result[verb_num] = wholeresult[verb_num][tense][suff]
         # Return the result.
         return json.loads(convert(json.dumps(result), 'slp1', self.outtran))
+
+
+def remove_unnecessary(wholeresult, lakara='', suffices=None):
+    """Remove redundant data."""
+    output = {}
+    for member in wholeresult:
+        if lakara == '' and suffices is None:
+            output[member] = wholeresult[member]
+        elif lakara != '' and suffices is None:
+            output[member] = wholeresult[member][lakara]
+        elif lakara != '' and suffices is not None:
+            for suffix in suffices:
+                if suffix in wholeresult[member][lakara]:
+                    output[member] = wholeresult[member][lakara][suffix]
+    return output
 
 
 def getsuffix(purusha, vachana):

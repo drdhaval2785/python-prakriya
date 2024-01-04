@@ -60,7 +60,7 @@ jsonindex.json file which was crucial and missed in v0.0.2, added back.
 
 1. Documentation of commandline (CLI) tools added in documentation.
 
-0.2.2 (2023-01-04)
+0.2.3 (2023-01-04)
 ------------------
 
 1. Provided a graceful exit in case the sutra does not exist in `sutra_info.json`.

@@ -271,7 +271,10 @@ def storeresult(data, intran, outtran, sutrainfo):
                 # For member of the list
                 for member in datum['derivation']:
                     # Fetch sutratext
-                    sutratext = sutrainfo[member['sutra_num']]
+                    if member['sutra_num'] not in sutrainfo:
+                        sutratext = ''
+                    else:
+                        sutratext = sutrainfo[member['sutra_num']]
                     sutratext = convert(sutratext, intran, outtran)
                     # Replace tilde with hyphen.
                     # Otherwise wrong transliteration will happen.

@@ -6,16 +6,9 @@ prakriya
 .. image:: https://img.shields.io/pypi/v/prakriya.svg
         :target: https://pypi.python.org/pypi/prakriya
 
-.. image:: https://img.shields.io/travis/drdhaval2785/python-prakriya.svg
-        :target: https://travis-ci.org/drdhaval2785/python-prakriya
-
 .. image:: https://readthedocs.org/projects/prakriya/badge/?version=latest
         :target: https://prakriya.readthedocs.io/en/latest/?badge=latest
         :alt: Documentation Status
-
-.. image:: https://coveralls.io/repos/github/drdhaval2785/python-prakriya/badge.svg?branch=master
-     :target: https://coveralls.io/github/drdhaval2785/python-prakriya?branch=master
-     :alt: Code coverage
 
 .. image:: https://img.shields.io/badge/Donate-PayPal-green.svg
      :target: https://www.paypal.me/drdhaval2785/500inr
